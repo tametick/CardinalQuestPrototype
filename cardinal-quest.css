@@ -1,0 +1,20 @@
+body {
+	text-align: center;
+	font-family: monospace;
+	background-color: #000000;
+	color: #FFFFFF;
+}
+
+#screen {
+	padding: 10px;
+	border: 2px solid #888888;
+}
+
+#loading {
+}
+
+#stats {
+}
+
+#messages {
+}
