@@ -33,10 +33,10 @@ var Canvas = function(width, height){
 		// Defaults to 10
 		if (!str) 
 			return 10;
-		if (str.indexOf('px') != -1) {
-			return 1 * str.substring(0, str.indexOf('px'));
-		} else if (str.indexOf('pt') != -1) {
-			return 1 * str.substring(0, str.indexOf('px'));
+		if (str.indexOf("px") != -1) {
+			return 1 * str.substring(0, str.indexOf("px"));
+		} else if (str.indexOf("pt") != -1) {
+			return 1 * str.substring(0, str.indexOf("px"));
 		} else {
 			return 10;
 		}
@@ -52,8 +52,8 @@ var Canvas = function(width, height){
 	}
 	
 	canvasElement = $("#screen").get()[0];
-	context = canvasElement.getContext('2d');
-	changeFont('14px monospace');
+	context = canvasElement.getContext("2d");
+	changeFont("14px monospace");
 	
 	return {
 		canvasElement: canvasElement,
