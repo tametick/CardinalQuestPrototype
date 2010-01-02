@@ -1,3 +1,4 @@
+/* Width & height are in characters. */
 var Screen = function(width, height){
 	var canvas = Canvas(width, height);
 	
@@ -7,7 +8,7 @@ var Screen = function(width, height){
 	}
 	var drawTile = function(x, y, symbol, color){
 		canvas.context.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
-		canvas.context.fillText(symbol, x * canvas.fontWidth, y * (canvas.fontAscent + canvas.fontDescent) + canvas.fontDescent);
+		canvas.context.fillText(symbol, x * canvas.fontWidth - 1, y * (canvas.fontAscent + canvas.fontDescent) + canvas.fontDescent - 3);
 	}
 	
 	clear();
@@ -20,8 +21,7 @@ var Screen = function(width, height){
 	};
 }
 
-/* This class should only be used by Screen.
- * Width & height are in characters.  */
+/* This class should only be used by Screen. */
 var Canvas = function(width, height){
 	var canvasElement;
 	var context;
@@ -29,8 +29,8 @@ var Canvas = function(width, height){
 	var fontDescent;
 	var fontWidth;
 	
+	// Defaults to 10
 	var getFontSize = function(str){
-		// Defaults to 10
 		if (!str) 
 			return 10;
 		if (str.indexOf("px") != -1) {
