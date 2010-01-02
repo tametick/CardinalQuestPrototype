@@ -1,22 +1,22 @@
 var Screen = function(width, height){
 	var canvas = Canvas(width, height);
 	
-	var clearAll = function(){
+	var clear = function(){
 		canvas.context.fillStyle = "rgb(0, 0, 0)";
 		canvas.context.fillRect(0, 0, canvas.canvasElement.width, canvas.canvasElement.height);
 	}
-	var putCell = function(x, y, symbol, color){
+	var drawTile = function(x, y, symbol, color){
 		canvas.context.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
 		canvas.context.fillText(symbol, x * canvas.fontWidth, y * (canvas.fontAscent + canvas.fontDescent) + canvas.fontDescent);
 	}
 	
-	clearAll();
+	clear();
 	
 	return {
 		width: width,
 		height: height,
-		clearAll: clearAll,
-		putCell: putCell,
+		clear: clear,
+		drawTile: drawTile,
 	};
 }
 
