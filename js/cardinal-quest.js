@@ -1,6 +1,7 @@
 var scr;
 var stt;
 var plr;
+var msgLog;
 
 var Player = function(startX, startY){
 	var x = startX;
@@ -11,7 +12,7 @@ var Player = function(startX, startY){
 		x: x,
 		y: y,
 		symbol: symbol
-	};
+	}
 }
 var drawScreen = function(){
 	scr.clear();
@@ -48,6 +49,7 @@ $(document).keydown(function(e){
 		switch (code) {
 		case Keys.Space:
 			plr = Player(scr.width / 2, scr.height / 2);
+			msgLog = MessageLog();
 			stt = State.Play;
 			break;
 		}

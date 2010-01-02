@@ -16,7 +16,7 @@ var Screen = function(width, height){
 		height: height,
 		clear: clear,
 		drawTile: drawTile
-	};
+	}
 }
 
 /* This class should only be used by Screen. */
@@ -59,5 +59,5 @@ var Canvas = function(width, height){
 		fontDescent: fontDescent,
 		fontAscent: fontAscent,
 		fontWidth: fontWidth
-	};
+	}
 }
