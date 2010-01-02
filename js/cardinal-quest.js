@@ -31,20 +31,22 @@ var updateScreen = function(){
 	scr.clear();
 	switch (stt) {
 	case State.Menu:
-		scr.putTile(0, scr.height - 1, "[Press any key to continue]", [240, 240, 240]);
 		break;
 	case State.Play:
 		scr.putTile(plr.x, plr.y, plr.symbol, [0, 0, 255]);
-		msgLog.print();
 		break;
 	}
+	
+	msgLog.print();
 }
 
 $(document).ready(function(){
 	stt = State.Loading;
 	scr = Screen(20, 10);
+	msgLog = MessageLog();
 	
 	stt = State.Menu;
+	msgLog.append("[Press any key to continue]");
 	updateScreen();
 });
 $(document).keydown(function(e){
@@ -55,10 +57,9 @@ $(document).keydown(function(e){
 		switch (code) {
 		case Keys.Space:
 			plr = Player(scr.width / 2, scr.height / 2);
-			msgLog = MessageLog();
+			msgLog.clear();
 			msgLog.append("str 1");
 			msgLog.append("str 2");
-			
 			stt = State.Play;
 			break;
 		}

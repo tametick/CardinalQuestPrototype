@@ -1,15 +1,18 @@
 var MessageLog = function(){
+	var log = $("#messageLog");
 	var logBuffer = 100;
 	var visibleLogBuffer = 3;
 	var data = [];
 	
+	var clear = function(){
+		data = [];
+	}
 	var append = function(toAdd){
 		data.push(toAdd);
 		if (data.length > logBuffer) 
 			data.shift();
-	}	
+	}
 	var print = function(){
-		var log = $("#messageLog");
 		var max = data.length - 1;
 		var min = Math.max(0, max - visibleLogBuffer);
 		
@@ -19,6 +22,7 @@ var MessageLog = function(){
 	}
 	
 	return {
+		clear: clear,
 		append: append,
 		print: print
 	}
