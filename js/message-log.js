@@ -18,7 +18,7 @@ var MessageLog = function(){
 		
 		log.empty();
 		for (var i = max; i >= min; i--) 
-			log.append(data[i]+"<br>");
+			log.append(data[i] + "<br>");
 	}
 	
 	return {

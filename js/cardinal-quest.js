@@ -28,7 +28,7 @@ var update = function(){
 	}
 	
 	messageLog.print();
-	if(statusLines)
+	if (statusLines) 
 		statusLines.print();
 }
 
