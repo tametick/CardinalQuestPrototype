@@ -39,6 +39,8 @@ var update = function(){
 	}
 	
 	messageLog.print();
+	if(statusLines)
+		statusLines.print();
 }
 
 $(document).ready(function(){
@@ -58,9 +60,12 @@ $(document).keydown(function(e){
 		switch (code) {
 		case Keys.Space:
 			player = Player(viewer.width / 2, viewer.height / 2);
+			statusLines = StatusLines(player);
+			
 			messageLog.clear();
 			messageLog.append("str 1");
 			messageLog.append("str 2");
+			
 			state = State.Play;
 			break;
 		}
