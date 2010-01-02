@@ -11,8 +11,6 @@ var Screen = function(width, height){
 		canvas.context.fillText(symbol, x * canvas.fontWidth - 1, y * (canvas.fontAscent + canvas.fontDescent) + canvas.fontDescent - 3);
 	}
 	
-	clear();
-	
 	return {
 		width: width,
 		height: height,
