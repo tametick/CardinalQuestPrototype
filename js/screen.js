@@ -8,14 +8,14 @@ var Screen = function(width, height){
 	}
 	var drawTile = function(x, y, symbol, color){
 		canvas.context.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
-		canvas.context.fillText(symbol, x * canvas.fontWidth - 1, y * (canvas.fontAscent + canvas.fontDescent) + canvas.fontDescent - 3);
+		canvas.context.fillText(symbol, x * canvas.fontWidth, y * (canvas.fontAscent + canvas.fontDescent) + canvas.fontDescent - 3);
 	}
 	
 	return {
 		width: width,
 		height: height,
 		clear: clear,
-		drawTile: drawTile,
+		drawTile: drawTile
 	};
 }
 
