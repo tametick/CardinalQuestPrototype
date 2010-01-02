@@ -1,5 +1,5 @@
 /* Width & height are in characters. */
-var Screen = function(width, height){
+var Viewer = function(width, height){
 	var Canvas = function(width, height){
 		var canvasElement;
 		var context;
@@ -29,7 +29,7 @@ var Screen = function(width, height){
 			context.font = to;
 		}
 		
-		canvasElement = $("#screen").get()[0];
+		canvasElement = $("#viewer").get()[0];
 		context = canvasElement.getContext("2d");
 		changeFont("14px monospace");
 		

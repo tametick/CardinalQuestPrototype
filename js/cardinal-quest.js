@@ -1,7 +1,8 @@
-var scr;
-var stt;
-var plr;
-var msgLog;
+var viewer;
+var state;
+var player;
+var messageLog;
+var statusLines;
 
 var Keys = {
 	Space: 32,
@@ -27,60 +28,60 @@ var Player = function(startX, startY){
 		symbol: symbol
 	}
 }
-var updateScreen = function(){
-	scr.clear();
-	switch (stt) {
+var update = function(){
+	viewer.clear();
+	switch (state) {
 	case State.Menu:
 		break;
 	case State.Play:
-		scr.putTile(plr.x, plr.y, plr.symbol, [0, 0, 255]);
+		viewer.putTile(player.x, player.y, player.symbol, [0, 0, 255]);
 		break;
 	}
 	
-	msgLog.print();
+	messageLog.print();
 }
 
 $(document).ready(function(){
-	stt = State.Loading;
-	scr = Screen(20, 10);
-	msgLog = MessageLog();
+	state = State.Loading;
+	viewer = Viewer(20, 10);
+	messageLog = MessageLog();
 	
-	stt = State.Menu;
-	msgLog.append("[Press any key to continue]");
-	updateScreen();
+	state = State.Menu;
+	messageLog.append("[Press space to continue]");
+	update();
 });
 $(document).keydown(function(e){
 	var code = (window.event || e).keyCode;
 	
-	switch (stt) {
+	switch (state) {
 	case State.Menu:
 		switch (code) {
 		case Keys.Space:
-			plr = Player(scr.width / 2, scr.height / 2);
-			msgLog.clear();
-			msgLog.append("str 1");
-			msgLog.append("str 2");
-			stt = State.Play;
+			player = Player(viewer.width / 2, viewer.height / 2);
+			messageLog.clear();
+			messageLog.append("str 1");
+			messageLog.append("str 2");
+			state = State.Play;
 			break;
 		}
 		break;
 	case State.Play:
 		switch (code) {
 		case Keys.Up:
-			plr.y--;
+			player.y--;
 			break;
 		case Keys.Down:
-			plr.y++;
+			player.y++;
 			break;
 		case Keys.Left:
-			plr.x--;
+			player.x--;
 			break;
 		case Keys.Right:
-			plr.x++;
+			player.x++;
 			break;
 		}
 		break;
 	}
 	
-	updateScreen();
+	update();
 });
