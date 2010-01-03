@@ -39,8 +39,13 @@ var update = function(){
 	case State.Play:
 		maps[currentMap].draw();
 		player.draw();
-		if(cursor)
+		if (cursor) {
 			cursor.draw();
+			if(maps[currentMap].creatureMap[[cursor.x,cursor.y]])
+				messageLog.append("You see: "+maps[currentMap].creatureMap[[cursor.x,cursor.y]].symbol);
+			else
+				messageLog.append("You see: "+maps[currentMap].tiles[[cursor.x,cursor.y]]);
+		}
 		break;
 	}
 	
