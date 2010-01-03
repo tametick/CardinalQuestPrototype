@@ -1,4 +1,4 @@
-var Creature = function(x, y, symbol){
+var Creature = function(x, y, symbol, description){
 	var draw = function(){
 		viewer.putTile(viewer.center[0], viewer.center[1], symbol, Settings.PlayerColor);
 	}
@@ -17,6 +17,7 @@ var Creature = function(x, y, symbol){
 		x: x,
 		y: y,
 		symbol: symbol,
+		description: description,
 		draw: draw,
 		move: move
 	}
