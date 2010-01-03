@@ -21,8 +21,8 @@ var State = {
 var Settings = {
 	ViewerWidth: 20,
 	ViewerHeight: 10,
-	MapWidth: 5,
-	MapHeight: 3,
+	MapWidth: 30,
+	MapHeight: 15,
 	PlayerColor: [0, 0, 255],
 	LogSize: 2
 }

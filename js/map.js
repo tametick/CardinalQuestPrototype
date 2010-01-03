@@ -6,17 +6,19 @@ var Map = function(width, height){
 	
 	// Draw the map around the player
 	draw = function(){
-		for (var y = 0; y < height; y++) 
-			for (var x = 0; x < width; x++) 
+		for (var x = 0; x < width; x++) 
+			for (var y = 0; y < height; y++) 
 				if (creatureMap[[x, y]] == null) 
-					viewer.putTile(Settings.ViewerWidth / 2 + x - player.x, Settings.ViewerHeight / 2 + y - player.y, tiles[y][x], [255, 255, 255]);
+					viewer.putTile(Settings.ViewerWidth / 2 + x - player.x, Settings.ViewerHeight / 2 + y - player.y, tiles[[x, y]], [255, 255, 255]);
 	}
 	
 	// Generate map
 	for (var y = 0; y < height; y++) {
-		tiles[y] = [];
 		for (var x = 0; x < width; x++) {
-			tiles[y][x] = '.';
+			if (x == 0 || y == 0 || x == width - 1 || y == height - 1) 
+				tiles[[x, y]] = '#';
+			else 
+				tiles[[x, y]] = '.';
 		}
 	}
 	// Insert player
