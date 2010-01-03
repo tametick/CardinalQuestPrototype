@@ -1,11 +1,6 @@
-var Creature = function(startX, startY){
-	var x = startX;
-	var y = startY;
-	var symbol = '@';
-	var viewerCenter = [Settings.ViewerWidth / 2, Settings.ViewerHeight / 2];
-	
+var Creature = function(x, y, symbol){
 	var draw = function(){
-		viewer.putTile(viewerCenter[0], viewerCenter[1], this.symbol, Settings.PlayerColor);
+		viewer.putTile(viewer.center[0], viewer.center[1], symbol, Settings.PlayerColor);
 	}
 	var move = function(dx, dy){
 		switch (maps[currentMap].tiles[[this.x + dx, this.y + dy]]) {

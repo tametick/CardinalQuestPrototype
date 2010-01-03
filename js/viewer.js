@@ -1,8 +1,9 @@
 /* Width & height are in characters. */
 var Viewer = function(width, height){
 	var canvas;
+	var center = [Settings.ViewerWidth / 2, Settings.ViewerHeight / 2];
 	
-	var Canvas = function(width, height){
+	var Canvas = function(){
 		var canvasElement;
 		var context;
 		var fontAscent;
@@ -52,11 +53,12 @@ var Viewer = function(width, height){
 		canvas.context.fillText(symbol, x * canvas.fontWidth, y * (canvas.fontAscent + canvas.fontDescent) + canvas.fontDescent - 3);
 	}
 	
-	canvas = Canvas(width, height);
+	canvas = Canvas();
 	
 	return {
 		width: width,
 		height: height,
+		center: center,
 		clear: clear,
 		putTile: putTile
 	}
