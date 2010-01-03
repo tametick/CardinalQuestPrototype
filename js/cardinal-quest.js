@@ -31,6 +31,12 @@ var Settings = {
 	CursorColor: [255, 0, 0],
 	LogSize: 2
 }
+var Descriptions = {
+	Door: "a door",
+	OpenDoor: "an open door",
+	Wall: "a wall",
+	Player: "yourself"
+}
 
 var update = function(){
 	viewer.clear();
@@ -45,7 +51,7 @@ var update = function(){
 			if(maps[currentMap].creatureMap[[cursor.x,cursor.y]])
 				messageLog.append("You see "+maps[currentMap].creatureMap[[cursor.x,cursor.y]].description);
 			else if(maps[currentMap].tiles[[cursor.x,cursor.y]].description)
-				messageLog.append("You see: "+maps[currentMap].tiles[[cursor.x,cursor.y]].description);
+				messageLog.append("You see "+maps[currentMap].tiles[[cursor.x,cursor.y]].description);
 		}
 		break;
 	}
@@ -73,7 +79,7 @@ $(document).keydown(function(e){
 	case State.Menu:
 		switch (code) {
 		case Keys.Space:
-			player = Creature(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2), '@', "yourself");
+			player = Creature(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2), '@', Descriptions.Player);
 			maps = [Map(Settings.MapWidth, Settings.MapHeight)];
 			currentMap = 0;
 			

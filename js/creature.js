@@ -12,14 +12,14 @@ var Creature = function(x, y, symbol, description){
 			maps[currentMap].creatureMap[[this.x, this.y]] = this;
 			break;
 		case '+':
-			maps[currentMap].tiles[[this.x + dx, this.y + dy]] = Tile("'", "an open door");
+			maps[currentMap].tiles[[this.x + dx, this.y + dy]] = Tile("'", Descriptions.OpenDoor);
 		}
 	}
 	var closeDoor = function(){
 		for (var dx = -1; dx <= 1; dx++) 
 			for (var dy = -1; dy <= 1; dy++) 
 				if (maps[currentMap].tiles[[this.x + dx, this.y + dy]] == "'") {
-					maps[currentMap].tiles[[this.x + dx, this.y + dy]] =  Tile('+',"a door");
+					maps[currentMap].tiles[[this.x + dx, this.y + dy]] =  Tile('+',Descriptions.Door);
 					if(this==player)
 						messageLog.append("You have closed the door.");
 				}
