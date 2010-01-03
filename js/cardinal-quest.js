@@ -89,41 +89,45 @@ $(document).keydown(function(e){
 		}
 		break;
 	case State.Play:
-		switch (code) {
-		case Keys.Up:
-			if(cursor)
+		if(cursor)
+			switch (code) {
+			case Keys.Up:
 				cursor.move(0, -1);
-			else
-				player.move(0, -1);
-			break;
-		case Keys.Down:
-			if(cursor)
+				break;
+			case Keys.Down:
 				cursor.move(0, 1);
-			else
-				player.move(0, 1);
-			break;
-		case Keys.Left:
-			if(cursor)
+				break;
+			case Keys.Left:
 				cursor.move(-1, 0);
-			else
-				player.move(-1, 0);
-			break;
-		case Keys.Right:
-			if(cursor)
+				break;
+			case Keys.Right:
 				cursor.move(1, 0);
-			else
+				break;
+			case Keys.L:
+				cursor = null;
+				break;
+			case Keys.Esc:
+				if(cursor)
+					cursor = null;
+			}
+		else
+			switch (code) {
+			case Keys.Up:
+				player.move(0, -1);
+				break;
+			case Keys.Down:
+				player.move(0, 1);
+				break;
+			case Keys.Left:
+				player.move(-1, 0);
+				break;
+			case Keys.Right:
 				player.move(1, 0);
-			break;
-		case Keys.L:
-			if(cursor)
-				cursor = null;
-			else
+				break;
+			case Keys.L:
 				cursor = Cursor(player.x, player.y, '?');
-			break;
-		case Keys.Esc:
-			if(cursor)
-				cursor = null;
-		}
+				break;
+			}
 		break;
 	}
 	
