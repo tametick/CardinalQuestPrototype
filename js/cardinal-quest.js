@@ -44,8 +44,8 @@ var update = function(){
 			cursor.draw();
 			if(maps[currentMap].creatureMap[[cursor.x,cursor.y]])
 				messageLog.append("You see "+maps[currentMap].creatureMap[[cursor.x,cursor.y]].description);
-			else
-				messageLog.append("You see: "+maps[currentMap].tiles[[cursor.x,cursor.y]]);
+			else if(maps[currentMap].tiles[[cursor.x,cursor.y]].description)
+				messageLog.append("You see: "+maps[currentMap].tiles[[cursor.x,cursor.y]].description);
 		}
 		break;
 	}

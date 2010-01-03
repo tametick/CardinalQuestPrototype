@@ -3,7 +3,7 @@ var Creature = function(x, y, symbol, description){
 		viewer.putTile(viewer.center[0], viewer.center[1], symbol, Settings.PlayerColor);
 	}
 	var move = function(dx, dy){
-		switch (maps[currentMap].tiles[[this.x + dx, this.y + dy]]) {
+		switch (maps[currentMap].tiles[[this.x + dx, this.y + dy]].symbol) {
 		case '.':
 		case "'":
 			maps[currentMap].creatureMap[[this.x, this.y]] = null;
@@ -12,14 +12,14 @@ var Creature = function(x, y, symbol, description){
 			maps[currentMap].creatureMap[[this.x, this.y]] = this;
 			break;
 		case '+':
-			maps[currentMap].tiles[[this.x + dx, this.y + dy]] = "'";
+			maps[currentMap].tiles[[this.x + dx, this.y + dy]] = Tile("'", "an open door");
 		}
 	}
 	var closeDoor = function(){
 		for (var dx = -1; dx <= 1; dx++) 
 			for (var dy = -1; dy <= 1; dy++) 
 				if (maps[currentMap].tiles[[this.x + dx, this.y + dy]] == "'") {
-					maps[currentMap].tiles[[this.x + dx, this.y + dy]] = "+";
+					maps[currentMap].tiles[[this.x + dx, this.y + dy]] =  Tile('+',"a door");
 					if(this==player)
 						messageLog.append("You have closed the door.");
 				}

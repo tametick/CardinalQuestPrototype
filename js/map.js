@@ -1,3 +1,10 @@
+var Tile = function(symbol, description){
+	return {
+		symbol: symbol,
+		description: description
+	}
+}
+
 var Map = function(width, height){
 	var tiles = [];
 	var creatures = [];
@@ -9,19 +16,18 @@ var Map = function(width, height){
 		for (var x = 0; x < width; x++) 
 			for (var y = 0; y < height; y++) 
 				if (creatureMap[[x, y]] == null) 
-					viewer.putTile(Settings.ViewerWidth / 2 + x - player.x, Settings.ViewerHeight / 2 + y - player.y, tiles[[x, y]], [200, 200, 200]);
+					viewer.putTile(Settings.ViewerWidth / 2 + x - player.x, Settings.ViewerHeight / 2 + y - player.y, tiles[[x, y]].symbol, [200, 200, 200]);
 	}
 	
 	// Generate map
 	for (var y = 0; y < height; y++) {
 		for (var x = 0; x < width; x++) {
 			if (x == 0 || y == 0 || x == width - 1 || y == height - 1) 
-				tiles[[x, y]] = '#';
+				tiles[[x, y]] = Tile('#', "a wall");
+			else if (Math.random() < 0.1) 
+				tiles[[x, y]] = Tile('+', "a door");
 			else 
-				if(Math.random()<0.1)
-					tiles[[x,y]] = '+';
-				else
-					tiles[[x, y]] = '.';
+				tiles[[x, y]] = Tile('.', null);
 		}
 	}
 	
