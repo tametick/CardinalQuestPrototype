@@ -61,9 +61,9 @@ $(document).keydown(function(e){
 	case State.Menu:
 		switch (code) {
 		case Keys.Space:
+			player = Creature(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2));
 			maps = [Map(Settings.MapWidth, Settings.MapHeight)];
 			currentMap = 0;
-			player = Player(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2));
 			
 			statusLines = StatusLines();
 			messageLog.clear();
@@ -80,16 +80,16 @@ $(document).keydown(function(e){
 	case State.Play:
 		switch (code) {
 		case Keys.Up:
-			player.y--;
+			player.move(0, -1);
 			break;
 		case Keys.Down:
-			player.y++;
+			player.move(0, 1);
 			break;
 		case Keys.Left:
-			player.x--;
+			player.move(-1, 0);
 			break;
 		case Keys.Right:
-			player.x++;
+			player.move(1, 0);
 			break;
 		}
 		break;

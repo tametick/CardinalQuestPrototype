@@ -1,4 +1,4 @@
-var Player = function(startX, startY){
+var Creature = function(startX, startY){
 	var x = startX;
 	var y = startY;
 	var symbol = '@';
@@ -7,11 +7,18 @@ var Player = function(startX, startY){
 	var draw = function(){
 		viewer.putTile(viewerCenter[0], viewerCenter[1], player.symbol, Settings.PlayerColor);
 	}
+	var move = function(dx, dy) {
+		maps[currentMap].creatureMap[[this.x, this.y]] = null;
+		this.x+=dx;
+		this.y+=dy;
+		maps[currentMap].creatureMap[[this.x, this.y]] = this;
+	}
 	
 	return {
 		x: x,
 		y: y,
 		symbol: symbol,
-		draw: draw
+		draw: draw,
+		move: move
 	}
 }
