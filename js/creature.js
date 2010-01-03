@@ -15,6 +15,15 @@ var Creature = function(x, y, symbol, description){
 			maps[currentMap].tiles[[this.x + dx, this.y + dy]] = "'";
 		}
 	}
+	var closeDoor = function(){
+		for (var dx = -1; dx <= 1; dx++) 
+			for (var dy = -1; dy <= 1; dy++) 
+				if (maps[currentMap].tiles[[this.x + dx, this.y + dy]] == "'") {
+					maps[currentMap].tiles[[this.x + dx, this.y + dy]] = "+";
+					if(this==player)
+						messageLog.append("You have closed the door.");
+				}
+	}
 	
 	return {
 		x: x,
@@ -22,6 +31,7 @@ var Creature = function(x, y, symbol, description){
 		symbol: symbol,
 		description: description,
 		draw: draw,
-		move: move
+		move: move,
+		closeDoor: closeDoor
 	}
 }

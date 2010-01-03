@@ -14,6 +14,7 @@ var Keys = {
 	Down: 40,
 	Left: 37,
 	Right: 39,
+	C: 67,
 	L: 76
 }
 var State = {
@@ -126,6 +127,9 @@ $(document).keydown(function(e){
 				break;
 			case Keys.L:
 				cursor = Cursor(player.x, player.y, '?');
+				break;
+			case Keys.C:
+				player.closeDoor();
 				break;
 			}
 		break;
