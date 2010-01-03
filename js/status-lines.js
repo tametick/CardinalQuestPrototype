@@ -1,4 +1,4 @@
-var StatusLines = function(player){
+var StatusLines = function(){
 	var status = $("#statusLines");
 	
 	var print = function(){

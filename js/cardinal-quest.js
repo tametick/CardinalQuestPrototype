@@ -1,8 +1,9 @@
 var viewer;
-var state;
-var player;
 var messageLog;
 var statusLines;
+var state;
+var player;
+var maps;
 
 var Keys = {
 	Space: 32,
@@ -16,6 +17,14 @@ var State = {
 	Menu: 1,
 	Play: 2
 }
+var Settings = {
+	ViewerWidth: 20,
+	ViewerHeight: 10,
+	MapWidth: 40,
+	MapHeight: 20,
+	PlayerColor: [0, 0, 255],
+	LogSize: 2
+}
 
 var update = function(){
 	viewer.clear();
@@ -23,18 +32,20 @@ var update = function(){
 	case State.Menu:
 		break;
 	case State.Play:
-		viewer.putTile(player.x, player.y, player.symbol, [0, 0, 255]);
+		viewer.putTile(player.x, player.y, player.symbol, Settings.PlayerColor);
 		break;
 	}
 	
-	messageLog.print();
+	if (messageLog) 
+		messageLog.print();
+	
 	if (statusLines) 
 		statusLines.print();
 }
 
 $(document).ready(function(){
 	state = State.Loading;
-	viewer = Viewer(20, 10);
+	viewer = Viewer(Settings.ViewerWidth, Settings.ViewerHeight);
 	messageLog = MessageLog();
 	
 	state = State.Menu;
@@ -49,11 +60,14 @@ $(document).keydown(function(e){
 		switch (code) {
 		case Keys.Space:
 			player = Player(viewer.width / 2, viewer.height / 2);
-			statusLines = StatusLines(player);
-			
+			maps = [Map(Settings.MapWidth, Settings.MapHeight)];
+			statusLines = StatusLines();
 			messageLog.clear();
-			messageLog.append("str 1");
-			messageLog.append("str 2");
+			
+			messageLog.append("test1");
+			messageLog.append("test2");
+			messageLog.append("test3");
+			messageLog.append("test4");
 			
 			state = State.Play;
 			break;
