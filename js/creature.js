@@ -4,12 +4,15 @@ var Creature = function(x, y, symbol, description){
 	}
 	var move = function(dx, dy){
 		switch (maps[currentMap].tiles[[this.x + dx, this.y + dy]]) {
-		case ".":
+		case '.':
+		case "'":
 			maps[currentMap].creatureMap[[this.x, this.y]] = null;
 			this.x += dx;
 			this.y += dy;
 			maps[currentMap].creatureMap[[this.x, this.y]] = this;
 			break;
+		case '+':
+			maps[currentMap].tiles[[this.x + dx, this.y + dy]] = "'";
 		}
 	}
 	
