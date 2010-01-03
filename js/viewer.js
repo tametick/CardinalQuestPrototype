@@ -1,5 +1,7 @@
 /* Width & height are in characters. */
 var Viewer = function(width, height){
+	var canvas;
+	
 	var Canvas = function(width, height){
 		var canvasElement;
 		var context;
@@ -50,7 +52,7 @@ var Viewer = function(width, height){
 		canvas.context.fillText(symbol, x * canvas.fontWidth, y * (canvas.fontAscent + canvas.fontDescent) + canvas.fontDescent - 3);
 	}
 	
-	var canvas = Canvas(width, height);
+	canvas = Canvas(width, height);
 	
 	return {
 		width: width,

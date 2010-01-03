@@ -4,6 +4,7 @@ var statusLines;
 var state;
 var player;
 var maps;
+var currentMap;
 
 var Keys = {
 	Space: 32,
@@ -20,8 +21,8 @@ var State = {
 var Settings = {
 	ViewerWidth: 20,
 	ViewerHeight: 10,
-	MapWidth: 40,
-	MapHeight: 20,
+	MapWidth: 5,
+	MapHeight: 3,
 	PlayerColor: [0, 0, 255],
 	LogSize: 2
 }
@@ -32,7 +33,8 @@ var update = function(){
 	case State.Menu:
 		break;
 	case State.Play:
-		viewer.putTile(player.x, player.y, player.symbol, Settings.PlayerColor);
+		maps[currentMap].draw();
+		player.draw();
 		break;
 	}
 	
@@ -59,8 +61,10 @@ $(document).keydown(function(e){
 	case State.Menu:
 		switch (code) {
 		case Keys.Space:
-			player = Player(viewer.width / 2, viewer.height / 2);
 			maps = [Map(Settings.MapWidth, Settings.MapHeight)];
+			currentMap = 0;
+			player = Player(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2));
+			
 			statusLines = StatusLines();
 			messageLog.clear();
 			
