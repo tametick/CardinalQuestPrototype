@@ -6,16 +6,20 @@ var state;
 var player;
 var maps;
 var currentMap;
+var isCtrl = false;
 
 var Keys = {
+	Ctrl: 17,
 	Esc: 27,
 	Space: 32,
-	Up: 38,
-	Down: 40,
 	Left: 37,
+	Up: 38,
 	Right: 39,
+	Down: 40,
 	C: 67,
-	L: 76
+	L: 76,
+	F5: 116,
+	F7: 118
 }
 var State = {
 	Loading: 0,
@@ -72,7 +76,13 @@ $(document).ready(function(){
 	messageLog.append("[Press space to continue]");
 	update();
 });
+$(document).keyup(function (e) {
+	if(e.which == Keys.Ctrl) 
+		isCtrl=false;
+});
 $(document).keydown(function(e){
+	if(e.which == Keys.Ctrl) 
+		isCtrl=true;
 	var code = (window.event || e).keyCode;
 	
 	switch (state) {
