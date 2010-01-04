@@ -24,6 +24,9 @@ var Creature = function(x, y, symbol, description){
 						messageLog.append("You have closed the door.");
 				}
 	}
+	var stringify = function(){
+		return ""+x+","+y+","+symbol;
+	}
 	
 	return {
 		x: x,
@@ -32,6 +35,7 @@ var Creature = function(x, y, symbol, description){
 		description: description,
 		draw: draw,
 		move: move,
-		closeDoor: closeDoor
+		closeDoor: closeDoor,
+		stringify: stringify
 	}
 }

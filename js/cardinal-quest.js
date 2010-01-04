@@ -39,9 +39,9 @@ var update = function(){
 		statusLines.print();
 }
 var save = function(){
-	jsonMaps = {};
-	for(var m=0; m<maps.length; m++)
-		jsonMaps[m]=maps[m].stringify();
+	var jsonMaps = {};
+	for (var m = 0; m < maps.length; m++)
+		jsonMaps[m] = maps[m].stringify();
 
 	$.JSONCookie("cq_map", jsonMaps, {path: '/'});
 }

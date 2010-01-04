@@ -9,7 +9,6 @@ var Map = function(width, height){
 	var tiles = [];
 	var creatures = [];
 	var creatureMap = [];
-	var viewerCenter = [Settings.ViewerWidth / 2, Settings.ViewerHeight / 2];
 	
 	// Draw the map around the player
 	draw = function(){
@@ -23,9 +22,14 @@ var Map = function(width, height){
 		for (var y = 0; y < height; y++) {
 			for (var x = 0; x < width; x++) 
 				tilesStr += tiles[[x, y]].symbol;
-			tilesStr +="_";
+			tilesStr +="_"; //needed?
 		}
-		return tilesStr;
+		
+		creaturesStr="";
+		for (var c = 0; c<creatures.length; c++)
+			creaturesStr +=creatures[c].stringify()+"_";
+		
+		return tilesStr+creaturesStr;
 	}
 	parse = function(string){
 		
