@@ -24,10 +24,10 @@ var update = function(){
 		player.draw();
 		if (cursor) {
 			cursor.draw();
-			if(maps[currentMap].creatureMap[[cursor.x,cursor.y]])
-				messageLog.append("You see "+maps[currentMap].creatureMap[[cursor.x,cursor.y]].description);
-			else if(maps[currentMap].tiles[[cursor.x,cursor.y]].description)
-				messageLog.append("You see "+maps[currentMap].tiles[[cursor.x,cursor.y]].description);
+			if (maps[currentMap].creatureMap[[cursor.x, cursor.y]]) 
+				messageLog.append("You see " + maps[currentMap].creatureMap[[cursor.x, cursor.y]].description);
+			else if (maps[currentMap].tiles[[cursor.x, cursor.y]].description) 
+				messageLog.append("You see " + maps[currentMap].tiles[[cursor.x, cursor.y]].description);
 		}
 		break;
 	}
@@ -35,34 +35,39 @@ var update = function(){
 	if (messageLog) 
 		messageLog.print();
 	
-	if (statusLines && statusLines.print)
+	if (statusLines && statusLines.print) 
 		statusLines.print();
 }
 var save = function(){
-	var jsonMaps = {};
-	for (var m = 0; m < maps.length; m++)
+	var jsonMaps = {
+		"maps": maps.length,
+		"currentMap": currentMap
+	};
+	for (var m = 0; m < maps.length; m++) 
 		jsonMaps[m] = maps[m].stringify();
-
-	$.JSONCookie("cq_map", jsonMaps, {path: '/'});
+	
+	$.JSONCookie("cq_map", jsonMaps, {
+		path: '/'
+	});
 }
 var load = function(){
 	alert("load");
 }
 
 $(document).ready(function(){
-	$.getJSON("json/descriptions.json", function(data) {
+	$.getJSON("json/descriptions.json", function(data){
 		Descriptions = data;
-	});	
-	$.getJSON("json/keys.json", function(data) {
+	});
+	$.getJSON("json/keys.json", function(data){
 		Keys = data;
 	});
-	$.getJSON("json/settings.json",function(data) {
+	$.getJSON("json/settings.json", function(data){
 		Settings = data;
-
+		
 		state = State.Loading;
 		viewer = Viewer(Settings.ViewerWidth, Settings.ViewerHeight);
 		messageLog = MessageLog();
-	
+		
 		state = State.Menu;
 		messageLog.append("[Press space to continue]");
 		update();
