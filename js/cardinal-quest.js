@@ -26,15 +26,6 @@ var State = {
 	Menu: 1,
 	Play: 2
 }
-var Settings = {
-	ViewerWidth: 20,
-	ViewerHeight: 10,
-	MapWidth: 30,
-	MapHeight: 15,
-	PlayerColor: [0, 0, 255],
-	CursorColor: [255, 0, 0],
-	LogSize: 2
-}
 var Descriptions = {
 	Door: "a door",
 	OpenDoor: "an open door",
@@ -68,13 +59,17 @@ var update = function(){
 }
 
 $(document).ready(function(){
-	state = State.Loading;
-	viewer = Viewer(Settings.ViewerWidth, Settings.ViewerHeight);
-	messageLog = MessageLog();
+	$.getJSON("json/settings.json",function(data) {
+		Settings = data;
+
+		state = State.Loading;
+		viewer = Viewer(Settings.ViewerWidth, Settings.ViewerHeight);
+		messageLog = MessageLog();
 	
-	state = State.Menu;
-	messageLog.append("[Press space to continue]");
-	update();
+		state = State.Menu;
+		messageLog.append("[Press space to continue]");
+		update();
+	});
 });
 $(document).keyup(function (e) {
 	if(e.which == Keys.Ctrl) 
