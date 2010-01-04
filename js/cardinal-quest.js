@@ -35,7 +35,7 @@ var update = function(){
 	if (messageLog) 
 		messageLog.print();
 	
-	if (statusLines) 
+	if (statusLines && statusLines.print)
 		statusLines.print();
 }
 var save = function(){
