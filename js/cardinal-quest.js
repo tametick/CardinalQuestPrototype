@@ -8,29 +8,10 @@ var maps;
 var currentMap;
 var isCtrl = false;
 
-var Keys = {
-	Ctrl: 17,
-	Esc: 27,
-	Space: 32,
-	Left: 37,
-	Up: 38,
-	Right: 39,
-	Down: 40,
-	C: 67,
-	L: 76,
-	F5: 116,
-	F7: 118
-}
 var State = {
 	Loading: 0,
 	Menu: 1,
 	Play: 2
-}
-var Descriptions = {
-	Door: "a door",
-	OpenDoor: "an open door",
-	Wall: "a wall",
-	Player: "yourself"
 }
 
 var update = function(){
@@ -59,6 +40,12 @@ var update = function(){
 }
 
 $(document).ready(function(){
+	$.getJSON("json/descriptions.json", function(data) {
+		Descriptions = data;
+	});	
+	$.getJSON("json/keys.json", function(data) {
+		Keys = data;
+	});
 	$.getJSON("json/settings.json",function(data) {
 		Settings = data;
 
