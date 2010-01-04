@@ -39,7 +39,11 @@ var update = function(){
 		statusLines.print();
 }
 var save = function(){
-	alert("save");
+	jsonMaps = {};
+	for(var m=0; m<maps.length; m++)
+		jsonMaps[m]=maps[m].stringify();
+
+	$.JSONCookie("cq_map", jsonMaps, {path: '/'});
 }
 var load = function(){
 	alert("load");

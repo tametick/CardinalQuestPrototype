@@ -18,6 +18,18 @@ var Map = function(width, height){
 				if (creatureMap[[x, y]] == null) 
 					viewer.putTile(Settings.ViewerWidth / 2 + x - player.x, Settings.ViewerHeight / 2 + y - player.y, tiles[[x, y]].symbol, [200, 200, 200]);
 	}
+	stringify = function(){
+		tilesStr ="";
+		for (var y = 0; y < height; y++) {
+			for (var x = 0; x < width; x++) 
+				tilesStr += tiles[[x, y]].symbol;
+			tilesStr +="_";
+		}
+		return tilesStr;
+	}
+	parse = function(string){
+		
+	}
 	
 	// Read map
 	$.getJSON("json/map.json", function(data){
@@ -41,6 +53,8 @@ var Map = function(width, height){
 		height: height,
 		tiles: tiles,
 		draw: draw,
-		creatureMap: creatureMap
+		creatureMap: creatureMap,
+		stringify: stringify,
+		parse: parse
 	}
 }
