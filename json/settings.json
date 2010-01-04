@@ -1,8 +1,8 @@
 {
 	"ViewerWidth": 20,
 	"ViewerHeight": 10,
-	"MapWidth": 30,
-	"MapHeight": 15,
+	"MapWidth": 15,
+	"MapHeight": 8,
 	"PlayerColor": [0,0,255],
 	"CursorColor": [255,0,0],
 	"LogSize": 2

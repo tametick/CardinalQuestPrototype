@@ -56,7 +56,12 @@ $(document).ready(function(){
 		state = State.Menu;
 		messageLog.append("[Press space to continue]");
 		update();
+		
+		// Must be loaded before first keydown because of $.getJSON
+		maps = [Map(Settings.MapWidth, Settings.MapHeight)];
+		player = Creature(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2), '@', Descriptions.Player);
 	});
+	
 });
 $(document).keyup(function (e) {
 	if(e.which == Keys.Ctrl) 
@@ -71,18 +76,10 @@ $(document).keydown(function(e){
 	case State.Menu:
 		switch (code) {
 		case Keys.Space:
-			player = Creature(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2), '@', Descriptions.Player);
-			maps = [Map(Settings.MapWidth, Settings.MapHeight)];
 			currentMap = 0;
 			
 			statusLines = StatusLines();
-			messageLog.clear();
-			
-			messageLog.append("test1");
-			messageLog.append("test2");
-			messageLog.append("test3");
-			messageLog.append("test4");
-			
+			messageLog.clear();			
 			state = State.Play;
 			break;
 		}
