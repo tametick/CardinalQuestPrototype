@@ -6,7 +6,7 @@ var state;
 var player;
 var maps;
 var currentMap;
-var isCtrl = false;
+var debug = true;
 
 var State = {
 	Loading: 0,
@@ -38,6 +38,12 @@ var update = function(){
 	if (statusLines) 
 		statusLines.print();
 }
+var save = function(){
+	alert("save");
+}
+var load = function(){
+	alert("load");
+}
 
 $(document).ready(function(){
 	$.getJSON("json/descriptions.json", function(data) {
@@ -63,13 +69,7 @@ $(document).ready(function(){
 	});
 	
 });
-$(document).keyup(function (e) {
-	if(e.which == Keys.Ctrl) 
-		isCtrl=false;
-});
 $(document).keydown(function(e){
-	if(e.which == Keys.Ctrl) 
-		isCtrl=true;
 	var code = (window.event || e).keyCode;
 	
 	switch (state) {
@@ -125,6 +125,14 @@ $(document).keydown(function(e){
 				break;
 			case Keys.C:
 				player.closeDoor();
+				break;
+			case Keys.F2:
+				if(debug)
+					save();
+				break;
+			case Keys.F4:
+				if(debug)
+					load();
 				break;
 			}
 		break;
