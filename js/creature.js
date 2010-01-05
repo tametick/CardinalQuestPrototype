@@ -1,8 +1,8 @@
 var Creature = function(x, y, speed, symbol, description){
-	var actionPoints = 60; // Start out fully charged
+	var actionPoints = 0;
 
 	var act = function(){
-		;
+		return this.move(Math.floor(Math.random()*3)-1, Math.floor(Math.random()*3)-1);
 	}
 	var draw = function(){
 		viewer.putTile(viewer.center[0] + this.x - player.x, viewer.center[1] + this.y - player.y, symbol, Settings.PlayerColor);

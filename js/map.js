@@ -15,9 +15,9 @@ var Map = function(width, height){
 			// Charge action points
 			creatures[c].actionPoints += creatures[c].speed;
 			// Move if charged
-			if (c != 0 && creatures[c].actionPoints) {
-				creatures[c].act();
-				creatures[c].actionPoints = 0;
+			if (c != 0 && creatures[c].actionPoints >= 60) {
+				if(creatures[c].act())
+					creatures[c].actionPoints = 0;
 			}
 		}
 	}
