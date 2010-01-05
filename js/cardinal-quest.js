@@ -1,12 +1,15 @@
+var debug = true;
+
 var viewer;
 var cursor;
 var messageLog;
 var statusLines;
+
 var state;
 var player;
 var maps;
 var currentMap;
-var debug = true;
+var ticks;
 
 var State = {
 	Loading: 0,
@@ -88,7 +91,7 @@ $(document).ready(function(){
 			// FIXME: Must be loaded before first keydown because of $.getJSON
 			maps = [Map(Settings.MapWidth, Settings.MapHeight)];
 			maps[0].generate();
-			player = Creature(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2), '@', Descriptions["@"]);
+			player = Creature(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2), 3, '@', Descriptions["@"]);
 		});
 	});
 	$.getJSON("json/keys.json", function(data){
@@ -104,6 +107,7 @@ $(document).keydown(function(e){
 		switch (code) {
 		case Keys.Space:
 			currentMap = 0;
+			ticks = 0;
 			
 			statusLines = StatusLines();
 			messageLog.clear();			
@@ -133,25 +137,31 @@ $(document).keydown(function(e){
 				if(cursor)
 					cursor = null;
 			}
-		else
+		else {
+			while (player.actionPoints < 60) {
+				maps[currentMap].tick();
+				ticks++;
+			}
+			
+			var moved = false;
 			switch (code) {
 			case Keys.Up:
-				player.move(0, -1);
+				moved = player.move(0, -1);
 				break;
 			case Keys.Down:
-				player.move(0, 1);
+				moved = player.move(0, 1);
 				break;
 			case Keys.Left:
-				player.move(-1, 0);
+				moved = player.move(-1, 0);
 				break;
 			case Keys.Right:
-				player.move(1, 0);
+				moved = player.move(1, 0);
 				break;
 			case Keys.L:
 				cursor = Cursor(player.x, player.y, '?');
 				break;
 			case Keys.C:
-				player.closeDoor();
+				moved = player.closeDoor();
 				break;
 			case Keys.F2:
 				if(debug)
@@ -162,6 +172,9 @@ $(document).keydown(function(e){
 					load();
 				break;
 			}
+			if(moved)
+				player.actionPoints=0;
+		}
 		break;
 	}
 	

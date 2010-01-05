@@ -10,7 +10,17 @@ var Map = function(width, height){
 	var creatures = [];
 	var creatureMap = [];
 	
-	// Draw the map around the player
+	var tick = function(){
+		for (var c = 0; c < creatures.length; c++) {
+			// Charge action points
+			creatures[c].actionPoints += creatures[c].speed;
+			// Move if charged
+			if (c != 0 && creatures[c].actionPoints) {
+				creatures[c].act();
+				creatures[c].actionPoints = 0;
+			}
+		}
+	}
 	var draw = function(){
 		for (var y = 0; y < height; y++) 
 			for (var x = 0; x < width; x++) 
@@ -51,7 +61,7 @@ var Map = function(width, height){
 		var creaturesArray = creaturesStr.split("_");
 		for (var c = 0; c < creaturesArray.length - 1; c++) {
 			parsedCreature = creaturesArray[c].split(",");
-			this.creatures[c] = Creature(parsedCreature[0] * 1, parsedCreature[1] * 1, parsedCreature[2], Descriptions[parsedCreature[2]]);
+			this.creatures[c] = Creature(parsedCreature[0] * 1, parsedCreature[1] * 1, 3, parsedCreature[2], Descriptions[parsedCreature[2]]);
 			this.creatureMap[[this.creatures[c].x, this.creatures[c].y]] = this.creatures[c];
 		}
 	}
@@ -72,7 +82,7 @@ var Map = function(width, height){
 			creatureMap[[player.x, player.y]] = player;
 			
 			// Generate monster
-			creatures[1] = Creature(2, 2, "k", Descriptions["k"]);
+			creatures[1] = Creature(2, 2, 3, "k", Descriptions["k"]);
 			creatureMap[[creatures[1].x, creatures[1].y]] = creatures[1];
 		});
 	}
@@ -81,6 +91,7 @@ var Map = function(width, height){
 		width: width,
 		height: height,
 		tiles: tiles,
+		tick: tick,
 		draw: draw,
 		creatures: creatures,
 		creatureMap: creatureMap,
