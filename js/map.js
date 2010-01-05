@@ -11,13 +11,13 @@ var Map = function(width, height){
 	var creatureMap = [];
 	
 	// Draw the map around the player
-	draw = function(){
+	var draw = function(){
 		for (var x = 0; x < width; x++) 
 			for (var y = 0; y < height; y++) 
 				if (creatureMap[[x, y]] == null) 
 					viewer.putTile(Settings.ViewerWidth / 2 + x - player.x, Settings.ViewerHeight / 2 + y - player.y, tiles[[x, y]].symbol, [200, 200, 200]);
 	}
-	stringify = function(){
+	var stringify = function(){
 		tilesStr ="";
 		for (var y = 0; y < height; y++) {
 			for (var x = 0; x < width; x++) 
@@ -30,26 +30,26 @@ var Map = function(width, height){
 		
 		return [tilesStr,creaturesStr];
 	}
-	parse = function(string){
+	var parse = function(string){
 		
 	}
-	
-	// Read map
-	$.getJSON("json/map.json", function(data){
-		for (var y = 0; y < height; y++) {
-			for (var x = 0; x < width; x++) 
-				if (data[y].charAt(x) == '#') 
-					tiles[[x, y]] = Tile('#', Descriptions.Wall);
-				else if (data[y].charAt(x) == '+') 
-					tiles[[x, y]] = Tile('+', Descriptions.Door);
-				else 
-					tiles[[x, y]] = Tile('.', null);
-		}
-		
-		// Insert player
-		creatures[0] = player;
-		creatureMap[[player.x, player.y]] = player;
-	});
+	var generate = function(){
+		$.getJSON("json/map.json", function(data){
+			for (var y = 0; y < height; y++) {
+				for (var x = 0; x < width; x++) 
+					if (data[y].charAt(x) == '#') 
+						tiles[[x, y]] = Tile('#', Descriptions.Wall);
+					else if (data[y].charAt(x) == '+') 
+						tiles[[x, y]] = Tile('+', Descriptions.Door);
+					else 
+						tiles[[x, y]] = Tile('.', null);
+			}
+			
+			// Insert player
+			creatures[0] = player;
+			creatureMap[[player.x, player.y]] = player;
+		});
+	}
 	
 	return {
 		width: width,
@@ -58,6 +58,7 @@ var Map = function(width, height){
 		draw: draw,
 		creatureMap: creatureMap,
 		stringify: stringify,
-		parse: parse
+		parse: parse,
+		generate : generate
 	}
 }

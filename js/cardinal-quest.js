@@ -58,7 +58,14 @@ var save = function(){
 	}
 }
 var load = function(){
-	alert("load");
+	var properties = $.JSONCookie("cq_prop");
+	var numberOfMaps = properties["Maps"];
+	currentMap =  properties["CurrentMap"]
+	
+	maps = [];
+	for (var m =0; m<numberOfMaps; m++) {
+		
+	}
 }
 
 $(document).ready(function(){
@@ -79,8 +86,9 @@ $(document).ready(function(){
 		messageLog.append("[Press space to continue]");
 		update();
 		
-		// Must be loaded before first keydown because of $.getJSON
+		// FIXME: Must be loaded before first keydown because of $.getJSON
 		maps = [Map(Settings.MapWidth, Settings.MapHeight)];
+		maps[0].generate();
 		player = Creature(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2), '@', Descriptions.Player);
 	});
 	
