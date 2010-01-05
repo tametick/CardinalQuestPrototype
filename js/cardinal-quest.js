@@ -39,19 +39,23 @@ var update = function(){
 		statusLines.print();
 }
 var save = function(){
-	var jsonMaps = {
+	var properties = {
 		"Maps": maps.length,
 		"CurrentMap": currentMap
 	};
-	for (var m = 0; m < maps.length; m++) {
-		var str = maps[m].stringify()
-		jsonMaps["Tiles" + m] = str[0];
-		jsonMaps["Creatures" + m] = str[1];
-	}
-	
-	$.JSONCookie("cq_map", jsonMaps, {
+	$.JSONCookie("cq_prop", properties, {
 		path: '/'
 	});
+	
+	for (var m = 0; m < maps.length; m++) {
+		var map = {}
+		var str = maps[m].stringify()
+		map["Tiles"] = str[0];
+		map["Creatures"] = str[1];
+		$.JSONCookie("cq_map" + m, map, {
+			path: '/'
+		});
+	}
 }
 var load = function(){
 	alert("load");
