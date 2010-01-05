@@ -88,7 +88,7 @@ $(document).ready(function(){
 			// FIXME: Must be loaded before first keydown because of $.getJSON
 			maps = [Map(Settings.MapWidth, Settings.MapHeight)];
 			maps[0].generate();
-			player = Creature(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2), '@', Descriptions.Player);
+			player = Creature(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2), '@', Descriptions["@"]);
 		});
 	});
 	$.getJSON("json/keys.json", function(data){
