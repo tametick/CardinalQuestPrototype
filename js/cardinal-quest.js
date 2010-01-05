@@ -40,11 +40,14 @@ var update = function(){
 }
 var save = function(){
 	var jsonMaps = {
-		"maps": maps.length,
-		"currentMap": currentMap
+		"Maps": maps.length,
+		"CurrentMap": currentMap
 	};
-	for (var m = 0; m < maps.length; m++) 
-		jsonMaps[m] = maps[m].stringify();
+	for (var m = 0; m < maps.length; m++) {
+		var str = maps[m].stringify()
+		jsonMaps["Tiles" + m] = str[0];
+		jsonMaps["Creatures" + m] = str[1];
+	}
 	
 	$.JSONCookie("cq_map", jsonMaps, {
 		path: '/'

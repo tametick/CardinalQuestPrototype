@@ -22,14 +22,13 @@ var Map = function(width, height){
 		for (var y = 0; y < height; y++) {
 			for (var x = 0; x < width; x++) 
 				tilesStr += tiles[[x, y]].symbol;
-			tilesStr +="_"; //needed?
 		}
 		
 		creaturesStr="";
 		for (var c = 0; c<creatures.length; c++)
 			creaturesStr +=creatures[c].stringify()+"_";
 		
-		return tilesStr+creaturesStr;
+		return [tilesStr,creaturesStr];
 	}
 	parse = function(string){
 		
