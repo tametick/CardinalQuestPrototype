@@ -25,8 +25,8 @@ var Map = function(width, height){
 		}
 		
 		var creaturesStr = "";
-		for (var c = 0; c < creatures.length; c++) 
-			creaturesStr += creatures[c].stringify() + "_";
+		for (var c = 0; c < this.creatures.length; c++) 
+			creaturesStr += this.creatures[c].stringify() + "_";
 		
 		return [tilesStr, creaturesStr];
 	}
