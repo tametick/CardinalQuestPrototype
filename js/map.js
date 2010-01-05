@@ -40,7 +40,7 @@ var Map = function(width, height){
 					tiles[[x, y]] = Tile('+', Descriptions.Door);
 				else if (currentChar == "'") 
 					tiles[[x, y]] = Tile("'", Descriptions.OpenDoor);
-				else
+				else 
 					tiles[[x, y]] = Tile('.', null);
 			}
 		
@@ -76,6 +76,7 @@ var Map = function(width, height){
 		height: height,
 		tiles: tiles,
 		draw: draw,
+		creatures: creatures,
 		creatureMap: creatureMap,
 		stringify: stringify,
 		parse: parse,
