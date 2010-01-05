@@ -16,6 +16,8 @@ var Map = function(width, height){
 			for (var x = 0; x < width; x++) 
 				if (this.creatureMap[[x, y]] == null) 
 					viewer.putTile(Settings.ViewerWidth / 2 + x - player.x, Settings.ViewerHeight / 2 + y - player.y, tiles[[x, y]].symbol, [200, 200, 200]);
+		for (var c = 0; c < this.creatures.length; c++)
+			creatures[c].draw();
 	}
 	var stringify = function(){
 		tilesStr = "";
@@ -49,6 +51,7 @@ var Map = function(width, height){
 		var creaturesArray = creaturesStr.split("_");
 		for (var c = 0; c < creaturesArray.length - 1; c++) {
 			parsedCreature = creaturesArray[c].split(",");
+			// FIXME: read description from file according to symbol
 			this.creatures[c] = Creature(parsedCreature[0] * 1, parsedCreature[1] * 1, parsedCreature[2], Descriptions.Player);
 			this.creatureMap[[this.creatures[c].x, this.creatures[c].y]] = this.creatures[c];
 		}
@@ -68,6 +71,10 @@ var Map = function(width, height){
 			// Insert player
 			creatures[0] = player;
 			creatureMap[[player.x, player.y]] = player;
+			
+			// Generate monster
+			creatures[1] = Creature(2,2,"k",Descriptions.Kobold);
+			creatureMap[[creatures[1].x, creatures[1].y]] = creatures[1];
 		});
 	}
 	
