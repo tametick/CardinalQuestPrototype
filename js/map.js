@@ -12,26 +12,46 @@ var Map = function(width, height){
 	
 	// Draw the map around the player
 	var draw = function(){
-		for (var x = 0; x < width; x++) 
-			for (var y = 0; y < height; y++) 
-				if (creatureMap[[x, y]] == null) 
+		for (var y = 0; y < height; y++) 
+			for (var x = 0; x < width; x++) 
+				if (this.creatureMap[[x, y]] == null) 
 					viewer.putTile(Settings.ViewerWidth / 2 + x - player.x, Settings.ViewerHeight / 2 + y - player.y, tiles[[x, y]].symbol, [200, 200, 200]);
 	}
 	var stringify = function(){
-		tilesStr ="";
+		tilesStr = "";
 		for (var y = 0; y < height; y++) {
 			for (var x = 0; x < width; x++) 
 				tilesStr += tiles[[x, y]].symbol;
 		}
 		
-		creaturesStr="";
-		for (var c = 0; c<creatures.length; c++)
-			creaturesStr +=creatures[c].stringify()+"_";
+		var creaturesStr = "";
+		for (var c = 0; c < creatures.length; c++) 
+			creaturesStr += creatures[c].stringify() + "_";
 		
-		return [tilesStr,creaturesStr];
+		return [tilesStr, creaturesStr];
 	}
-	var parse = function(string){
+	var parse = function(tilesStr, creaturesStr){
+		for (var y = 0; y < height; y++) 
+			for (var x = 0; x < width; x++) {
+				currentChar = tilesStr.charAt(width * y + x);
+				if (currentChar == '#') 
+					tiles[[x, y]] = Tile('#', Descriptions.Wall);
+				else if (currentChar == '+') 
+					tiles[[x, y]] = Tile('+', Descriptions.Door);
+				else if (currentChar == "'") 
+					tiles[[x, y]] = Tile("'", Descriptions.OpenDoor);
+				else
+					tiles[[x, y]] = Tile('.', null);
+			}
 		
+		this.creatures = [];
+		this.creatureMap = [];
+		var creaturesArray = creaturesStr.split("_");
+		for (var c = 0; c < creaturesArray.length - 1; c++) {
+			parsedCreature = creaturesArray[c].split(",");
+			this.creatures[c] = Creature(parsedCreature[0] * 1, parsedCreature[1] * 1, parsedCreature[2], Descriptions.Player);
+			this.creatureMap[[this.creatures[c].x, this.creatures[c].y]] = this.creatures[c];
+		}
 	}
 	var generate = function(){
 		$.getJSON("json/map.json", function(data){
@@ -59,6 +79,6 @@ var Map = function(width, height){
 		creatureMap: creatureMap,
 		stringify: stringify,
 		parse: parse,
-		generate : generate
+		generate: generate
 	}
 }

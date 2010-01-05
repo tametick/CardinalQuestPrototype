@@ -25,7 +25,7 @@ var Creature = function(x, y, symbol, description){
 				}
 	}
 	var stringify = function(){
-		return ""+x+","+y+","+symbol;
+		return ""+this.x+","+this.y+","+symbol;
 	}
 	
 	return {
