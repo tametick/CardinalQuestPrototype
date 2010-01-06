@@ -1,12 +1,18 @@
 {
 	"@":{
 		"fighter":{
-			"speed": 3,
-			"faction": 0
+			"faction": 0,
+			"vitality": 5,
+			"attack": 5,
+			"defense":3,
+			"speed": 3
 		}
 	},
 	"k":{
-		"speed": 3,
-		"faction": 1	
+		"life": 2,
+		"damage": 1,
+		"attack": 2,
+		"defense":2,
+		"speed": 3
 	}
 }

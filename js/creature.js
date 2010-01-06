@@ -1,8 +1,15 @@
 var Creature = function(x, y, symbol){
-	var speed;
 	var actionPoints = 0;
 	var faction;
 	var description;
+	// Abilities
+	var vitality;
+	var attack;
+	var defense;
+	var speed;
+	// Stats
+	var life;
+	var damage;
 	
 	var act = function(){
 		return this.move(Math.floor(Math.random() * 3) - 1, Math.floor(Math.random() * 3) - 1);
@@ -43,21 +50,35 @@ var Creature = function(x, y, symbol){
 		return "" + this.x + "," + this.y + "," + this.symbol + "," + this.actionPoints;
 	}
 	
-	var init = function() {
+	var init = function(){
 		var type;
-		if(symbol == "@")
+		if (symbol == "@") {
 			type = CreatureTypes[symbol]["fighter"];
-		else
+			this.vitality = type["vitality"] * 1;
+			this.life = this.vitality; // level 1 
+			this.damage = 1; // bare hands
+		} else {
 			type = CreatureTypes[symbol];
-		this.speed = type["speed"]*1;
-		this.faction = type["faction"]*1;
+			this.life = type["life"] * 1;
+			this.damage = type["damage"] * 1;
+		}
+		this.attack = type["attack"] * 1;
+		this.defense = type["defense"] * 1;
+		this.speed = type["speed"] * 1;
+		this.faction = type["faction"] * 1;
 		this.description = Descriptions[symbol];
 	}
 	
 	return {
 		x: x,
 		y: y,
+		vitality: vitality,
+		attack: attack,
+		defense: defense,
 		speed: speed,
+		life: life,
+		damage: damage,
+		faction: faction,
 		actionPoints: actionPoints,
 		symbol: symbol,
 		description: description,
