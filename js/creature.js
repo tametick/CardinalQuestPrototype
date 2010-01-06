@@ -11,6 +11,12 @@ var Creature = function(x, y, symbol){
 	var life;
 	var damage;
 	
+	var randInt = function(min, max){
+		return min + Math.floor(Math.random() * (max - min + 1));
+	}
+	var inRange = function(x0, y0, x1, y1){
+		return Math.abs(y1 - y0) + Math.abs(x1 - x0) < 5;
+	}
 	var attackOther = function(other){
 		if (Math.random() < this.attack / (this.attack + other.defense)) {
 			other.life -= this.damage;
@@ -23,9 +29,21 @@ var Creature = function(x, y, symbol){
 		else 
 			messageLog.append(this.description + " misses you.");
 	}
-	
 	var act = function(){
-		return this.move(Math.floor(Math.random() * 3) - 1, Math.floor(Math.random() * 3) - 1);
+		var moved = false;
+		
+		// Chase player if nearby
+		if (inRange(this.x, this.y, player.x, player.y)) 
+			if (Math.abs(player.y - this.y) > Math.abs(player.x - this.x)) 
+				moved = this.move(0, (player.y - this.y)/Math.abs(player.y - this.y));
+			else 
+				moved = this.move((player.x - this.x) / Math.abs(player.x - this.x), 0);
+		
+		// Move randomly 
+		if (!moved) 
+			return this.move(Math.floor(Math.random() * 3) - 1, Math.floor(Math.random() * 3) - 1);
+		else 
+			return true;
 	}
 	var draw = function(){
 		viewer.putTile(viewer.center[0] + this.x - player.x, viewer.center[1] + this.y - player.y, symbol, Settings.PlayerColor);
@@ -67,9 +85,6 @@ var Creature = function(x, y, symbol){
 	}
 	var stringify = function(){
 		return "" + this.x + "," + this.y + "," + this.symbol + "," + this.actionPoints;
-	}
-	var randInt = function(min, max){
-		return min + Math.floor(Math.random() * (max - min + 1));
 	}
 	var init = function(){
 		var type;
