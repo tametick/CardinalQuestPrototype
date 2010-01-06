@@ -10,7 +10,7 @@ var Creature = function(x, y, symbol){
 	// Stats
 	var life;
 	var damage;
-
+	
 	var attackOther = function(other){
 		if (Math.random() < this.attack / (this.attack + other.defense)) {
 			other.life -= this.damage;
@@ -18,13 +18,12 @@ var Creature = function(x, y, symbol){
 				messageLog.append("You hit " + other.description + ".");
 			else 
 				messageLog.append(this.description + " hits you.");
-		} else 
-			if (this.symbol == "@") 
-				messageLog.append("You miss " + other.description + ".");
-			else 
-				messageLog.append(this.description + " misses you.");
+		} else if (this.symbol == "@") 
+			messageLog.append("You miss " + other.description + ".");
+		else 
+			messageLog.append(this.description + " misses you.");
 	}
-
+	
 	var act = function(){
 		return this.move(Math.floor(Math.random() * 3) - 1, Math.floor(Math.random() * 3) - 1);
 	}
@@ -69,6 +68,9 @@ var Creature = function(x, y, symbol){
 	var stringify = function(){
 		return "" + this.x + "," + this.y + "," + this.symbol + "," + this.actionPoints;
 	}
+	var randInt = function(min, max){
+		return min + Math.floor(Math.random() * (max - min + 1));
+	}
 	var init = function(){
 		var type;
 		if (symbol == "@") {
@@ -78,7 +80,7 @@ var Creature = function(x, y, symbol){
 			this.damage = 1; // bare hands
 		} else {
 			type = CreatureTypes[symbol];
-			this.life = type["life"] * 1;
+			this.life = randInt(type["life"][0] * 1, type["life"][1] * 1);
 			this.damage = type["damage"] * 1;
 		}
 		this.attack = type["attack"] * 1;
