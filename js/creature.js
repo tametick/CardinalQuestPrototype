@@ -10,7 +10,15 @@ var Creature = function(x, y, symbol){
 	// Stats
 	var life;
 	var damage;
-	
+
+	var attackOther = function(other){
+		other.life -= this.damage;
+		if (this.symbol == "@") 
+			messageLog.append("You attack " + other.description + ".");
+		else 
+			messageLog.append(this.description + " attacks you.");
+	}
+
 	var act = function(){
 		return this.move(Math.floor(Math.random() * 3) - 1, Math.floor(Math.random() * 3) - 1);
 	}
@@ -18,10 +26,16 @@ var Creature = function(x, y, symbol){
 		viewer.putTile(viewer.center[0] + this.x - player.x, viewer.center[1] + this.y - player.y, symbol, Settings.PlayerColor);
 	}
 	var move = function(dx, dy){
-		if (maps[currentMap].creatureMap[[this.x + dx, this.y + dy]]) 
-			return true; // Bump
+		var other = maps[currentMap].creatureMap[[this.x + dx, this.y + dy]];
+		if (other) {
+			if (other.faction == this.faction) 
+				return true; // Bump
 
-		else 
+			else {
+				this.attackOther(other); // Attack
+				return true;
+			}
+		} else 
 			switch (maps[currentMap].tiles[[this.x + dx, this.y + dy]].symbol) {
 			case '.':
 			case "'":
@@ -49,7 +63,6 @@ var Creature = function(x, y, symbol){
 	var stringify = function(){
 		return "" + this.x + "," + this.y + "," + this.symbol + "," + this.actionPoints;
 	}
-	
 	var init = function(){
 		var type;
 		if (symbol == "@") {
@@ -84,6 +97,7 @@ var Creature = function(x, y, symbol){
 		description: description,
 		act: act,
 		draw: draw,
+		attackOther: attackOther,
 		move: move,
 		closeDoor: closeDoor,
 		stringify: stringify,
