@@ -1,5 +1,8 @@
-var Creature = function(x, y, speed, symbol, description){
+var Creature = function(x, y, symbol){
+	var speed;
 	var actionPoints = 0;
+	var faction;
+	var description;
 	
 	var act = function(){
 		return this.move(Math.floor(Math.random() * 3) - 1, Math.floor(Math.random() * 3) - 1);
@@ -37,7 +40,18 @@ var Creature = function(x, y, speed, symbol, description){
 				}
 	}
 	var stringify = function(){
-		return "" + this.x + "," + this.y + "," + this.speed + "," + this.symbol + "," + this.actionPoints;
+		return "" + this.x + "," + this.y + "," + this.symbol + "," + this.actionPoints;
+	}
+	
+	var init = function() {
+		var type;
+		if(symbol == "@")
+			type = CreatureTypes[symbol]["fighter"];
+		else
+			type = CreatureTypes[symbol];
+		this.speed = type["speed"]*1;
+		this.faction = type["faction"]*1;
+		this.description = Descriptions[symbol];
 	}
 	
 	return {
@@ -51,6 +65,7 @@ var Creature = function(x, y, speed, symbol, description){
 		draw: draw,
 		move: move,
 		closeDoor: closeDoor,
-		stringify: stringify
+		stringify: stringify,
+		init: init
 	}
 }

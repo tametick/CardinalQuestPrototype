@@ -1,0 +1,12 @@
+{
+	"@":{
+		"fighter":{
+			"speed": 3,
+			"faction": 0
+		}
+	},
+	"k":{
+		"speed": 3,
+		"faction": 1	
+	}
+}

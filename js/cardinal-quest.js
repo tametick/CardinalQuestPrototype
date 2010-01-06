@@ -78,28 +78,31 @@ var load = function(){
 
 $(document).ready(function(){
 	$.getJSON("json/descriptions.json", function(desc){
-		$.getJSON("json/settings.json", function(sett){
-			Descriptions = desc;
-			Settings = sett;
-			
-			state = State.Loading;
-			viewer = Viewer(Settings.ViewerWidth, Settings.ViewerHeight);
-			messageLog = MessageLog();
-			
-			state = State.Menu;
-			messageLog.append("[Press space to continue]");
-			update();
-			
-			// FIXME: Must be loaded before first keydown because of $.getJSON
-			maps = [Map(Settings.MapWidth, Settings.MapHeight)];
-			maps[0].generate();
-			player = Creature(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2), 3, '@', Descriptions["@"]);
+		$.getJSON("json/creature-types.json", function(types){
+			$.getJSON("json/settings.json", function(sett){
+				Descriptions = desc;
+				CreatureTypes = types;
+				Settings = sett;
+				
+				state = State.Loading;
+				viewer = Viewer(Settings.ViewerWidth, Settings.ViewerHeight);
+				messageLog = MessageLog();
+				
+				state = State.Menu;
+				messageLog.append("[Press space to continue]");
+				update();
+				
+				// FIXME: Must be loaded before first keydown because of $.getJSON
+				maps = [Map(Settings.MapWidth, Settings.MapHeight)];
+				maps[0].generate();
+				player = Creature(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2), '@');
+				player.init();
+			});
 		});
 	});
 	$.getJSON("json/keys.json", function(data){
 		Keys = data;
 	});
-	
 });
 $(document).keydown(function(e){
 	var code = (window.event || e).keyCode;

@@ -61,8 +61,10 @@ var Map = function(width, height){
 		var creaturesArray = creaturesStr.split("_");
 		for (var c = 0; c < creaturesArray.length - 1; c++) {
 			parsedCreature = creaturesArray[c].split(",");
-			this.creatures[c] = Creature(parsedCreature[0] * 1, parsedCreature[1] * 1, parsedCreature[2] * 1, parsedCreature[3], Descriptions[parsedCreature[3]]);
-			this.creatures[c].actionPoints = parsedCreature[4] * 1;
+
+			this.creatures[c] = Creature(parsedCreature[0] * 1, parsedCreature[1] * 1,  parsedCreature[2]);
+			this.creatures[c].init();
+			this.creatures[c].actionPoints = parsedCreature[3] * 1;
 			this.creatureMap[[this.creatures[c].x, this.creatures[c].y]] = this.creatures[c];
 		}
 	}
@@ -83,7 +85,8 @@ var Map = function(width, height){
 			creatureMap[[player.x, player.y]] = player;
 			
 			// Generate monster
-			creatures[1] = Creature(2, 2, 3, "k", Descriptions["k"]);
+			creatures[1] = Creature(2, 2, "k");
+			creatures[1].init();
 			creatureMap[[creatures[1].x, creatures[1].y]] = creatures[1];
 		});
 	}
