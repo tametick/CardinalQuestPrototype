@@ -84,10 +84,14 @@ var Map = function(width, height){
 			creatures[0] = player;
 			creatureMap[[player.x, player.y]] = player;
 			
-			// Generate monster
+			// Generate monsters
 			creatures[1] = Creature(2, 2, "k");
 			creatures[1].init();
 			creatureMap[[creatures[1].x, creatures[1].y]] = creatures[1];
+			
+			creatures[2] = Creature(10, 1, "k");
+			creatures[2].init();
+			creatureMap[[creatures[2].x, creatures[2].y]] = creatures[2];
 		});
 	}
 	
