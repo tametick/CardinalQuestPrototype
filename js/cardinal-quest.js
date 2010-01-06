@@ -161,11 +161,11 @@ $(document).keydown(function(e){
 				moved = player.closeDoor();
 				break;
 			case Keys.F2:
-				if(debug)
+				if (debug)
 					save();
 				break;
 			case Keys.F4:
-				if(debug)
+				if (debug)
 					load();
 				break;
 			}

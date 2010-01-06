@@ -1,8 +1,8 @@
 var Creature = function(x, y, speed, symbol, description){
 	var actionPoints = 0;
-
+	
 	var act = function(){
-		return this.move(Math.floor(Math.random()*3)-1, Math.floor(Math.random()*3)-1);
+		return this.move(Math.floor(Math.random() * 3) - 1, Math.floor(Math.random() * 3) - 1);
 	}
 	var draw = function(){
 		viewer.putTile(viewer.center[0] + this.x - player.x, viewer.center[1] + this.y - player.y, symbol, Settings.PlayerColor);
@@ -10,6 +10,7 @@ var Creature = function(x, y, speed, symbol, description){
 	var move = function(dx, dy){
 		if (maps[currentMap].creatureMap[[this.x + dx, this.y + dy]]) 
 			return true; // Bump
+
 		else 
 			switch (maps[currentMap].tiles[[this.x + dx, this.y + dy]].symbol) {
 			case '.':
@@ -36,7 +37,7 @@ var Creature = function(x, y, speed, symbol, description){
 				}
 	}
 	var stringify = function(){
-		return "" + this.x + "," + this.y + "," + symbol;
+		return "" + this.x + "," + this.y + "," + this.speed + "," + this.symbol + "," + this.actionPoints;
 	}
 	
 	return {

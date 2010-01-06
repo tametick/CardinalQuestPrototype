@@ -11,13 +11,13 @@ var Map = function(width, height){
 	var creatureMap = [];
 	
 	var tick = function(){
-		for (var c = 0; c < creatures.length; c++) {
+		for (var c = 0; c < this.creatures.length; c++) {
 			// Charge action points
-			creatures[c].actionPoints += creatures[c].speed;
+			this.creatures[c].actionPoints += this.creatures[c].speed;
 			// Move if charged
-			if (c != 0 && creatures[c].actionPoints >= 60) {
-				if(creatures[c].act())
-					creatures[c].actionPoints = 0;
+			if (c != 0 && this.creatures[c].actionPoints >= 60) {
+				if (this.creatures[c].act()) 
+					this.creatures[c].actionPoints = 0;
 			}
 		}
 	}
@@ -61,7 +61,8 @@ var Map = function(width, height){
 		var creaturesArray = creaturesStr.split("_");
 		for (var c = 0; c < creaturesArray.length - 1; c++) {
 			parsedCreature = creaturesArray[c].split(",");
-			this.creatures[c] = Creature(parsedCreature[0] * 1, parsedCreature[1] * 1, 3, parsedCreature[2], Descriptions[parsedCreature[2]]);
+			this.creatures[c] = Creature(parsedCreature[0] * 1, parsedCreature[1] * 1, parsedCreature[2] * 1, parsedCreature[3], Descriptions[parsedCreature[3]]);
+			this.creatures[c].actionPoints = parsedCreature[4] * 1;
 			this.creatureMap[[this.creatures[c].x, this.creatures[c].y]] = this.creatures[c];
 		}
 	}
