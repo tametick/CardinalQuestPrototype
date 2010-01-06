@@ -11,6 +11,8 @@ var maps;
 var currentMap;
 var ticks;
 
+var moved = true;
+
 var State = {
 	Loading: 0,
 	Menu: 1,
@@ -138,12 +140,7 @@ $(document).keydown(function(e){
 					cursor = null;
 			}
 		else {
-			while (player.actionPoints < 60) {
-				maps[currentMap].tick();
-				ticks++;
-			}
-			
-			var moved = false;
+			// The player gets the first move in the game for free		
 			switch (code) {
 			case Keys.Up:
 				moved = player.move(0, -1);
@@ -172,8 +169,15 @@ $(document).keydown(function(e){
 					load();
 				break;
 			}
-			if(moved)
-				player.actionPoints=0;
+			
+			if (moved) {
+				player.actionPoints = 0;
+				while (player.actionPoints < 60) {
+					maps[currentMap].tick();
+					ticks++;
+				}
+				moved = false;
+			}
 		}
 		break;
 	}
