@@ -12,11 +12,17 @@ var Creature = function(x, y, symbol){
 	var damage;
 
 	var attackOther = function(other){
-		other.life -= this.damage;
-		if (this.symbol == "@") 
-			messageLog.append("You attack " + other.description + ".");
-		else 
-			messageLog.append(this.description + " attacks you.");
+		if (Math.random() < this.attack / (this.attack + other.defense)) {
+			other.life -= this.damage;
+			if (this.symbol == "@") 
+				messageLog.append("You hit " + other.description + ".");
+			else 
+				messageLog.append(this.description + " hits you.");
+		} else 
+			if (this.symbol == "@") 
+				messageLog.append("You miss " + other.description + ".");
+			else 
+				messageLog.append(this.description + " misses you.");
 	}
 
 	var act = function(){
