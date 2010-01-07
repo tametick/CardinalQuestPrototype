@@ -28,10 +28,10 @@ var update = function(){
 		maps[currentMap].draw();
 		if (cursor) {
 			cursor.draw();
-			if (maps[currentMap].creatureMap[[cursor.x, cursor.y]]) 
-				messageLog.append("You see " + maps[currentMap].creatureMap[[cursor.x, cursor.y]].description);
-			else if (maps[currentMap].tiles[[cursor.x, cursor.y]].description) 
-				messageLog.append("You see " + maps[currentMap].tiles[[cursor.x, cursor.y]].description);
+			if (maps[currentMap].creatureMap[[cursor.vars.x, cursor.vars.y]]) 
+				messageLog.append("You see " + maps[currentMap].creatureMap[[cursor.vars.x, cursor.vars.y]].description);
+			else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description) 
+				messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description);
 		}
 		break;
 	}
