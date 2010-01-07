@@ -78,6 +78,7 @@ var load = function(){
 	}
 	
 	player = maps[numberOfMaps - 1].vars.creatures[0];
+	messageLog.clear();
 }
 
 $(document).ready(function(){
