@@ -1,11 +1,60 @@
 body {
-	text-align: center;
-	font-family: monospace;
+	font-size: 12px;
+	font-family: Verdana, Arial, SunSans-Regular, Sans-Serif;
+	color: #48a1c3;
 	background-color: #000000;
-	color: #FFFFFF;
 }
 
+#content {
+	background-color: #133f52;
+	padding: 0px;
+	margin-right: 0px;
+	width: 600px;
+	overflow: hidden;
+}
+
+h2 {
+	font-size: 24px;
+	font-weight: normal;
+	color: #ffba4d;
+	padding: 5px 10px;
+	margin: 0px;
+}
+
+h3 {
+	padding: 0px 10px;
+	margin: 0px;
+}
+
+p, pre{
+padding: 5px 10px;
+margin:0px;
+}
+
+#help {
+	width: 143px;
+	border: 1px solid #888888;
+	padding: 2px;
+	float: left;
+}
+#inventory {
+	width: 143px;
+	border: 1px solid #888888;
+	padding: 2px;
+	float: right;
+}
 #viewer {
 	padding: 10px;
-	border: 2px solid #888888;
+	border: 1px solid #888888;
+	margin: auto;
+	overflow: hidden;
+}
+
+#statusLines {
+	text-align: center;
+	border: 1px solid #888888;
+}
+#messageLog {
+	text-align: center;
+	border: 1px solid #888888;
 }

@@ -12,10 +12,8 @@ Cursor = function(startX, startY, symbol){
 		if (newX > 0 && newY > 0 &&
 		newX < maps[currentMap].width - 1 &&
 		newY < maps[currentMap].height - 1 &&
-		player.vars.x - newX < viewer.center[0] + 1 &&
-		newX - player.vars.x < viewer.center[0] &&
-		player.vars.y - newY < viewer.center[1] + 1 &&
-		newY - player.y < viewer.center[1]) {
+		Math.abs(newX - player.vars.x) < viewer.center[0] &&
+		Math.abs(newY - player.vars.y) < viewer.center[1]) {
 			vars.x = newX;
 			vars.y = newY;
 		}

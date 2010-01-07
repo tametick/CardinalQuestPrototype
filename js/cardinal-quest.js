@@ -95,6 +95,7 @@ $(document).ready(function(){
 				state = State.Loading;
 				viewer = Viewer(Settings.viewerWidth, Settings.viewerHeight);
 				messageLog = MessageLog();
+				statusLines = StatusLines();
 				
 				state = State.Menu;
 				messageLog.append("[Press space to continue]");
@@ -125,7 +126,6 @@ $(document).keydown(function(e){
 			currentMap = 0;
 			ticks = 0;
 			
-			statusLines = StatusLines();
 			messageLog.clear();			
 			state = State.Play;
 			break;

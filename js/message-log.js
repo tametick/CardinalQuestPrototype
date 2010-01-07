@@ -21,6 +21,10 @@ var MessageLog = function(){
 		log.empty();
 		for (var i = max; i >= min; i--) 
 			log.append(vars.data[i] + "<br>");
+		
+		// Fill up empty lines to maintain page layout
+		for (var i = max + 1; i <= visibleLogBuffer; i++) 
+			log.append(" <br>");
 	}
 	
 	return {
