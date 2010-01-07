@@ -39,7 +39,7 @@ var Creature = function(startX, startY, symbol){
 		
 		// Move randomly 
 		if (!moved) 
-			return this.move(Math.floor(Math.random() * 3) - 1, Math.floor(Math.random() * 3) - 1);
+			return this.move(utils.randInt(-1,1), utils.randInt(-1,1));
 		else 
 			return true;
 	}
