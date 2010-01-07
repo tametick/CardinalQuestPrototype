@@ -26,35 +26,32 @@ h3 {
 	margin: 0px;
 }
 
-p, pre{
+p, pre, dt{
 padding: 5px 10px;
 margin:0px;
 }
 
 #help {
-	width: 143px;
-	border: 1px solid #888888;
-	padding: 2px;
+	width: 148px;
+	/*border: 1px solid #888888;*/
 	float: left;
 }
 #inventory {
-	width: 143px;
-	border: 1px solid #888888;
-	padding: 2px;
+	width: 148px;
+	/*border: 1px solid #888888;*/
 	float: right;
 }
 #viewer {
-	padding: 10px;
-	border: 1px solid #888888;
+	padding: 9px;
+	/*border: 1px solid #888888;*/
 	margin: auto;
 	overflow: hidden;
 }
-
 #statusLines {
 	text-align: center;
-	border: 1px solid #888888;
+	/*border: 1px solid #888888;*/
 }
 #messageLog {
 	text-align: center;
-	border: 1px solid #888888;
+	/*border: 1px solid #888888;*/
 }

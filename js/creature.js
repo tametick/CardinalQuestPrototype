@@ -74,7 +74,7 @@ var Creature = function(startX, startY, symbol){
 				}
 	}
 	var stringify = function(){
-		return "" + vars.x + "," + vars.y + "," + symbol + "," + vars.actionPoints;
+		return "" + vars.x + "," + vars.y + "," + symbol + "," + vars.actionPoints+","+vars.spiritPoints+","+vars.life;
 	}
 	var init = function(){
 		var type;

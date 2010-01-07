@@ -70,6 +70,8 @@ var Map = function(width, height){
 			vars.creatures[c] = Creature(parsedCreature[0] * 1, parsedCreature[1] * 1, parsedCreature[2]);
 			vars.creatures[c].init();
 			vars.creatures[c].vars.actionPoints = parsedCreature[3] * 1;
+			vars.creatures[c].vars.spiritPoints = parsedCreature[4] * 1;
+			vars.creatures[c].vars.life = parsedCreature[5] * 1;
 			vars.creatureMap[[vars.creatures[c].vars.x, vars.creatures[c].vars.y]] = vars.creatures[c];
 		}
 	}

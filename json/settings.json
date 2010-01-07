@@ -1,6 +1,6 @@
 {
 	"viewerWidth": 20,
-	"viewerHeight": 12,
+	"viewerHeight": 20,
 	"playerColor": [0,0,255],
 	"cursorColor": [255,0,0],
 	"logSize": 2
