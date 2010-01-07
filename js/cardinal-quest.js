@@ -65,17 +65,17 @@ var save = function(){
 var load = function(){
 	var properties = $.JSONCookie("cq_prop");
 	var numberOfMaps = properties["Maps"];
-	this.currentMap = properties["CurrentMap"];
-	this.ticks = properties["Ticks"];
+	currentMap = properties["CurrentMap"];
+	ticks = properties["Ticks"];
 	
-	this.maps = [];
+	maps = [];
 	for (var m = 0; m < numberOfMaps; m++) {
 		var map = $.JSONCookie("cq_map" + m);
-		this.maps[m] = Map(Settings.MapWidth, Settings.MapHeight);
-		this.maps[m].parse(map["Tiles"], map["Creatures"]);
+		maps[m] = Map(Settings.MapWidth, Settings.MapHeight);
+		maps[m].parse(map["Tiles"], map["Creatures"]);
 	}
 	
-	this.player = this.maps[numberOfMaps - 1].creatures[0];
+	player = maps[numberOfMaps - 1].creatures[0];
 }
 
 $(document).ready(function(){
