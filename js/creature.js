@@ -50,7 +50,7 @@ var Creature = function(x, y, symbol){
 		viewer.putTile(viewer.center[0] + this.x - player.x, viewer.center[1] + this.y - player.y, symbol, Settings.playerColor);
 	}
 	var move = function(dx, dy){
-		var other = maps[currentMap].creatureMap[[this.x + dx, this.y + dy]];
+		var other = maps[currentMap].vars.creatureMap[[this.x + dx, this.y + dy]];
 		if (other) {
 			if (other.faction == this.faction) 
 				return true; // Bump
@@ -63,10 +63,10 @@ var Creature = function(x, y, symbol){
 			switch (maps[currentMap].tiles[[this.x + dx, this.y + dy]].symbol) {
 			case '.':
 			case "'":
-				maps[currentMap].creatureMap[[this.x, this.y]] = null;
+				maps[currentMap].vars.creatureMap[[this.x, this.y]] = null;
 				this.x += dx;
 				this.y += dy;
-				maps[currentMap].creatureMap[[this.x, this.y]] = this;
+				maps[currentMap].vars.creatureMap[[this.x, this.y]] = this;
 				return true; // Move
 			case '+':
 				maps[currentMap].tiles[[this.x + dx, this.y + dy]] = Tile("'", Descriptions.openDoor);

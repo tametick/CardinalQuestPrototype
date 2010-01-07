@@ -6,28 +6,30 @@ var Tile = function(symbol, description){
 }
 
 var Map = function(width, height){
-	var tiles = [];
-	var creatures = [];
-	var creatureMap = [];
+	var tiles = []
+	vars = {
+		creatures: [],
+		creatureMap: []
+	}
 	
 	var tick = function(){
-		for (var c = 0; c < this.creatures.length; c++) {
+		for (var c = 0; c < vars.creatures.length; c++) {
 			// Charge action points
-			this.creatures[c].actionPoints += this.creatures[c].speed;
+			vars.creatures[c].actionPoints += vars.creatures[c].speed;
 			// Move if charged
-			if (c != 0 && this.creatures[c].actionPoints >= 60) {
-				if (this.creatures[c].act()) 
-					this.creatures[c].actionPoints = 0;
+			if (c != 0 && vars.creatures[c].actionPoints >= 60) {
+				if (vars.creatures[c].act()) 
+					vars.creatures[c].actionPoints = 0;
 			}
 		}
 	}
 	var draw = function(){
 		for (var y = 0; y < height; y++) 
 			for (var x = 0; x < width; x++) 
-				if (this.creatureMap[[x, y]] == null) 
+				if (vars.creatureMap[[x, y]] == null) 
 					viewer.putTile(Settings.viewerWidth / 2 + x - player.x, Settings.viewerHeight / 2 + y - player.y, tiles[[x, y]].symbol, [200, 200, 200]);
-		for (var c = 0; c < this.creatures.length; c++) 
-			this.creatures[c].draw();
+		for (var c = 0; c < vars.creatures.length; c++) 
+			vars.creatures[c].draw();
 	}
 	var stringify = function(){
 		tilesStr = "";
@@ -37,8 +39,8 @@ var Map = function(width, height){
 		}
 		
 		var creaturesStr = "";
-		for (var c = 0; c < this.creatures.length; c++) 
-			creaturesStr += this.creatures[c].stringify() + "_";
+		for (var c = 0; c < vars.creatures.length; c++) 
+			creaturesStr += vars.creatures[c].stringify() + "_";
 		
 		return [tilesStr, creaturesStr];
 	}
@@ -56,16 +58,16 @@ var Map = function(width, height){
 					tiles[[x, y]] = Tile('.', null);
 			}
 		
-		this.creatures = [];
-		this.creatureMap = [];
+		vars.creatures = [];
+		vars.creatureMap = [];
 		var creaturesArray = creaturesStr.split("_");
 		for (var c = 0; c < creaturesArray.length - 1; c++) {
 			parsedCreature = creaturesArray[c].split(",");
 			
-			this.creatures[c] = Creature(parsedCreature[0] * 1, parsedCreature[1] * 1, parsedCreature[2]);
-			this.creatures[c].init();
-			this.creatures[c].actionPoints = parsedCreature[3] * 1;
-			this.creatureMap[[this.creatures[c].x, this.creatures[c].y]] = this.creatures[c];
+			vars.creatures[c] = Creature(parsedCreature[0] * 1, parsedCreature[1] * 1, parsedCreature[2]);
+			vars.creatures[c].init();
+			vars.creatures[c].actionPoints = parsedCreature[3] * 1;
+			vars.creatureMap[[vars.creatures[c].x, vars.creatures[c].y]] = vars.creatures[c];
 		}
 	}
 	var generate = function(data){
@@ -80,27 +82,26 @@ var Map = function(width, height){
 		}
 		
 		// Insert player
-		creatures[0] = player;
-		creatureMap[[player.x, player.y]] = player;
+		vars.creatures[0] = player;
+		vars.creatureMap[[player.x, player.y]] = player;
 		
 		// Generate monsters
-		creatures[1] = Creature(2, 2, "k");
-		creatures[1].init();
-		creatureMap[[creatures[1].x, creatures[1].y]] = creatures[1];
+		vars.creatures[1] = Creature(2, 2, "k");
+		vars.creatures[1].init();
+		vars.creatureMap[[vars.creatures[1].x, vars.creatures[1].y]] = vars.creatures[1];
 		
-		creatures[2] = Creature(10, 1, "k");
-		creatures[2].init();
-		creatureMap[[creatures[2].x, creatures[2].y]] = creatures[2];
+		vars.creatures[2] = Creature(10, 1, "k");
+		vars.creatures[2].init();
+		vars.creatureMap[[vars.creatures[2].x, vars.creatures[2].y]] = vars.creatures[2];
 	}
 	
 	return {
 		width: width,
 		height: height,
 		tiles: tiles,
+		vars: vars,
 		tick: tick,
 		draw: draw,
-		creatures: creatures,
-		creatureMap: creatureMap,
 		stringify: stringify,
 		parse: parse,
 		generate: generate
