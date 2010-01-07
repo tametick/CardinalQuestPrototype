@@ -5,7 +5,7 @@ var Utils = function(){
 	var inRange = function(x0, y0, x1, y1){
 		return Math.abs(y1 - y0) + Math.abs(x1 - x0) < 5;
 	}
-	var line = function(x1, y1, x2, y2, apply){
+	var line = function(x1, y1, x2, y2, opaque, apply){
 		var steep = Math.abs(y2 - y1) > Math.abs(x2 - x1);
 		if (steep) {
 			t = y1;
@@ -36,9 +36,15 @@ var Utils = function(){
 			yStep = -1;
 		}
 		if (steep) {
-			apply(y, x);
+			if (opaque && opaque(y, x)) 
+				return false;
+			if(apply)
+				apply(y, x);
 		} else {
-			apply(x, y);
+			if (opaque && opaque(x, y)) 
+				return false;
+			if(apply)
+				apply(x, y);
 		}
 		
 		while (x != x2) {
@@ -49,11 +55,19 @@ var Utils = function(){
 				error = error - deltaX;
 			}
 			if (steep) {
-				apply(y, x);
+				if(opaque && opaque(y,x))
+					return false;
+				if(apply)
+					apply(y, x);
 			} else {
-				apply(x, y);
+				if(opaque && opaque(y,x))
+					return false;
+				if(apply)
+					apply(x, y);
 			}
 		}
+		
+		return true;
 	}
 	
 	return {
