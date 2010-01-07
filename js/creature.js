@@ -87,23 +87,27 @@ var Creature = function(startX, startY, symbol){
 	}
 	var init = function(){
 		var type;
-		if (symbol == "@") {
-			// Load attributes
+		if (symbol == "@")
 			type = CreatureTypes[symbol]["fighter"];
-			vars.vitality = type["vitality"] * 1;
+		else
+			type = CreatureTypes[symbol];
+		
+		for (var property in type)
+			if(isNaN(type[property]))
+				vars[property] = type[property];
+			else
+				vars[property] = type[property] * 1;
+
+		vars.description = Descriptions[symbol];
+		
+		if (symbol == "@") {
 			// Calculate stats
 			vars.life = vars.vitality; // level 1 
 			vars.damage = 1; // bare hands
 		} else {
-			type = CreatureTypes[symbol];
-			vars.life = utils.randInt(type["life"][0] * 1, type["life"][1] * 1);
-			vars.damage = type["damage"] * 1;
+			// Roll hp
+			vars.life = utils.randInt(vars.life[0] * 1, vars.life[1] * 1);
 		}
-		vars.attack = type["attack"] * 1;
-		vars.defense = type["defense"] * 1;
-		vars.speed = type["speed"] * 1;
-		vars.faction = type["faction"] * 1;
-		vars.description = Descriptions[symbol];
 	}
 	
 	return {
