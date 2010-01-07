@@ -1,10 +1,10 @@
 Cursor = function(startX, startY, symbol){
-	vars = {
+	var vars = {
 		x: startX,
 		y: startY
 	}
 	var draw = function(){
-		viewer.putTile(viewer.center[0] - player.x + vars.x, viewer.center[1] - player.y + vars.y, symbol, Settings.cursorColor);
+		viewer.putTile(viewer.center[0] - player.vars.x + vars.x, viewer.center[1] - player.vars.y + vars.y, symbol, Settings.cursorColor);
 	}
 	var move = function(dx, dy){
 		var newX = vars.x + dx;
@@ -12,9 +12,9 @@ Cursor = function(startX, startY, symbol){
 		if (newX > 0 && newY > 0 &&
 		newX < maps[currentMap].width - 1 &&
 		newY < maps[currentMap].height - 1 &&
-		player.x - newX < viewer.center[0] + 1 &&
-		newX - player.x < viewer.center[0] &&
-		player.y - newY < viewer.center[1] + 1 &&
+		player.vars.x - newX < viewer.center[0] + 1 &&
+		newX - player.vars.x < viewer.center[0] &&
+		player.vars.y - newY < viewer.center[1] + 1 &&
 		newY - player.y < viewer.center[1]) {
 			vars.x = newX;
 			vars.y = newY;

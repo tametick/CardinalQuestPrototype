@@ -1,15 +1,19 @@
-var Creature = function(x, y, symbol){
-	var actionPoints = 0;
-	var faction;
-	var description;
-	// Abilities
-	var vitality;
-	var attack;
-	var defense;
-	var speed;
-	// Stats
-	var life;
-	var damage;
+var Creature = function(startX, startY, symbol){
+	var vars = {
+		x: startX,
+		y: startY,
+		actionPoints: 0,
+		faction: 0,
+		description: "",
+		// Abilities
+		vitality: 0,
+		attack: 0,
+		defense: 0,
+		speed: 0,
+		// Stats
+		life: 0,
+		damage: 0
+	}
 	
 	var randInt = function(min, max){
 		return min + Math.floor(Math.random() * (max - min + 1));
@@ -18,26 +22,26 @@ var Creature = function(x, y, symbol){
 		return Math.abs(y1 - y0) + Math.abs(x1 - x0) < 5;
 	}
 	var attackOther = function(other){
-		if (Math.random() < this.attack / (this.attack + other.defense)) {
-			other.life -= this.damage;
-			if (this.symbol == "@") 
-				messageLog.append("You hit " + other.description + ".");
+		if (Math.random() < vars.attack / (vars.attack + other.vars.defense)) {
+			other.vars.life -= vars.damage;
+			if (symbol == "@") 
+				messageLog.append("You hit " + other.vars.description + ".");
 			else 
-				messageLog.append(this.description + " hits you.");
-		} else if (this.symbol == "@") 
-			messageLog.append("You miss " + other.description + ".");
+				messageLog.append(vars.description + " hits you.");
+		} else if (symbol == "@") 
+			messageLog.append("You miss " + other.vars.description + ".");
 		else 
-			messageLog.append(this.description + " misses you.");
+			messageLog.append(vars.description + " misses you.");
 	}
 	var act = function(){
 		var moved = false;
 		
 		// Chase player if nearby
-		if (inRange(this.x, this.y, player.x, player.y)) 
-			if (Math.abs(player.y - this.y) > Math.abs(player.x - this.x)) 
-				moved = this.move(0, (player.y - this.y)/Math.abs(player.y - this.y));
+		if (inRange(vars.x, vars.y, player.vars.x, player.vars.y)) 
+			if (Math.abs(player.vars.y - vars.y) > Math.abs(player.vars.x - vars.x)) 
+				moved = this.move(0, (player.vars.y - vars.y) / Math.abs(player.vars.y - vars.y));
 			else 
-				moved = this.move((player.x - this.x) / Math.abs(player.x - this.x), 0);
+				moved = this.move((player.vars.x - vars.x) / Math.abs(player.vars.x - vars.x), 0);
 		
 		// Move randomly 
 		if (!moved) 
@@ -47,29 +51,29 @@ var Creature = function(x, y, symbol){
 	}
 	var draw = function(){
 		// fixme - load color from creature-types file
-		viewer.putTile(viewer.center[0] + this.x - player.x, viewer.center[1] + this.y - player.y, symbol, Settings.playerColor);
+		viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, symbol, Settings.playerColor);
 	}
 	var move = function(dx, dy){
-		var other = maps[currentMap].vars.creatureMap[[this.x + dx, this.y + dy]];
+		var other = maps[currentMap].vars.creatureMap[[vars.x + dx, vars.y + dy]];
 		if (other) {
-			if (other.faction == this.faction) 
+			if (other.vars.faction == vars.faction) 
 				return true; // Bump
 
 			else {
-				this.attackOther(other); // Attack
+				attackOther(other); // Attack
 				return true;
 			}
 		} else 
-			switch (maps[currentMap].tiles[[this.x + dx, this.y + dy]].symbol) {
+			switch (maps[currentMap].tiles[[vars.x + dx, vars.y + dy]].symbol) {
 			case '.':
 			case "'":
-				maps[currentMap].vars.creatureMap[[this.x, this.y]] = null;
-				this.x += dx;
-				this.y += dy;
-				maps[currentMap].vars.creatureMap[[this.x, this.y]] = this;
+				maps[currentMap].vars.creatureMap[[vars.x, vars.y]] = null;
+				vars.x += dx;
+				vars.y += dy;
+				maps[currentMap].vars.creatureMap[[vars.x, vars.y]] = this;
 				return true; // Move
 			case '+':
-				maps[currentMap].tiles[[this.x + dx, this.y + dy]] = Tile("'", Descriptions.openDoor);
+				maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile("'", Descriptions.openDoor);
 				return true; // Open door
 			case '#':
 				return false;
@@ -78,47 +82,39 @@ var Creature = function(x, y, symbol){
 	var closeDoor = function(){
 		for (var dx = -1; dx <= 1; dx++) 
 			for (var dy = -1; dy <= 1; dy++) 
-				if (maps[currentMap].tiles[[this.x + dx, this.y + dy]].symbol == "'") {
-					maps[currentMap].tiles[[this.x + dx, this.y + dy]] = Tile('+', Descriptions.door);
+				if (maps[currentMap].tiles[[vars.x + dx, vars.y + dy]].symbol == "'") {
+					maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile('+', Descriptions.door);
 					if (this == player) 
 						messageLog.append("You have closed the door.");
 				}
 	}
 	var stringify = function(){
-		return "" + this.x + "," + this.y + "," + this.symbol + "," + this.actionPoints;
+		return "" + vars.x + "," + vars.y + "," + symbol + "," + vars.actionPoints;
 	}
 	var init = function(){
 		var type;
 		if (symbol == "@") {
+			// Load attributes
 			type = CreatureTypes[symbol]["fighter"];
-			this.vitality = type["vitality"] * 1;
-			this.life = this.vitality; // level 1 
-			this.damage = 1; // bare hands
+			vars.vitality = type["vitality"] * 1;
+			// Calculate stats
+			vars.life = vars.vitality; // level 1 
+			vars.damage = 1; // bare hands
 		} else {
 			type = CreatureTypes[symbol];
-			this.life = randInt(type["life"][0] * 1, type["life"][1] * 1);
-			this.damage = type["damage"] * 1;
+			vars.life = randInt(type["life"][0] * 1, type["life"][1] * 1);
+			vars.damage = type["damage"] * 1;
 		}
-		this.attack = type["attack"] * 1;
-		this.defense = type["defense"] * 1;
-		this.speed = type["speed"] * 1;
-		this.faction = type["faction"] * 1;
-		this.description = Descriptions[symbol];
+		vars.attack = type["attack"] * 1;
+		vars.defense = type["defense"] * 1;
+		vars.speed = type["speed"] * 1;
+		vars.faction = type["faction"] * 1;
+		vars.description = Descriptions[symbol];
 	}
 	
 	return {
-		x: x,
-		y: y,
-		vitality: vitality,
-		attack: attack,
-		defense: defense,
-		speed: speed,
-		life: life,
-		damage: damage,
-		faction: faction,
-		actionPoints: actionPoints,
 		symbol: symbol,
-		description: description,
+		vars: vars,
 		act: act,
 		draw: draw,
 		attackOther: attackOther,

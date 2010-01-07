@@ -29,7 +29,7 @@ var update = function(){
 		if (cursor) {
 			cursor.draw();
 			if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]]) 
-				messageLog.append("You see " + maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].description);
+				messageLog.append("You see " + maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description);
 			else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description) 
 				messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description);
 		}
@@ -164,7 +164,7 @@ $(document).keydown(function(e){
 				moved = player.move(1, 0);
 				break;
 			case Keys.l:
-				cursor = Cursor(player.x, player.y, '?');
+				cursor = Cursor(player.vars.x, player.vars.y, '?');
 				break;
 			case Keys.c:
 				moved = player.closeDoor();
@@ -180,8 +180,8 @@ $(document).keydown(function(e){
 			}
 			
 			if (moved) {
-				player.actionPoints = 0;
-				while (player.actionPoints < 60) {
+				player.vars.actionPoints = 0;
+				while (player.vars.actionPoints < 60) {
 					maps[currentMap].tick();
 					ticks++;
 				}

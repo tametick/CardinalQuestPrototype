@@ -2,26 +2,29 @@ var MessageLog = function(){
 	var log = $("#messageLog");
 	var logBuffer = 100;
 	var visibleLogBuffer = Settings.logSize;
-	var data = [];
+	var vars = {
+		data: []
+	};
 	
 	var clear = function(){
-		data = [];
+		vars.data = [];
 	}
 	var append = function(toAdd){
-		data.push(toAdd);
-		if (data.length > logBuffer) 
-			data.shift();
+		vars.data.push(toAdd);
+		if (vars.data.length > logBuffer) 
+			vars.data.shift();
 	}
 	var print = function(){
-		var max = data.length - 1;
+		var max = vars.data.length - 1;
 		var min = Math.max(0, max - visibleLogBuffer);
 		
 		log.empty();
 		for (var i = max; i >= min; i--) 
-			log.append(data[i] + "<br>");
+			log.append(vars.data[i] + "<br>");
 	}
 	
 	return {
+		vars: vars,
 		clear: clear,
 		append: append,
 		print: print
