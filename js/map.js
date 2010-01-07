@@ -61,38 +61,36 @@ var Map = function(width, height){
 		var creaturesArray = creaturesStr.split("_");
 		for (var c = 0; c < creaturesArray.length - 1; c++) {
 			parsedCreature = creaturesArray[c].split(",");
-
-			this.creatures[c] = Creature(parsedCreature[0] * 1, parsedCreature[1] * 1,  parsedCreature[2]);
+			
+			this.creatures[c] = Creature(parsedCreature[0] * 1, parsedCreature[1] * 1, parsedCreature[2]);
 			this.creatures[c].init();
 			this.creatures[c].actionPoints = parsedCreature[3] * 1;
 			this.creatureMap[[this.creatures[c].x, this.creatures[c].y]] = this.creatures[c];
 		}
 	}
-	var generate = function(){
-		$.getJSON("json/map.json", function(data){
-			for (var y = 0; y < height; y++) {
-				for (var x = 0; x < width; x++) 
-					if (data[y].charAt(x) == '#') 
-						tiles[[x, y]] = Tile('#', Descriptions.Wall);
-					else if (data[y].charAt(x) == '+') 
-						tiles[[x, y]] = Tile('+', Descriptions.Door);
-					else 
-						tiles[[x, y]] = Tile('.', null);
-			}
-			
-			// Insert player
-			creatures[0] = player;
-			creatureMap[[player.x, player.y]] = player;
-			
-			// Generate monsters
-			creatures[1] = Creature(2, 2, "k");
-			creatures[1].init();
-			creatureMap[[creatures[1].x, creatures[1].y]] = creatures[1];
-			
-			creatures[2] = Creature(10, 1, "k");
-			creatures[2].init();
-			creatureMap[[creatures[2].x, creatures[2].y]] = creatures[2];
-		});
+	var generate = function(data){
+		for (var y = 0; y < height; y++) {
+			for (var x = 0; x < width; x++) 
+				if (data["tiles"][y].charAt(x) == '#') 
+					tiles[[x, y]] = Tile('#', Descriptions.Wall);
+				else if (data["tiles"][y].charAt(x) == '+') 
+					tiles[[x, y]] = Tile('+', Descriptions.Door);
+				else 
+					tiles[[x, y]] = Tile('.', null);
+		}
+		
+		// Insert player
+		creatures[0] = player;
+		creatureMap[[player.x, player.y]] = player;
+		
+		// Generate monsters
+		creatures[1] = Creature(2, 2, "k");
+		creatures[1].init();
+		creatureMap[[creatures[1].x, creatures[1].y]] = creatures[1];
+		
+		creatures[2] = Creature(10, 1, "k");
+		creatures[2].init();
+		creatureMap[[creatures[2].x, creatures[2].y]] = creatures[2];
 	}
 	
 	return {

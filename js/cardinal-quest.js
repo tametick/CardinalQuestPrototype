@@ -95,10 +95,13 @@ $(document).ready(function(){
 				update();
 				
 				// FIXME: Must be loaded before first keydown because of $.getJSON
-				maps = [Map(Settings.MapWidth, Settings.MapHeight)];
-				maps[0].generate();
-				player = Creature(Math.round((Settings.MapWidth - 1) / 2), Math.round((Settings.MapHeight - 1) / 2), '@');
-				player.init();
+				$.getJSON("json/map.json", function(mapData){
+					maps = [Map(mapData["width"],mapData["height"])];
+					player = Creature(Math.round((maps[0].width - 1) / 2), Math.round((maps[0].height - 1) / 2), '@');
+					
+					maps[0].generate(mapData);
+					player.init();
+				});		
 			});
 		});
 	});
