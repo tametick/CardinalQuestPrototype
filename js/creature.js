@@ -14,13 +14,7 @@ var Creature = function(startX, startY, symbol){
 		life: 0,
 		damage: 0
 	}
-	
-	var randInt = function(min, max){
-		return min + Math.floor(Math.random() * (max - min + 1));
-	}
-	var inRange = function(x0, y0, x1, y1){
-		return Math.abs(y1 - y0) + Math.abs(x1 - x0) < 5;
-	}
+
 	var attackOther = function(other){
 		if (Math.random() < vars.attack / (vars.attack + other.vars.defense)) {
 			other.vars.life -= vars.damage;
@@ -37,7 +31,7 @@ var Creature = function(startX, startY, symbol){
 		var moved = false;
 		
 		// Chase player if nearby
-		if (inRange(vars.x, vars.y, player.vars.x, player.vars.y)) 
+		if (utils.inRange(vars.x, vars.y, player.vars.x, player.vars.y)) 
 			if (Math.abs(player.vars.y - vars.y) > Math.abs(player.vars.x - vars.x)) 
 				moved = this.move(0, (player.vars.y - vars.y) / Math.abs(player.vars.y - vars.y));
 			else 
@@ -102,7 +96,7 @@ var Creature = function(startX, startY, symbol){
 			vars.damage = 1; // bare hands
 		} else {
 			type = CreatureTypes[symbol];
-			vars.life = randInt(type["life"][0] * 1, type["life"][1] * 1);
+			vars.life = utils.randInt(type["life"][0] * 1, type["life"][1] * 1);
 			vars.damage = type["damage"] * 1;
 		}
 		vars.attack = type["attack"] * 1;

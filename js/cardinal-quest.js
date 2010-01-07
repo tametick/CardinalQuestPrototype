@@ -1,4 +1,5 @@
 var debug = true;
+var utils;
 
 var viewer;
 var cursor;
@@ -88,6 +89,8 @@ $(document).ready(function(){
 				Descriptions = desc;
 				CreatureTypes = types;
 				Settings = sett;
+				
+				utils = Utils();
 				
 				state = State.Loading;
 				viewer = Viewer(Settings.viewerWidth, Settings.viewerHeight);
