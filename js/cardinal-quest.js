@@ -54,6 +54,8 @@ var save = function(){
 	
 	for (var m = 0; m < maps.length; m++) {
 		var map = {}
+		map["Width"] = maps[m].width;
+		map["Height"] = maps[m].height;
 		var str = maps[m].stringify()
 		map["Tiles"] = str[0];
 		map["Creatures"] = str[1];
@@ -71,8 +73,7 @@ var load = function(){
 	maps = [];
 	for (var m = 0; m < numberOfMaps; m++) {
 		var map = $.JSONCookie("cq_map" + m);
-		// fixme - load map width from file
-		maps[m] = Map(Settings.mapWidth, Settings.mapHeight);
+		maps[m] = Map(map["Width"],	map["Height"]);
 		maps[m].parse(map["Tiles"], map["Creatures"]);
 	}
 	
