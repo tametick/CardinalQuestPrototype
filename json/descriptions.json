@@ -1,7 +1,7 @@
 {
-	"Door": "a door",
-	"OpenDoor": "an open door",
-	"Wall": "a wall",
+	"door": "a door",
+	"openDoor": "an open door",
+	"wall": "a wall",
 	"@": "yourself",
 	"k": "a kobold"
 }

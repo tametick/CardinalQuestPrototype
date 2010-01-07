@@ -46,7 +46,8 @@ var Creature = function(x, y, symbol){
 			return true;
 	}
 	var draw = function(){
-		viewer.putTile(viewer.center[0] + this.x - player.x, viewer.center[1] + this.y - player.y, symbol, Settings.PlayerColor);
+		// fixme - load color from creature-types file
+		viewer.putTile(viewer.center[0] + this.x - player.x, viewer.center[1] + this.y - player.y, symbol, Settings.playerColor);
 	}
 	var move = function(dx, dy){
 		var other = maps[currentMap].creatureMap[[this.x + dx, this.y + dy]];
@@ -68,7 +69,7 @@ var Creature = function(x, y, symbol){
 				maps[currentMap].creatureMap[[this.x, this.y]] = this;
 				return true; // Move
 			case '+':
-				maps[currentMap].tiles[[this.x + dx, this.y + dy]] = Tile("'", Descriptions.OpenDoor);
+				maps[currentMap].tiles[[this.x + dx, this.y + dy]] = Tile("'", Descriptions.openDoor);
 				return true; // Open door
 			case '#':
 				return false;
@@ -78,7 +79,7 @@ var Creature = function(x, y, symbol){
 		for (var dx = -1; dx <= 1; dx++) 
 			for (var dy = -1; dy <= 1; dy++) 
 				if (maps[currentMap].tiles[[this.x + dx, this.y + dy]].symbol == "'") {
-					maps[currentMap].tiles[[this.x + dx, this.y + dy]] = Tile('+', Descriptions.Door);
+					maps[currentMap].tiles[[this.x + dx, this.y + dy]] = Tile('+', Descriptions.door);
 					if (this == player) 
 						messageLog.append("You have closed the door.");
 				}

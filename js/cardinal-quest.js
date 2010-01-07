@@ -71,7 +71,8 @@ var load = function(){
 	maps = [];
 	for (var m = 0; m < numberOfMaps; m++) {
 		var map = $.JSONCookie("cq_map" + m);
-		maps[m] = Map(Settings.MapWidth, Settings.MapHeight);
+		// fixme - load map width from file
+		maps[m] = Map(Settings.mapWidth, Settings.mapHeight);
 		maps[m].parse(map["Tiles"], map["Creatures"]);
 	}
 	
@@ -87,7 +88,7 @@ $(document).ready(function(){
 				Settings = sett;
 				
 				state = State.Loading;
-				viewer = Viewer(Settings.ViewerWidth, Settings.ViewerHeight);
+				viewer = Viewer(Settings.viewerWidth, Settings.viewerHeight);
 				messageLog = MessageLog();
 				
 				state = State.Menu;
@@ -115,7 +116,7 @@ $(document).keydown(function(e){
 	switch (state) {
 	case State.Menu:
 		switch (code) {
-		case Keys.Space:
+		case Keys.space:
 			currentMap = 0;
 			ticks = 0;
 			
@@ -128,51 +129,51 @@ $(document).keydown(function(e){
 	case State.Play:
 		if(cursor)
 			switch (code) {
-			case Keys.Up:
+			case Keys.up:
 				cursor.move(0, -1);
 				break;
-			case Keys.Down:
+			case Keys.down:
 				cursor.move(0, 1);
 				break;
-			case Keys.Left:
+			case Keys.left:
 				cursor.move(-1, 0);
 				break;
-			case Keys.Right:
+			case Keys.right:
 				cursor.move(1, 0);
 				break;
-			case Keys.L:
+			case Keys.l:
 				cursor = null;
 				break;
-			case Keys.Esc:
+			case Keys.esc:
 				if(cursor)
 					cursor = null;
 			}
 		else {
 			// The player gets the first move in the game for free		
 			switch (code) {
-			case Keys.Up:
+			case Keys.up:
 				moved = player.move(0, -1);
 				break;
-			case Keys.Down:
+			case Keys.down:
 				moved = player.move(0, 1);
 				break;
-			case Keys.Left:
+			case Keys.left:
 				moved = player.move(-1, 0);
 				break;
-			case Keys.Right:
+			case Keys.right:
 				moved = player.move(1, 0);
 				break;
-			case Keys.L:
+			case Keys.l:
 				cursor = Cursor(player.x, player.y, '?');
 				break;
-			case Keys.C:
+			case Keys.c:
 				moved = player.closeDoor();
 				break;
-			case Keys.F2:
+			case Keys.f2:
 				if (debug)
 					save();
 				break;
-			case Keys.F4:
+			case Keys.f4:
 				if (debug)
 					load();
 				break;

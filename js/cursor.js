@@ -1,6 +1,6 @@
 Cursor = function(x, y, symbol){
 	var draw = function(){
-		viewer.putTile(viewer.center[0] - player.x + this.x, viewer.center[1] - player.y + this.y, symbol, Settings.CursorColor);
+		viewer.putTile(viewer.center[0] - player.x + this.x, viewer.center[1] - player.y + this.y, symbol, Settings.cursorColor);
 	}
 	var move = function(dx, dy){
 		var newX = this.x + dx;

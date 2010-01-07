@@ -1,9 +1,9 @@
 {
-	"ViewerWidth": 20,
-	"ViewerHeight": 10,
-	"MapWidth": 15,
-	"MapHeight": 8,
-	"PlayerColor": [0,0,255],
-	"CursorColor": [255,0,0],
-	"LogSize": 2
+	"viewerWidth": 20,
+	"viewerHeight": 10,
+	"mapWidth": 15,
+	"mapHeight": 8,
+	"playerColor": [0,0,255],
+	"cursorColor": [255,0,0],
+	"logSize": 2
 }

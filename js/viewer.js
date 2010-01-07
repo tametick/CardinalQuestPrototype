@@ -1,7 +1,7 @@
 /* Width & height are in characters. */
 var Viewer = function(width, height){
 	var canvas;
-	var center = [Settings.ViewerWidth / 2, Settings.ViewerHeight / 2];
+	var center = [Settings.viewerWidth / 2, Settings.viewerHeight / 2];
 	
 	var Canvas = function(){
 		var canvasElement;

@@ -1,7 +1,7 @@
 var MessageLog = function(){
 	var log = $("#messageLog");
 	var logBuffer = 100;
-	var visibleLogBuffer = Settings.LogSize;
+	var visibleLogBuffer = Settings.logSize;
 	var data = [];
 	
 	var clear = function(){
