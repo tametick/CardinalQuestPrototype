@@ -5,7 +5,8 @@
 			"vitality": 5,
 			"attack": 5,
 			"defense":3,
-			"speed": 3
+			"speed": 3,
+			"spirit": 1
 		}
 	},
 	"k":{

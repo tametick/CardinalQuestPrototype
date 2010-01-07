@@ -3,18 +3,9 @@ var Creature = function(startX, startY, symbol){
 		x: startX,
 		y: startY,
 		actionPoints: 0,
-		faction: 0,
-		description: "",
-		// Abilities
-		vitality: 0,
-		attack: 0,
-		defense: 0,
-		speed: 0,
-		// Stats
-		life: 0,
-		damage: 0
+		spiritPoints: 0
 	}
-
+	
 	var attackOther = function(other){
 		if (Math.random() < vars.attack / (vars.attack + other.vars.defense)) {
 			other.vars.life -= vars.damage;
@@ -39,7 +30,7 @@ var Creature = function(startX, startY, symbol){
 		
 		// Move randomly 
 		if (!moved) 
-			return this.move(utils.randInt(-1,1), utils.randInt(-1,1));
+			return this.move(utils.randInt(-1, 1), utils.randInt(-1, 1));
 		else 
 			return true;
 	}
@@ -87,17 +78,17 @@ var Creature = function(startX, startY, symbol){
 	}
 	var init = function(){
 		var type;
-		if (symbol == "@")
+		if (symbol == "@") 
 			type = CreatureTypes[symbol]["fighter"];
-		else
+		else 
 			type = CreatureTypes[symbol];
 		
-		for (var property in type)
-			if(isNaN(type[property]))
+		for (var property in type) 
+			if (isNaN(type[property])) 
 				vars[property] = type[property];
-			else
+			else 
 				vars[property] = type[property] * 1;
-
+		
 		vars.description = Descriptions[symbol];
 		
 		if (symbol == "@") {
