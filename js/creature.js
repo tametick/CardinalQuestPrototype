@@ -65,16 +65,19 @@ var Creature = function(startX, startY, symbol){
 			}
 	}
 	var closeDoor = function(){
+		var closed = false;
 		for (var dx = -1; dx <= 1; dx++) 
 			for (var dy = -1; dy <= 1; dy++) 
 				if (maps[currentMap].tiles[[vars.x + dx, vars.y + dy]].symbol == "'") {
+					closed = true;
 					maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile('+', Descriptions.door);
 					if (this == player) 
 						messageLog.append("You have closed the door.");
 				}
+		return closed;
 	}
 	var stringify = function(){
-		return "" + vars.x + "," + vars.y + "," + symbol + "," + vars.actionPoints+","+vars.spiritPoints+","+vars.life;
+		return "" + vars.x + "," + vars.y + "," + symbol + "," + vars.actionPoints + "," + vars.spiritPoints + "," + vars.life;
 	}
 	var init = function(){
 		var type;

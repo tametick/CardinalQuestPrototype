@@ -146,12 +146,10 @@ $(document).keydown(function(e){
 			case Keys.right:
 				cursor.move(1, 0);
 				break;
-			case Keys.l:
+			case Keys.x:
+			case Keys.esc:
 				cursor = null;
 				break;
-			case Keys.esc:
-				if(cursor)
-					cursor = null;
 			}
 		else {
 			// The player gets the first move in the game for free		
@@ -168,7 +166,7 @@ $(document).keydown(function(e){
 			case Keys.right:
 				moved = player.move(1, 0);
 				break;
-			case Keys.l:
+			case Keys.x:
 				cursor = Cursor(player.vars.x, player.vars.y, '?');
 				break;
 			case Keys.c:
