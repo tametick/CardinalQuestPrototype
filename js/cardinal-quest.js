@@ -43,6 +43,8 @@ var update = function(){
 			messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description);
 
 		break;
+	case State.inventory:
+		break;
 	}
 	
 	if (messageLog) 
@@ -160,6 +162,24 @@ $(document).keydown(function(e){
 			break;
 		}
 	break;
+	case State.inventory:
+		switch (code) {
+		case Keys.up:
+			break;
+		case Keys.down:
+			break;
+		case Keys.left:
+		case Keys.d:
+			break;
+		case Keys.right:
+		case Keys.enter:
+			break;
+		case Keys.i:
+		case Keys.esc:
+			state = State.play;
+			break;
+		}
+	break;
 	case State.play:
 		// The player gets the first move in the game for free		
 		switch (code) {
@@ -182,6 +202,10 @@ $(document).keydown(function(e){
 			break;
 		case Keys.c:
 			moved = player.closeDoor();
+			break;
+		case Keys.i:
+			state = State.inventory;
+			moved = false;
 			break;
 		case Keys.f2:
 			if (debug)

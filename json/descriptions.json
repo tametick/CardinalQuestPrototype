@@ -1,8 +1,8 @@
 {
-	"door": "a door",
-	"openDoor": "an open door",
-	"wall": "a wall",
-	"@": "yourself",
-	"k": "a kobold",
-	"!": "healing salve"
+	"door": ["a door"],
+	"openDoor": ["an open door"],
+	"wall": ["a wall"],
+	"@": ["yourself"],
+	"k": ["a kobold"],
+	"!": ["healing salve"]
 }

@@ -75,6 +75,8 @@ var Creature = function(startX, startY, id){
 					maps[currentMap].vars.itemMap[[vars.x + dx, vars.y + dy]] = null;
 					
 					vars.inventory.items.push(item);
+					if(this==player)
+						messageLog.append("You picked up a "+item.vars.description);
 				}
 			}
 			
@@ -88,7 +90,7 @@ var Creature = function(startX, startY, id){
 				maps[currentMap].vars.creatureMap[[vars.x, vars.y]] = this;
 				return true; // Move
 			case '+':
-				maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile("'", Descriptions.openDoor);
+				maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile("'", Descriptions.openDoor[0]);
 				return true; // Open door
 			case '#':
 				return false;
@@ -102,7 +104,7 @@ var Creature = function(startX, startY, id){
 				if (maps[currentMap].tiles[[vars.x + dx, vars.y + dy]].symbol == "'" &&
 					!(maps[currentMap].vars.creatureMap[[vars.x + dx, vars.y + dy]])) {
 					closed = true;
-					maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile('+', Descriptions.door);
+					maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile('+', Descriptions.door[0]);
 					if (this == player) 
 						messageLog.append("You have closed the door.");
 				}
