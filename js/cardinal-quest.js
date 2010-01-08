@@ -173,12 +173,13 @@ $(document).keydown(function(e){
 		case Keys.down:
 			currentLine++;
 			break;
-		case Keys.left:
-		case Keys.d:
-			break;
 		case Keys.right:
 		case Keys.enter:
 			break;
+		case Keys.left:
+		case Keys.d:
+			player.drop(currentLine);
+			// exit inventory mode
 		case Keys.i:
 		case Keys.esc:
 			state = State.play;

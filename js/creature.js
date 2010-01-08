@@ -25,7 +25,16 @@ var Creature = function(startX, startY, id){
 		actionPoints: 0,
 		spiritPoints: 0,
 	}
-	
+	var drop = function(itemIndex) {
+		if (vars.inventory.items.length > itemIndex) {
+			var item = vars.inventory.items[itemIndex];
+			vars.inventory.items.remove(itemIndex);
+			maps[currentMap].vars.items.push(item);
+			maps[currentMap].vars.itemMap[[vars.x, vars.y]] = item;
+			if(this==player)
+				messageLog.append("You dropped the "+item.vars.description[0]);
+		}
+	}
 	var attackOther = function(other){
 		if (Math.random() < vars.attack / (vars.attack + other.vars.defense)) {
 			other.vars.life -= vars.damage;
@@ -154,6 +163,7 @@ var Creature = function(startX, startY, id){
 		attackOther: attackOther,
 		move: move,
 		closeDoor: closeDoor,
+		drop: drop,
 		stringify: stringify,
 		init: init
 	}
