@@ -1,4 +1,8 @@
 var Item = function(x, y, id){
+	vars = {
+		description: Descriptions[id]
+	}
+	
 	var init = function(){
 	
 	}
@@ -16,13 +20,14 @@ var Item = function(x, y, id){
 		viewer.putTile(viewer.center[0] + x - player.vars.x, viewer.center[1] + y - player.vars.y, id, [200, 0, 0]);
 	}
 	var toString = function(){
-		return id+" - "+Descriptions[id];
+		return id + " - " + vars.description;
 	}
 	
 	return {
 		x: x,
 		y: y,
 		id: id,
+		vars: vars,
 		init: init,
 		draw: draw,
 		effect: effect,

@@ -15,23 +15,27 @@ var ticks;
 var moved = true;
 
 var State = {
-	Loading: 0,
-	Menu: 1,
-	Play: 2
+	loading: 0,
+	menu: 1,
+	play: 2,
+	examine: 3,
+	inventory: 4
 }
 
 var update = function(){
 	viewer.clear();
 	switch (state) {
-	case State.Menu:
+	case State.menu:
 		break;
-	case State.Play:
+	case State.play:
 		maps[currentMap].draw();
 		player.vars.inventory.print();
 		if (cursor) {
 			cursor.draw();
 			if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]]) 
 				messageLog.append("You see " + maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description);
+			else if (maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]])
+				messageLog.append("You see " + maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description);
 			else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description) 
 				messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description);
 		}
@@ -93,12 +97,12 @@ $(document).ready(function(){
 				
 				utils = Utils();
 				
-				state = State.Loading;
+				state = State.loading;
 				viewer = Viewer(Settings.viewerWidth, Settings.viewerHeight);
 				messageLog = MessageLog();
 				statusLines = StatusLines();
 				
-				state = State.Menu;
+				state = State.menu;
 				messageLog.append("[Press space to continue]");
 				update();
 				
@@ -121,18 +125,18 @@ $(document).keydown(function(e){
 	var code = (window.event || e).keyCode;
 	
 	switch (state) {
-	case State.Menu:
+	case State.menu:
 		switch (code) {
 		case Keys.space:
 			currentMap = 0;
 			ticks = 0;
 			
 			messageLog.clear();			
-			state = State.Play;
+			state = State.play;
 			break;
 		}
 		break;
-	case State.Play:
+	case State.play:
 		if(cursor)
 			switch (code) {
 			case Keys.up:
