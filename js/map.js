@@ -106,7 +106,9 @@ var Map = function(width, height){
 		
 		// Generate items
 		vars.items[0] = Item(2, 5, "!");
-		vars.items[0].init();
+		{
+			vars.items[0].init();
+		}
 		vars.itemMap[[vars.items[0].vars.x, vars.items[0].vars.y]] = vars.items[0];
 	}
 	

@@ -175,11 +175,14 @@ $(document).keydown(function(e){
 			break;
 		case Keys.right:
 		case Keys.enter:
+			player.use(currentLine);
+			state = State.play;
 			break;
 		case Keys.left:
 		case Keys.d:
 			player.drop(currentLine);
-			// exit inventory mode
+			state = State.play;
+			break;
 		case Keys.i:
 		case Keys.esc:
 			state = State.play;

@@ -5,13 +5,16 @@ var Item = function(startX, startY, id){
 		description: Descriptions[id]
 	}
 	
-	var init = function(){
-	
+	var init = function(itemData){
+		$.getJSON("json/items.json", function(itemData){
+			item = itemData[id];
+			vars.effect = item["effect"];
+			vars.value = item["value"];
+		});
 	}
-	var effect = {
-		heal: function(creature, value){
-			// fixme
-			if (value == "full") 
+	var use = function(creature){
+		if (vars.effect == "heal") {
+			if (vars.value == "full") 
 				creature.vars.life = creature.vars.vitality;
 			else 
 				creature.vars.life = Math.min(creature.vars.life + value * 1, creature.vars.vitality);
@@ -30,7 +33,7 @@ var Item = function(startX, startY, id){
 		vars: vars,
 		init: init,
 		draw: draw,
-		effect: effect,
+		use: use,
 		toString: toString
 	}
 }

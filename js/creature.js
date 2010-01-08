@@ -37,6 +37,15 @@ var Creature = function(startX, startY, id){
 				messageLog.append("You dropped the "+item.vars.description[0]);
 		}
 	}
+	var use = function(itemIndex) {
+		if (vars.inventory.items.length > itemIndex) {
+			var item = vars.inventory.items[itemIndex];
+			vars.inventory.items.remove(itemIndex);
+			item.use(this);
+			if(this==player)
+				messageLog.append("You used the "+item.vars.description[0]);
+		}
+	}	
 	var attackOther = function(other){
 		if (Math.random() < vars.attack / (vars.attack + other.vars.defense)) {
 			other.vars.life -= vars.damage;
@@ -166,6 +175,7 @@ var Creature = function(startX, startY, id){
 		move: move,
 		closeDoor: closeDoor,
 		drop: drop,
+		use: use,
 		stringify: stringify,
 		init: init
 	}
