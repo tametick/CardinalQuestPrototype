@@ -1,4 +1,4 @@
-var Creature = function(startX, startY, symbol){
+var Creature = function(startX, startY, id){
 	var vars = {
 		x: startX,
 		y: startY,
@@ -9,11 +9,11 @@ var Creature = function(startX, startY, symbol){
 	var attackOther = function(other){
 		if (Math.random() < vars.attack / (vars.attack + other.vars.defense)) {
 			other.vars.life -= vars.damage;
-			if (symbol == "@") 
+			if (id == "@") 
 				messageLog.append("You hit " + other.vars.description + ".");
 			else 
 				messageLog.append(vars.description + " hits you.");
-		} else if (symbol == "@") 
+		} else if (id == "@") 
 			messageLog.append("You miss " + other.vars.description + ".");
 		else 
 			messageLog.append(vars.description + " misses you.");
@@ -36,7 +36,7 @@ var Creature = function(startX, startY, symbol){
 	}
 	var draw = function(){
 		// fixme - load color from creature-types file
-		viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, symbol, Settings.playerColor);
+		viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, id, Settings.playerColor);
 	}
 	var move = function(dx, dy){
 		var other = maps[currentMap].vars.creatureMap[[vars.x + dx, vars.y + dy]];
@@ -77,14 +77,14 @@ var Creature = function(startX, startY, symbol){
 		return closed;
 	}
 	var stringify = function(){
-		return "" + vars.x + "," + vars.y + "," + symbol + "," + vars.actionPoints + "," + vars.spiritPoints + "," + vars.life;
+		return "" + vars.x + "," + vars.y + "," + id + "," + vars.actionPoints + "," + vars.spiritPoints + "," + vars.life;
 	}
 	var init = function(){
 		var type;
-		if (symbol == "@") 
-			type = CreatureTypes[symbol]["fighter"];
+		if (id == "@") 
+			type = CreatureTypes[id]["fighter"];
 		else 
-			type = CreatureTypes[symbol];
+			type = CreatureTypes[id];
 		
 		for (var property in type) 
 			if (isNaN(type[property])) 
@@ -92,9 +92,9 @@ var Creature = function(startX, startY, symbol){
 			else 
 				vars[property] = type[property] * 1;
 		
-		vars.description = Descriptions[symbol];
+		vars.description = Descriptions[id];
 		
-		if (symbol == "@") {
+		if (id == "@") {
 			// Calculate stats
 			vars.life = vars.vitality; // level 1 
 			vars.damage = 1; // bare hands
@@ -105,7 +105,7 @@ var Creature = function(startX, startY, symbol){
 	}
 	
 	return {
-		symbol: symbol,
+		id: id,
 		vars: vars,
 		act: act,
 		draw: draw,
