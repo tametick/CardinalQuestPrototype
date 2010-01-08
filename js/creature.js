@@ -99,7 +99,8 @@ var Creature = function(startX, startY, id){
 		var closed = false;
 		for (var dx = -1; dx <= 1; dx++) 
 			for (var dy = -1; dy <= 1; dy++) 
-				if (maps[currentMap].tiles[[vars.x + dx, vars.y + dy]].symbol == "'") {
+				if (maps[currentMap].tiles[[vars.x + dx, vars.y + dy]].symbol == "'" &&
+					!(maps[currentMap].vars.creatureMap[[vars.x + dx, vars.y + dy]])) {
 					closed = true;
 					maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile('+', Descriptions.door);
 					if (this == player) 
