@@ -30,15 +30,18 @@ var update = function(){
 	case State.play:
 		maps[currentMap].draw();
 		player.vars.inventory.print();
-		if (cursor) {
-			cursor.draw();
-			if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]]) 
-				messageLog.append("You see " + maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description);
-			else if (maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]])
-				messageLog.append("You see " + maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description);
-			else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description) 
-				messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description);
-		}
+		break;
+	case State.examine:
+		maps[currentMap].draw();
+		player.vars.inventory.print();
+		cursor.draw();
+		if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]]) 
+			messageLog.append("You see " + maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description);
+		else if (maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]]) 
+			messageLog.append("You see " + maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description);
+		else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description) 
+			messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description);
+
 		break;
 	}
 	
@@ -79,7 +82,7 @@ var load = function(){
 	maps = [];
 	for (var m = 0; m < numberOfMaps; m++) {
 		var map = $.JSONCookie("cq_map" + m);
-		maps[m] = Map(map["Width"],	map["Height"]);
+		maps[m] = Map(map["Width"], map["Height"]);
 		maps[m].parse(map["Tiles"], map["Creatures"]);
 	}
 	
@@ -108,12 +111,12 @@ $(document).ready(function(){
 				
 				// FIXME: Must be loaded before first keydown because of $.getJSON
 				$.getJSON("json/map.json", function(mapData){
-					maps = [Map(mapData["width"],mapData["height"])];
+					maps = [Map(mapData["width"], mapData["height"])];
 					player = Creature(Math.round((maps[0].width - 1) / 2), Math.round((maps[0].height - 1) / 2), '@');
 					
 					maps[0].generate(mapData);
 					player.init();
-				});		
+				});
 			});
 		});
 	});
@@ -136,65 +139,67 @@ $(document).keydown(function(e){
 			break;
 		}
 		break;
+	case State.examine:
+		switch (code) {
+		case Keys.up:
+			cursor.move(0, -1);
+			break;
+		case Keys.down:
+			cursor.move(0, 1);
+			break;
+		case Keys.left:
+			cursor.move(-1, 0);
+			break;
+		case Keys.right:
+			cursor.move(1, 0);
+			break;
+		case Keys.x:
+		case Keys.esc:
+			cursor = null;
+			state = State.play;
+			break;
+		}
+	break;
 	case State.play:
-		if(cursor)
-			switch (code) {
-			case Keys.up:
-				cursor.move(0, -1);
-				break;
-			case Keys.down:
-				cursor.move(0, 1);
-				break;
-			case Keys.left:
-				cursor.move(-1, 0);
-				break;
-			case Keys.right:
-				cursor.move(1, 0);
-				break;
-			case Keys.x:
-			case Keys.esc:
-				cursor = null;
-				break;
+		// The player gets the first move in the game for free		
+		switch (code) {
+		case Keys.up:
+			moved = player.move(0, -1);
+			break;
+		case Keys.down:
+			moved = player.move(0, 1);
+			break;
+		case Keys.left:
+			moved = player.move(-1, 0);
+			break;
+		case Keys.right:
+			moved = player.move(1, 0);
+			break;
+		case Keys.x:
+			cursor = Cursor(player.vars.x, player.vars.y, '?');
+			state = State.examine;
+			moved = false;
+			break;
+		case Keys.c:
+			moved = player.closeDoor();
+			break;
+		case Keys.f2:
+			if (debug)
+				save();
+			break;
+		case Keys.f4:
+			if (debug)
+				load();
+			break;
+		}
+		
+		if (moved) {
+			player.vars.actionPoints = 0;
+			while (player.vars.actionPoints < 60) {
+				maps[currentMap].tick();
+				ticks++;
 			}
-		else {
-			// The player gets the first move in the game for free		
-			switch (code) {
-			case Keys.up:
-				moved = player.move(0, -1);
-				break;
-			case Keys.down:
-				moved = player.move(0, 1);
-				break;
-			case Keys.left:
-				moved = player.move(-1, 0);
-				break;
-			case Keys.right:
-				moved = player.move(1, 0);
-				break;
-			case Keys.x:
-				cursor = Cursor(player.vars.x, player.vars.y, '?');
-				break;
-			case Keys.c:
-				moved = player.closeDoor();
-				break;
-			case Keys.f2:
-				if (debug)
-					save();
-				break;
-			case Keys.f4:
-				if (debug)
-					load();
-				break;
-			}
-			
-			if (moved) {
-				player.vars.actionPoints = 0;
-				while (player.vars.actionPoints < 60) {
-					maps[currentMap].tick();
-					ticks++;
-				}
-				moved = false;
-			}
+			moved = false;
 		}
 		break;
 	}
