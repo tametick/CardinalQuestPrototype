@@ -27,6 +27,7 @@ var update = function(){
 		break;
 	case State.Play:
 		maps[currentMap].draw();
+		player.vars.inventory.print();
 		if (cursor) {
 			cursor.draw();
 			if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]]) 

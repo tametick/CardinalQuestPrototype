@@ -3,5 +3,6 @@
 	"openDoor": "an open door",
 	"wall": "a wall",
 	"@": "yourself",
-	"k": "a kobold"
+	"k": "a kobold",
+	"!": "healing salve"
 }

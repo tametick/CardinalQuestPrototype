@@ -1,9 +1,15 @@
 var Creature = function(startX, startY, id){
 	var Inventory = function(maxSize){
 		var items = [];
+		var print = function(){
+			$("#items").empty();
+			for (var i = 0; i < items.length; i++) 
+				$("#items").append(items[i].toString() + "<br>");
+		}
 		return {
 			maxSize: maxSize,
-			items: items
+			items: items,
+			print: print
 		}
 	}
 	
@@ -11,7 +17,7 @@ var Creature = function(startX, startY, id){
 		x: startX,
 		y: startY,
 		actionPoints: 0,
-		spiritPoints: 0,		
+		spiritPoints: 0,
 	}
 	
 	var attackOther = function(other){

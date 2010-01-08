@@ -13,7 +13,10 @@ var Item = function(x, y, id){
 	}
 	var draw = function(){
 		// fixme: color
-		viewer.putTile(viewer.center[0] + x - player.vars.x, viewer.center[1] + y - player.vars.y, id, [200,0,0]);
+		viewer.putTile(viewer.center[0] + x - player.vars.x, viewer.center[1] + y - player.vars.y, id, [200, 0, 0]);
+	}
+	var toString = function(){
+		return id+" - "+Descriptions[id];
 	}
 	
 	return {
@@ -22,6 +25,7 @@ var Item = function(x, y, id){
 		id: id,
 		init: init,
 		draw: draw,
-		effect: effect
+		effect: effect,
+		toString: toString
 	}
 }
