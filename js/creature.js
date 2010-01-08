@@ -25,7 +25,7 @@ var Creature = function(startX, startY, id){
 		actionPoints: 0,
 		spiritPoints: 0,
 	}
-	var drop = function(itemIndex) {
+	var drop = function(itemIndex){
 		if (vars.inventory.items.length > itemIndex) {
 			var item = vars.inventory.items[itemIndex];
 			vars.inventory.items.remove(itemIndex);
@@ -33,30 +33,51 @@ var Creature = function(startX, startY, id){
 			item.vars.x = vars.x;
 			item.vars.y = vars.y;
 			maps[currentMap].vars.itemMap[[vars.x, vars.y]] = item;
-			if(this==player)
-				messageLog.append("You dropped the "+item.vars.description[0]);
+			if (this == player) 
+				messageLog.append("You dropped the " + item.vars.description[0]);
 		}
 	}
-	var use = function(itemIndex) {
+	var use = function(itemIndex){
 		if (vars.inventory.items.length > itemIndex) {
 			var item = vars.inventory.items[itemIndex];
 			vars.inventory.items.remove(itemIndex);
 			item.use(this);
-			if(this==player)
-				messageLog.append("You used the "+item.vars.description[0]);
+			if (this == player) 
+				messageLog.append("You used the " + item.vars.description[0]);
 		}
-	}	
+	}
 	var attackOther = function(other){
 		if (Math.random() < vars.attack / (vars.attack + other.vars.defense)) {
+			// Hit
 			other.vars.life -= vars.damage;
+			if (other.vars.life > 0) {
+				// Injure
+				if (id == "@") 
+					messageLog.append("You hit " + other.vars.description[0] + ".");
+				else 
+					messageLog.append(vars.description[0] + " hits you.");
+			} else {
+				// Kill
+				var index = jQuery.inArray(other, maps[currentMap].vars.creatures);
+				if (index != -1) 
+					maps[currentMap].vars.creatures.remove(index);
+				else 
+					throw "Error: creature exist in creatureMap but not in creatures.";
+				maps[currentMap].vars.creatureMap[[other.vars.x, other.vars.y]] = null;
+				
+				if (id == "@") {
+					messageLog.append("You killed " + other.vars.description[0] + "!");
+				} else {
+					messageLog.append(vars.description[0] + " has killed you!");
+				}
+			}
+		} else {
+			// Miss
 			if (id == "@") 
-				messageLog.append("You hit " + other.vars.description[0] + ".");
+				messageLog.append("You miss " + other.vars.description[0] + ".");
 			else 
-				messageLog.append(vars.description[0] + " hits you.");
-		} else if (id == "@") 
-			messageLog.append("You miss " + other.vars.description[0] + ".");
-		else 
-			messageLog.append(vars.description[0] + " misses you.");
+				messageLog.append(vars.description[0] + " misses you.");
+		}
 	}
 	var act = function(){
 		var moved = false;
