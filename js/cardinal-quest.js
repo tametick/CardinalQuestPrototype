@@ -73,6 +73,7 @@ var save = function(){
 		var str = maps[m].stringify()
 		map["Tiles"] = str[0];
 		map["Creatures"] = str[1];
+		map["Items"] = str[2];
 		$.JSONCookie("cq_map" + m, map, {
 			path: '/'
 		});
@@ -88,7 +89,7 @@ var load = function(){
 	for (var m = 0; m < numberOfMaps; m++) {
 		var map = $.JSONCookie("cq_map" + m);
 		maps[m] = Map(map["Width"], map["Height"]);
-		maps[m].parse(map["Tiles"], map["Creatures"]);
+		maps[m].parse(map["Tiles"], map["Creatures"],map["Items"]);
 	}
 	
 	player = maps[numberOfMaps - 1].vars.creatures[0];

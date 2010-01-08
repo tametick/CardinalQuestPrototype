@@ -49,10 +49,14 @@ var Map = function(width, height){
 		var creaturesStr = "";
 		for (var c = 0; c < vars.creatures.length; c++) 
 			creaturesStr += vars.creatures[c].stringify() + "_";
+			
+		var itemsStr = "";
+		for (var i = 0; i < vars.items.length; i++) 
+			itemsStr += vars.items[i].stringify() + "_";
 		
-		return [tilesStr, creaturesStr];
+		return [tilesStr, creaturesStr, itemsStr];
 	}
-	var parse = function(tilesStr, creaturesStr){
+	var parse = function(tilesStr, creaturesStr, itemsStr){
 		for (var y = 0; y < height; y++) 
 			for (var x = 0; x < width; x++) {
 				currentChar = tilesStr.charAt(width * y + x);
@@ -78,6 +82,18 @@ var Map = function(width, height){
 			vars.creatures[c].vars.spiritPoints = parsedCreature[4] * 1;
 			vars.creatures[c].vars.life = parsedCreature[5] * 1;
 			vars.creatureMap[[vars.creatures[c].vars.x, vars.creatures[c].vars.y]] = vars.creatures[c];
+		}
+		
+		
+		vars.items = [];
+		vars.itemMap = [];
+		var itemsArray = itemsStr.split("_");
+		for (var i = 0; i < itemsArray.length - 1; i++) {
+			parsedItem = itemsArray[i].split(",");
+			
+			vars.items[i] = Item(parsedItem[0] * 1, parsedItem[1] * 1, parsedItem[2]);
+			vars.items[i];
+			vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]] = vars.items[i];
 		}
 	}
 	var generate = function(data){

@@ -24,9 +24,14 @@ var Item = function(startX, startY, id){
 		// fixme: color
 		viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, id, [200, 0, 0]);
 	}
+	var stringify = function(){
+		return "" + vars.x + "," + vars.y + "," + id;
+	}
+	// For printing to the inventory screen 
 	var toString = function(){
 		return id + " - " + vars.description[0];
 	}
+
 	
 	return {
 		id: id,
@@ -34,6 +39,7 @@ var Item = function(startX, startY, id){
 		init: init,
 		draw: draw,
 		use: use,
+		stringify: stringify,
 		toString: toString
 	}
 }
