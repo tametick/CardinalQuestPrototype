@@ -1,10 +1,16 @@
 var Creature = function(startX, startY, id){
 	var Inventory = function(maxSize){
 		var items = [];
-		var print = function(){
+		var print = function(currentLine){
 			$("#items").empty();
-			for (var i = 0; i < items.length; i++) 
+			for (var i = 0; i < items.length; i++) {
+				if (currentLine != null && i == currentLine) {
+					$("#items").append(">&nbsp;");
+					messageLog.append(items[i].vars.description[1])
+				} else 
+					$("#items").append("&nbsp;&nbsp;");
 				$("#items").append(items[i].toString() + "<br>");
+			}
 		}
 		return {
 			maxSize: maxSize,
@@ -24,13 +30,13 @@ var Creature = function(startX, startY, id){
 		if (Math.random() < vars.attack / (vars.attack + other.vars.defense)) {
 			other.vars.life -= vars.damage;
 			if (id == "@") 
-				messageLog.append("You hit " + other.vars.description + ".");
+				messageLog.append("You hit " + other.vars.description[0] + ".");
 			else 
-				messageLog.append(vars.description + " hits you.");
+				messageLog.append(vars.description[0] + " hits you.");
 		} else if (id == "@") 
-			messageLog.append("You miss " + other.vars.description + ".");
+			messageLog.append("You miss " + other.vars.description[0] + ".");
 		else 
-			messageLog.append(vars.description + " misses you.");
+			messageLog.append(vars.description[0] + " misses you.");
 	}
 	var act = function(){
 		var moved = false;
@@ -75,8 +81,8 @@ var Creature = function(startX, startY, id){
 					maps[currentMap].vars.itemMap[[vars.x + dx, vars.y + dy]] = null;
 					
 					vars.inventory.items.push(item);
-					if(this==player)
-						messageLog.append("You picked up a "+item.vars.description);
+					if (this == player) 
+						messageLog.append("You picked up a " + item.vars.description[0]);
 				}
 			}
 			
@@ -90,7 +96,7 @@ var Creature = function(startX, startY, id){
 				maps[currentMap].vars.creatureMap[[vars.x, vars.y]] = this;
 				return true; // Move
 			case '+':
-				maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile("'", Descriptions.openDoor[0]);
+				maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile("'", Descriptions.openDoor);
 				return true; // Open door
 			case '#':
 				return false;
@@ -102,9 +108,9 @@ var Creature = function(startX, startY, id){
 		for (var dx = -1; dx <= 1; dx++) 
 			for (var dy = -1; dy <= 1; dy++) 
 				if (maps[currentMap].tiles[[vars.x + dx, vars.y + dy]].symbol == "'" &&
-					!(maps[currentMap].vars.creatureMap[[vars.x + dx, vars.y + dy]])) {
+				!(maps[currentMap].vars.creatureMap[[vars.x + dx, vars.y + dy]])) {
 					closed = true;
-					maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile('+', Descriptions.door[0]);
+					maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile('+', Descriptions.door);
 					if (this == player) 
 						messageLog.append("You have closed the door.");
 				}

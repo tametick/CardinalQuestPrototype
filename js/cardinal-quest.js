@@ -3,6 +3,7 @@ var utils;
 
 var viewer;
 var cursor;
+var currentLine;
 var messageLog;
 var statusLines;
 
@@ -36,14 +37,16 @@ var update = function(){
 		player.vars.inventory.print();
 		cursor.draw();
 		if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]]) 
-			messageLog.append("You see " + maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description);
+			messageLog.append("You see " + maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
 		else if (maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]]) 
-			messageLog.append("You see " + maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description);
+			messageLog.append("You see " + maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
 		else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description) 
-			messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description);
+			messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description[0]);
 
 		break;
 	case State.inventory:
+		maps[currentMap].draw();
+		player.vars.inventory.print(currentLine);
 		break;
 	}
 	
@@ -165,8 +168,10 @@ $(document).keydown(function(e){
 	case State.inventory:
 		switch (code) {
 		case Keys.up:
+			currentLine--;
 			break;
 		case Keys.down:
+			currentLine++;
 			break;
 		case Keys.left:
 		case Keys.d:
@@ -205,6 +210,7 @@ $(document).keydown(function(e){
 			break;
 		case Keys.i:
 			state = State.inventory;
+			currentLine = 0;
 			moved = false;
 			break;
 		case Keys.f2:

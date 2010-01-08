@@ -57,11 +57,11 @@ var Map = function(width, height){
 			for (var x = 0; x < width; x++) {
 				currentChar = tilesStr.charAt(width * y + x);
 				if (currentChar == '#') 
-					tiles[[x, y]] = Tile('#', Descriptions.wall[0]);
+					tiles[[x, y]] = Tile('#', Descriptions.wall);
 				else if (currentChar == '+') 
-					tiles[[x, y]] = Tile('+', Descriptions.door[0]);
+					tiles[[x, y]] = Tile('+', Descriptions.door);
 				else if (currentChar == "'") 
-					tiles[[x, y]] = Tile("'", Descriptions.openDoor[0]);
+					tiles[[x, y]] = Tile("'", Descriptions.openDoor);
 				else 
 					tiles[[x, y]] = Tile('.', null);
 			}
@@ -84,9 +84,9 @@ var Map = function(width, height){
 		for (var y = 0; y < height; y++) {
 			for (var x = 0; x < width; x++) 
 				if (data["tiles"][y].charAt(x) == '#') 
-					tiles[[x, y]] = Tile('#', Descriptions.wall[0]);
+					tiles[[x, y]] = Tile('#', Descriptions.wall);
 				else if (data["tiles"][y].charAt(x) == '+') 
-					tiles[[x, y]] = Tile('+', Descriptions.door[0]);
+					tiles[[x, y]] = Tile('+', Descriptions.door);
 				else 
 					tiles[[x, y]] = Tile('.', null);
 		}

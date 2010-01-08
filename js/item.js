@@ -20,7 +20,7 @@ var Item = function(x, y, id){
 		viewer.putTile(viewer.center[0] + x - player.vars.x, viewer.center[1] + y - player.vars.y, id, [200, 0, 0]);
 	}
 	var toString = function(){
-		return id + " - " + vars.description;
+		return id + " - " + vars.description[0];
 	}
 	
 	return {
