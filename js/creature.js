@@ -1,9 +1,17 @@
 var Creature = function(startX, startY, id){
+	var Inventory = function(maxSize){
+		var items = [];
+		return {
+			maxSize: maxSize,
+			items: items
+		}
+	}
+	
 	var vars = {
 		x: startX,
 		y: startY,
 		actionPoints: 0,
-		spiritPoints: 0
+		spiritPoints: 0,		
 	}
 	
 	var attackOther = function(other){
@@ -40,6 +48,7 @@ var Creature = function(startX, startY, id){
 	}
 	var move = function(dx, dy){
 		var other = maps[currentMap].vars.creatureMap[[vars.x + dx, vars.y + dy]];
+		var item = maps[currentMap].vars.itemMap[[vars.x + dx, vars.y + dy]];
 		if (other) {
 			if (other.vars.faction == vars.faction) 
 				return true; // Bump
@@ -48,7 +57,22 @@ var Creature = function(startX, startY, id){
 				attackOther(other); // Attack
 				return true;
 			}
-		} else 
+		} else {
+			// Pick up item
+			if (item && vars.inventory) {
+				if (vars.inventory.items.length < vars.inventory.maxSize) {
+					var itemIndex = jQuery.inArray(item, maps[currentMap].vars.items);
+					if (itemIndex != -1) 
+						maps[currentMap].vars.items.remove(itemIndex);
+					else 
+						throw "Error: item exist in itemMap but not in items.";
+					maps[currentMap].vars.itemMap[[vars.x + dx, vars.y + dy]] = null;
+					
+					vars.inventory.items.push(item);
+				}
+			}
+			
+			// Move
 			switch (maps[currentMap].tiles[[vars.x + dx, vars.y + dy]].symbol) {
 			case '.':
 			case "'":
@@ -63,6 +87,7 @@ var Creature = function(startX, startY, id){
 			case '#':
 				return false;
 			}
+		}
 	}
 	var closeDoor = function(){
 		var closed = false;
@@ -98,6 +123,8 @@ var Creature = function(startX, startY, id){
 			// Calculate stats
 			vars.life = vars.vitality; // level 1 
 			vars.damage = 1; // bare hands
+			// fixme - don't hard code size
+			vars.inventory = Inventory(6);
 		} else {
 			// Roll hp
 			vars.life = utils.randInt(vars.life[0] * 1, vars.life[1] * 1);

@@ -5,6 +5,13 @@ var Utils = function(){
 	var inRange = function(x0, y0, x1, y1){
 		return Math.abs(y1 - y0) + Math.abs(x1 - x0) < 5;
 	}
+	// Array Remove - By John Resig (MIT Licensed)
+	Array.prototype.remove = function(from, to){
+		var rest = this.slice((to || from) + 1 || this.length);
+		this.length = from < 0 ? this.length + from : from;
+		return this.push.apply(this, rest);
+	}
+	// Line Drawing - By Jack E. Bresenham
 	var line = function(x1, y1, x2, y2, opaque, apply){
 		var steep = Math.abs(y2 - y1) > Math.abs(x2 - x1);
 		if (steep) {
@@ -38,12 +45,12 @@ var Utils = function(){
 		if (steep) {
 			if (opaque && opaque(y, x)) 
 				return false;
-			if(apply)
+			if (apply) 
 				apply(y, x);
 		} else {
 			if (opaque && opaque(x, y)) 
 				return false;
-			if(apply)
+			if (apply) 
 				apply(x, y);
 		}
 		
@@ -55,14 +62,14 @@ var Utils = function(){
 				error = error - deltaX;
 			}
 			if (steep) {
-				if(opaque && opaque(y,x))
+				if (opaque && opaque(y, x)) 
 					return false;
-				if(apply)
+				if (apply) 
 					apply(y, x);
 			} else {
-				if(opaque && opaque(y,x))
+				if (opaque && opaque(y, x)) 
 					return false;
-				if(apply)
+				if (apply) 
 					apply(x, y);
 			}
 		}
