@@ -1,5 +1,7 @@
-var Item = function(x, y, id){
+var Item = function(startX, startY, id){
 	vars = {
+		x: startX,
+		y: startY,
 		description: Descriptions[id]
 	}
 	
@@ -17,15 +19,13 @@ var Item = function(x, y, id){
 	}
 	var draw = function(){
 		// fixme: color
-		viewer.putTile(viewer.center[0] + x - player.vars.x, viewer.center[1] + y - player.vars.y, id, [200, 0, 0]);
+		viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, id, [200, 0, 0]);
 	}
 	var toString = function(){
 		return id + " - " + vars.description[0];
 	}
 	
 	return {
-		x: x,
-		y: y,
 		id: id,
 		vars: vars,
 		init: init,

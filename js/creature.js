@@ -30,6 +30,8 @@ var Creature = function(startX, startY, id){
 			var item = vars.inventory.items[itemIndex];
 			vars.inventory.items.remove(itemIndex);
 			maps[currentMap].vars.items.push(item);
+			item.vars.x = vars.x;
+			item.vars.y = vars.y;
 			maps[currentMap].vars.itemMap[[vars.x, vars.y]] = item;
 			if(this==player)
 				messageLog.append("You dropped the "+item.vars.description[0]);
