@@ -9,7 +9,9 @@ var Map = function(width, height){
 	var tiles = []
 	var vars = {
 		creatures: [],
-		creatureMap: []
+		creatureMap: [],
+		items: [],
+		itemMap: []
 	}
 	
 	var tick = function(){
@@ -29,8 +31,11 @@ var Map = function(width, height){
 	var draw = function(){
 		for (var y = 0; y < height; y++) 
 			for (var x = 0; x < width; x++) 
-				if (vars.creatureMap[[x, y]] == null) 
+				if (vars.creatureMap[[x, y]] == null && vars.itemMap[[x, y]] == null) 
 					viewer.putTile(Settings.viewerWidth / 2 + x - player.vars.x, Settings.viewerHeight / 2 + y - player.vars.y, tiles[[x, y]].symbol, [200, 200, 200]);
+		for (var c = 0; c < vars.items.length; c++)
+			if (vars.creatureMap[[vars.items[c].x, vars.items[c].y]] == null)
+				vars.items[c].draw();
 		for (var c = 0; c < vars.creatures.length; c++) 
 			vars.creatures[c].draw();
 	}
@@ -98,6 +103,11 @@ var Map = function(width, height){
 		vars.creatures[2] = Creature(10, 1, "k");
 		vars.creatures[2].init();
 		vars.creatureMap[[vars.creatures[2].vars.x, vars.creatures[2].vars.y]] = vars.creatures[2];
+		
+		// Generate items
+		vars.items[0] = Item(2, 5, "!");
+		vars.items[0].init();
+		vars.itemMap[[vars.items[0].x, vars.items[0].y]] = vars.items[0];
 	}
 	
 	return {
