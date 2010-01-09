@@ -1,159 +1,169 @@
-/* 
+/*
  * Modified by Ido Yehieli.
- * 
+ *
  * Based on:
- * 
+ *
  * css by miss monorom www.intensivstation.ch
- * http://www.intensivstation.ch/files/templates/2/template-1.html 
- * css released under Creative Commons License -  http://creativecommons.org/licenses/by/2.0/deed.en  
+ * http://www.intensivstation.ch/files/templates/2/template-1.html
+ * css released under Creative Commons License -  http://creativecommons.org/licenses/by/2.0/deed.en
  */
-
 html {
-background-color: #063141;
-background-image:url('http://www.tametick.com/background.png');
-background-repeat:no-repeat;
-background-position:bottom center;
-background-attachment:fixed;
-height: 100%;
+	background-color: #063141;
+	background-image: url('http://www.tametick.com/background.png');
+	background-repeat: no-repeat;
+	background-position: bottom center;
+	background-attachment: fixed;
+	height: 100%;
 }
 
 body {
-font-size: 12px;
-font-family: Verdana, Arial, SunSans-Regular, Sans-Serif;
-color:#48a1c3;
-padding:0px;
-margin:0px;
+	font-size: 12px;
+	font-family: Verdana, Arial, SunSans-Regular, Sans-Serif;
+	color: #48a1c3;
+	padding: 0px;
+	margin: 0px;
 }
+
 a {color: #a1d2e0;}
-a:visited {color:#cbe7f5;}
+a:visited {color: #cbe7f5;}
 a:hover {color: #2c668b;}
-a:active { color:#000000;}
+a:active {color: #000000;}
 
 h1 {
-font-size: 12px;
-text-transform:uppercase;
-background-color: #000305;
-border-top:1px solid #011e22;
-border-bottom:1px solid #011e22;
-padding:5px 15px;
-margin:0px }
-
-h2 {
-font-size:24px;
-font-weight: normal;
-color:#ffba4d;
-padding: 5px 10px;
-margin:0px;}
-
-h3 {
-padding: 0px 10px;
-margin:0px;
+	font-size: 12px;
+	text-transform: uppercase;
+	background-color: #000305;
+	border-top: 1px solid #011e22;
+	border-bottom: 1px solid #011e22;
+	padding: 5px 15px;
+	margin: 0px
 }
 
-img.download {vertical-align:middle;}
+h2 {
+	font-size: 24px;
+	font-weight: normal;
+	color: #ffba4d;
+	padding: 5px 10px;
+	margin: 0px;
+}
+
+h3 {
+	padding: 0px 10px;
+	margin: 0px;
+}
+
+img.download {
+	vertical-align: middle;
+}
 
 /* Container to center the layout */
 #container {
-width: 820px;
-margin: auto;
-background: #335a75 url(http://www.tametick.com/bg.gif) right repeat-y;
+	width: 655px;
+	margin: auto;
+	background: #335a75 url(http://www.tametick.com/bg.gif) right repeat-y;
 }
-
 
 /* Banner for logo */
 #banner {
-background-color: #104a62;
-text-align: right;
-padding: 0px;
-margin: 0px;
+	background-color: #104a62;
+	text-align: right;
+	padding: 0px;
+	margin: 0px;
 }
-#banner img {padding:10px 0px;} 
+
+#banner img {
+	padding: 10px 0px;
+}
 
 /* Content */
 #content {
-background-color: #133f52;
-padding: 0px;
-margin-right: 0px;
-overflow: hidden;
+	background-color: #133f52;
+	padding: 10px;
+	margin-right: 0px;
+	overflow: hidden;
 }
-/*
-div#content { 
-min-height:600px;
-height:expression(this.scrollHeight > 600 ? "auto":"600px"); 
+
+div#content {
+	min-height: 600px;
+	height: expression(this.scrollHeight > 600 ? "auto":"600px"); 
 }
-*/
-p, pre{
-padding: 5px 10px;
-margin:0px;
+
+p, pre {
+	padding: 5px 10px;
+	margin: 0px;
 }
 
 /* Side bar */
 #links {
-float: left;
-width: 220px;
-margin: 0px;
-padding: 0px;
+	float: left;
+	width: 225px;
+	margin: 0px;
+	padding: 10px;
 }
 
 #donate {
-position: bottom;
+	position: bottom;
 }
 
 #footer {
-clear: both;
-margin: 0px;
-padding: 0px;
-text-align: right; 
+	clear: both;
+	margin: 0px;
+	padding: 0px;
+	text-align: right;
 }
 
 #donate_button {
-margin: 0px 11px;
+	margin: 0px 11px;
 }
 
 /* For Blogger's elements */
-
 div.post-body {
-padding: 5px 10px;
+	padding: 5px 10px;
 }
 
 #comments {
-margin: 0px 5px;
+	margin: 0px 5px;
 }
 
 /* For the game elements */
 html {
 	background-color: #000000;
 }
+
 #content {
 	background-color: #133f52;
 	padding: 0px;
 	margin-right: 0px;
-	width: 600px;
 	overflow: hidden;
 	margin: auto;
 }
+
 #help {
 	padding: 5px;
-	width: 146px;
+	width: 173px;
 	border: 1px solid #888888;
 	float: left;
 }
+
 #inventory {
 	padding: 5px;
-	width: 146px;
+	width: 174px;
 	border: 1px solid #888888;
 	float: right;
 }
+
 #viewer {
 	/*border: 1px solid #888888;*/
 	margin: auto;
 	overflow: hidden;
 }
+
 #statusLines {
 	text-align: center;
 	/*border: 1px solid #888888;*/
 }
+
 #messageLog {
 	text-align: center;
-	/*border: 1px solid #888888;*/
+	/*border: 1px solid #888888;*/	
 }
