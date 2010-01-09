@@ -129,13 +129,13 @@ html {
 }
 #help {
 	padding: 5px;
-	width: 147px;
+	width: 146px;
 	border: 1px solid #888888;
 	float: left;
 }
 #inventory {
 	padding: 5px;
-	width: 148px;
+	width: 146px;
 	border: 1px solid #888888;
 	float: right;
 }
