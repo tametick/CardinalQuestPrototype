@@ -1,5 +1,12 @@
-/* *** css by miss monorom www.intensivstation.ch *** */
-/* css released under Creative Commons License -  http://creativecommons.org/licenses/by/2.0/deed.en  */
+/* 
+ * Modified by Ido Yehieli.
+ * 
+ * Based on:
+ * 
+ * css by miss monorom www.intensivstation.ch
+ * http://www.intensivstation.ch/files/templates/2/template-1.html 
+ * css released under Creative Commons License -  http://creativecommons.org/licenses/by/2.0/deed.en  
+ */
 
 html {
 background-color: #063141;
@@ -45,7 +52,7 @@ margin:0px;
 
 img.download {vertical-align:middle;}
 
-/* ----------container to center the layout-------------- */
+/* Container to center the layout */
 #container {
 width: 820px;
 margin: auto;
@@ -53,7 +60,7 @@ background: #335a75 url(http://www.tametick.com/bg.gif) right repeat-y;
 }
 
 
-/* ----------banner for logo-------------- */
+/* Banner for logo */
 #banner {
 background-color: #104a62;
 text-align: right;
@@ -62,7 +69,7 @@ margin: 0px;
 }
 #banner img {padding:10px 0px;} 
 
-/* -----------------content--------------------- */
+/* Content */
 #content {
 background-color: #133f52;
 padding: 0px;
@@ -80,6 +87,7 @@ padding: 5px 10px;
 margin:0px;
 }
 
+/* Side bar */
 #links {
 float: left;
 width: 220px;
@@ -102,7 +110,7 @@ text-align: right;
 margin: 0px 11px;
 }
 
-/* from blogspot*/
+/* For Blogger's elements */
 
 div.post-body {
 padding: 5px 10px;
@@ -112,10 +120,7 @@ padding: 5px 10px;
 margin: 0px 5px;
 }
 
-/* cq 
- * 
- * Removed: div#content
- * */
+/* For the game elements */
 html {
 	background-color: #000000;
 }
