@@ -16,10 +16,19 @@ var Map = function(width, height){
 	
 	var tick = function(){
 		for (var c = 0; c < vars.creatures.length; c++) {
-			// Charge action & spirit points
-			vars.creatures[c].vars.actionPoints += vars.creatures[c].vars.speed;
-			if (vars.creatures[c].vars.spirit) 
-				vars.creatures[c].vars.spiritPoints = Math.min(360, vars.creatures[c].vars.spiritPoints + vars.creatures[c].vars.spirit);
+			// Apply speed buffs
+			var speed  = vars.creatures[c].vars.speed;
+			if(vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.speed)
+				speed+=vars.creatures[c].vars.buffs.speed;				
+			// TODO: apply spirit buffs
+			var spirit = vars.creatures[c].vars.spirit;
+			if(spirit && vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.spirit)
+				spirit+=vars.creatures[c].vars.buffs.spirit;
+			
+			// Charge action & spirit points				
+			vars.creatures[c].vars.actionPoints += speed;
+			if (spirit) 
+				vars.creatures[c].vars.spiritPoints = Math.min(360, vars.creatures[c].vars.spiritPoints + spirit);
 			
 			// Move if charged
 			if (c != 0 && vars.creatures[c].vars.actionPoints >= 60) {

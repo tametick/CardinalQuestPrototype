@@ -20,14 +20,24 @@ var Item = function(startX, startY, id){
 	var equip = function(creature){
 		// Return to old item inventory 
 		creature.pickUp(creature.vars.equipment.items[vars.type]);
+		// TODO: Remove old buff
+		
 		// Equip new item
 		creature.vars.equipment.items[vars.type] = this;
+		
+		// Apply buffs
+		if(!creature.vars.buffs)
+			creature.vars.buffs = {};
+		if(isNaN(vars.value))
+			creature.vars.buffs[vars.effect] = vars.value;
+		else
+			creature.vars.buffs[vars.effect] = vars.value*1;
 	}
 	var wield = function(creature){
 		// Return to old item inventory 
-		creature.pickUp(creature.vars.equipment.items[vars.type]);
-		// Equip new item
-		creature.vars.equipment.items[vars.type] = this;
+		creature.pickUp(creature.vars.weapon);
+		// Wield new weapon
+		creature.vars.weapon = this;
 	}
 	var draw = function(){
 		// fixme: color
@@ -40,7 +50,6 @@ var Item = function(startX, startY, id){
 	var toString = function(){
 		return id + " - " + vars.description[0];
 	}
-	
 	
 	return {
 		id: id,
