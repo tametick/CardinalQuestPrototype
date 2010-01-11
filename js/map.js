@@ -81,6 +81,12 @@ var Map = function(width, height){
 			vars.creatures[c].vars.actionPoints = parsedCreature[3] * 1;
 			vars.creatures[c].vars.spiritPoints = parsedCreature[4] * 1;
 			vars.creatures[c].vars.life = parsedCreature[5] * 1;
+			if (parsedCreature.length > 6) {
+				// Has inventory
+				parsedInventory = parsedCreature[6].split(".");
+				for(var i = 0; i<parsedInventory[0]*1; i++)
+					vars.creatures[c].vars.inventory.items.push(Item(0,0,parsedInventory[i+1]));
+			}
 			vars.creatureMap[[vars.creatures[c].vars.x, vars.creatures[c].vars.y]] = vars.creatures[c];
 		}
 		

@@ -12,10 +12,18 @@ var Creature = function(startX, startY, id){
 				$("#items").append(items[i].toString() + "<br>");
 			}
 		}
+		var stringify = function() {
+			var str = items.length+".";
+			for(var i=0; i<items.length; i++)
+				str+=items[i].id+".";
+			
+			return str;
+		}
 		return {
 			maxSize: maxSize,
 			items: items,
-			print: print
+			print: print,
+			stringify: stringify
 		}
 	}
 	
@@ -158,7 +166,10 @@ var Creature = function(startX, startY, id){
 		return closed;
 	}
 	var stringify = function(){
-		return "" + vars.x + "," + vars.y + "," + id + "," + vars.actionPoints + "," + vars.spiritPoints + "," + vars.life;
+		var str = "" + vars.x + "," + vars.y + "," + id + "," + vars.actionPoints + "," + vars.spiritPoints + "," + vars.life;
+		if(vars.inventory)
+			str+=","+vars.inventory.stringify();
+		return str;
 	}
 	var init = function(){
 		var type;
