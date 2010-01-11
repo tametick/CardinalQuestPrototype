@@ -19,9 +19,13 @@ var Item = function(startX, startY, id){
 					creature.vars.life = Math.min(creature.vars.life + value * 1, creature.vars.vitality);
 			}
 			break;
-		case "wearable":
+		case "shoes":
+		case "hat":
+		case "armor":
+		case "jewelry":
+		case "gloves":
 			break;
-		case "wieldable":
+		case "weapon":
 			break;
 		}
 	}

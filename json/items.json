@@ -2,17 +2,15 @@
 	"!": {
 		"effect": "heal",
 		"value": "full",
-		"type": "consumable",
-		"subtype": "potion"
+		"type": "consumable"
 	},
 	"[": {
 		"effect": "speed",
 		"value": 1,
-		"type": "wearable",
-		"subtype": "shoes"
+		"type": "shoes"
 	},
 	"(": {
 		"damage": [1,3],
-		"type": "wieldable"
+		"type": "weapon"
 	}
 }

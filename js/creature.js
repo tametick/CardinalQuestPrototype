@@ -12,10 +12,10 @@ var Creature = function(startX, startY, id){
 				$("#items").append(items[i].toString() + "<br>");
 			}
 		}
-		var stringify = function() {
-			var str = items.length+".";
-			for(var i=0; i<items.length; i++)
-				str+=items[i].id+".";
+		var stringify = function(){
+			var str = items.length + ".";
+			for (var i = 0; i < items.length; i++) 
+				str += items[i].id + ".";
 			
 			return str;
 		}
@@ -24,6 +24,19 @@ var Creature = function(startX, startY, id){
 			items: items,
 			print: print,
 			stringify: stringify
+		}
+	}
+	var Equipment = function(){
+		var items = {};
+		var equip = function(item){
+			// Return to old item inventory 
+			pickUp(items[item.type]);
+			// Equip new item
+			items[item.type] = item;
+		}
+		return {
+			items: items,
+			equip: equip
 		}
 	}
 	
@@ -107,9 +120,32 @@ var Creature = function(startX, startY, id){
 		// fixme - load color from creature-types file
 		viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, id, Settings.playerColor);
 	}
+	
+	var pickUp = function(item, dx, dy){
+		if (item && vars.inventory) 
+			if (vars.inventory.items.length < vars.inventory.maxSize) {
+				
+				if (dx != null && dy != null) {
+					// Remove from map
+					var itemIndex = jQuery.inArray(item, maps[currentMap].vars.items);
+					if (itemIndex != -1) {
+						maps[currentMap].vars.items.remove(itemIndex);
+						maps[currentMap].vars.itemMap[[vars.x + dx, vars.y + dy]] = null;
+					}
+				}
+				
+				// Put in inventory
+				vars.inventory.items.push(item);
+				if (this == player) 
+					messageLog.append("You picked up a " + item.vars.description[0]);
+			}
+	}
+	
 	var move = function(dx, dy){
+		// Stuff occupying destination
 		var other = maps[currentMap].vars.creatureMap[[vars.x + dx, vars.y + dy]];
 		var item = maps[currentMap].vars.itemMap[[vars.x + dx, vars.y + dy]];
+		
 		if (other) {
 			if (other.vars.faction == vars.faction) 
 				return true; // Bump
@@ -120,33 +156,22 @@ var Creature = function(startX, startY, id){
 			}
 		} else {
 			// Pick up item
-			if (item && vars.inventory) {
-				if (vars.inventory.items.length < vars.inventory.maxSize) {
-					var itemIndex = jQuery.inArray(item, maps[currentMap].vars.items);
-					if (itemIndex != -1) 
-						maps[currentMap].vars.items.remove(itemIndex);
-					else 
-						throw "Error: item exist in itemMap but not in items.";
-					maps[currentMap].vars.itemMap[[vars.x + dx, vars.y + dy]] = null;
-					
-					vars.inventory.items.push(item);
-					if (this == player) 
-						messageLog.append("You picked up a " + item.vars.description[0]);
-				}
-			}
+			pickUp(item, dx, dy);
 			
 			// Move
 			switch (maps[currentMap].tiles[[vars.x + dx, vars.y + dy]].symbol) {
 			case '.':
 			case "'":
+				// Move
 				maps[currentMap].vars.creatureMap[[vars.x, vars.y]] = null;
 				vars.x += dx;
 				vars.y += dy;
 				maps[currentMap].vars.creatureMap[[vars.x, vars.y]] = this;
-				return true; // Move
+				return true;
 			case '+':
+				// Open door
 				maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile("'", Descriptions.openDoor);
-				return true; // Open door
+				return true;
 			case '#':
 				return false;
 			}
@@ -167,8 +192,8 @@ var Creature = function(startX, startY, id){
 	}
 	var stringify = function(){
 		var str = "" + vars.x + "," + vars.y + "," + id + "," + vars.actionPoints + "," + vars.spiritPoints + "," + vars.life;
-		if(vars.inventory)
-			str+=","+vars.inventory.stringify();
+		if (vars.inventory) 
+			str += "," + vars.inventory.stringify();
 		return str;
 	}
 	var init = function(){
