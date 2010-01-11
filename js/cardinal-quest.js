@@ -25,8 +25,11 @@ var State = {
 
 var update = function(){
 	viewer.clear();
+	var emptyStatus = false;
+	
 	switch (state) {
 	case State.menu:
+		emptyStatus = true;
 		break;
 	case State.play:
 		maps[currentMap].draw();
@@ -54,7 +57,7 @@ var update = function(){
 		messageLog.print();
 	
 	if (statusLines && statusLines.print) 
-		statusLines.print();
+		statusLines.print(emptyStatus);
 }
 var save = function(){
 	var properties = {
@@ -118,8 +121,7 @@ $(document).ready(function(){
 				// FIXME: Must be loaded before first keydown because of $.getJSON
 				$.getJSON("json/map.json", function(mapData){
 					maps = [Map(mapData["width"], mapData["height"])];
-					player = Creature(Math.round((maps[0].width - 1) / 2), Math.round((maps[0].height - 1) / 2), '@');
-					
+					player = Creature(Math.round((maps[0].width - 1) / 2), Math.round((maps[0].height - 1) / 2), '@');					
 					maps[0].generate(mapData);
 					player.init();
 				});
