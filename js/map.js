@@ -33,8 +33,8 @@ var Map = function(width, height){
 			for (var x = 0; x < width; x++) 
 				if (vars.creatureMap[[x, y]] == null && vars.itemMap[[x, y]] == null) 
 					viewer.putTile(Settings.viewerWidth / 2 + x - player.vars.x, Settings.viewerHeight / 2 + y - player.vars.y, tiles[[x, y]].symbol, [200, 200, 200]);
-		for (var c = 0; c < vars.items.length; c++)
-			if (vars.creatureMap[[vars.items[c].vars.x, vars.items[c].vars.y]] == null)
+		for (var c = 0; c < vars.items.length; c++) 
+			if (vars.creatureMap[[vars.items[c].vars.x, vars.items[c].vars.y]] == null) 
 				vars.items[c].draw();
 		for (var c = 0; c < vars.creatures.length; c++) 
 			vars.creatures[c].draw();
@@ -49,7 +49,7 @@ var Map = function(width, height){
 		var creaturesStr = "";
 		for (var c = 0; c < vars.creatures.length; c++) 
 			creaturesStr += vars.creatures[c].stringify() + "_";
-			
+		
 		var itemsStr = "";
 		for (var i = 0; i < vars.items.length; i++) 
 			itemsStr += vars.items[i].stringify() + "_";
@@ -84,8 +84,8 @@ var Map = function(width, height){
 			if (parsedCreature.length > 6) {
 				// Has inventory
 				parsedInventory = parsedCreature[6].split(".");
-				for(var i = 0; i<parsedInventory[0]*1; i++)
-					vars.creatures[c].vars.inventory.items.push(Item(0,0,parsedInventory[i+1]));
+				for (var i = 0; i < parsedInventory[0] * 1; i++) 
+					vars.creatures[c].vars.inventory.items.push(Item(0, 0, parsedInventory[i + 1]));
 			}
 			vars.creatureMap[[vars.creatures[c].vars.x, vars.creatures[c].vars.y]] = vars.creatures[c];
 		}
@@ -127,11 +127,14 @@ var Map = function(width, height){
 		vars.creatureMap[[vars.creatures[2].vars.x, vars.creatures[2].vars.y]] = vars.creatures[2];
 		
 		// Generate items
-		vars.items[0] = Item(2, 5, "!");
-		{
-			vars.items[0].init();
+		vars.items.push(Item(2, 5, "!"));
+		vars.items.push(Item(5, 5, "["));
+		vars.items.push(Item(10, 7, "("));
+		
+		for (var i = 0; i < vars.items.length; i++) {
+			vars.items[i].init();
+			vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]] = vars.items[i];
 		}
-		vars.itemMap[[vars.items[0].vars.x, vars.items[0].vars.y]] = vars.items[0];
 	}
 	
 	return {

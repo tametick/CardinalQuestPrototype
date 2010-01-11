@@ -178,12 +178,7 @@ var Creature = function(startX, startY, id){
 		else 
 			type = CreatureTypes[id];
 		
-		for (var property in type) 
-			if (isNaN(type[property])) 
-				vars[property] = type[property];
-			else 
-				vars[property] = type[property] * 1;
-		
+		utils.initFromType(vars, type);
 		vars.description = Descriptions[id];
 		
 		if (id == "@") {

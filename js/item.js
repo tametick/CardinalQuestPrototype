@@ -1,23 +1,28 @@
 var Item = function(startX, startY, id){
-	vars = {
+	var vars = {
 		x: startX,
 		y: startY,
 		description: Descriptions[id]
 	}
 	
-	var init = function(itemData){
-		$.getJSON("json/items.json", function(itemData){
-			item = itemData[id];
-			vars.effect = item["effect"];
-			vars.value = item["value"];
-		});
+	var init = function(){
+		item = ItemTypes[id];
+		utils.initFromType(vars, item);
 	}
 	var use = function(creature){
-		if (vars.effect == "heal") {
-			if (vars.value == "full") 
-				creature.vars.life = creature.vars.vitality;
-			else 
-				creature.vars.life = Math.min(creature.vars.life + value * 1, creature.vars.vitality);
+		switch (vars.type) {
+		case "consumable":
+			if (vars.effect == "heal") {
+				if (vars.value == "full") 
+					creature.vars.life = creature.vars.vitality;
+				else 
+					creature.vars.life = Math.min(creature.vars.life + value * 1, creature.vars.vitality);
+			}
+			break;
+		case "wearable":
+			break;
+		case "wieldable":
+			break;
 		}
 	}
 	var draw = function(){
@@ -31,7 +36,7 @@ var Item = function(startX, startY, id){
 	var toString = function(){
 		return id + " - " + vars.description[0];
 	}
-
+	
 	
 	return {
 		id: id,

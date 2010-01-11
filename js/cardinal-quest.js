@@ -101,29 +101,32 @@ var load = function(){
 
 $(document).ready(function(){
 	$.getJSON("json/descriptions.json", function(desc){
-		$.getJSON("json/creature-types.json", function(types){
-			$.getJSON("json/settings.json", function(sett){
-				Descriptions = desc;
-				CreatureTypes = types;
-				Settings = sett;
-				
-				utils = Utils();
-				
-				state = State.loading;
-				viewer = Viewer(Settings.viewerWidth, Settings.viewerHeight);
-				messageLog = MessageLog();
-				statusLines = StatusLines();
-				
-				state = State.menu;
-				messageLog.append("[Press space to continue]");
-				update();
-				
-				// FIXME: Must be loaded before first keydown because of $.getJSON
-				$.getJSON("json/map.json", function(mapData){
-					maps = [Map(mapData["width"], mapData["height"])];
-					player = Creature(Math.round((maps[0].width - 1) / 2), Math.round((maps[0].height - 1) / 2), '@');					
-					maps[0].generate(mapData);
-					player.init();
+		$.getJSON("json/creature-types.json", function(creatureTypes){
+			$.getJSON("json/items.json", function(itemTypes){
+				$.getJSON("json/settings.json", function(sett){
+					Descriptions = desc;
+					CreatureTypes = creatureTypes;
+					ItemTypes = itemTypes;
+					Settings = sett;
+					
+					utils = Utils();
+					
+					state = State.loading;
+					viewer = Viewer(Settings.viewerWidth, Settings.viewerHeight);
+					messageLog = MessageLog();
+					statusLines = StatusLines();
+					
+					state = State.menu;
+					messageLog.append("[Press space to continue]");
+					update();
+					
+					// FIXME: Must be loaded before first keydown because of $.getJSON
+					$.getJSON("json/map.json", function(mapData){
+						maps = [Map(mapData["width"], mapData["height"])];
+						player = Creature(Math.round((maps[0].width - 1) / 2), Math.round((maps[0].height - 1) / 2), '@');
+						maps[0].generate(mapData);
+						player.init();
+					});
 				});
 			});
 		});

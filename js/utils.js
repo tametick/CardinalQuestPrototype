@@ -1,4 +1,12 @@
 var Utils = function(){
+	initFromType = function(vars, type){
+		for (var property in type) 
+			if (isNaN(type[property])) 
+				vars[property] = type[property];
+			else 
+				vars[property] = type[property] * 1;
+	}
+	
 	var randInt = function(min, max){
 		return min + Math.floor(Math.random() * (max - min + 1));
 	}
@@ -78,6 +86,7 @@ var Utils = function(){
 	}
 	
 	return {
+		initFromType: initFromType,
 		randInt: randInt,
 		inRange: inRange,
 		line: line
