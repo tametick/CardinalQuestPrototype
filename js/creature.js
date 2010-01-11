@@ -2,14 +2,14 @@ var Creature = function(startX, startY, id){
 	var Inventory = function(maxSize){
 		var items = [];
 		var print = function(currentLine){
-			$("#items").empty();
+			$("#inventoryItems").empty();
 			for (var i = 0; i < items.length; i++) {
-				if (currentLine != null && i == currentLine) {
-					$("#items").append(">&nbsp;");
+				if (state == State.inventory && i == currentLine) {
+					$("#inventoryItems").append(">&nbsp;");
 					messageLog.append(items[i].vars.description[1])
 				} else 
-					$("#items").append("&nbsp;&nbsp;");
-				$("#items").append(items[i].toString() + "<br>");
+					$("#iinventoryItems").append("&nbsp;&nbsp;");
+				$("#inventoryItems").append(items[i].toString() + "<br>");
 			}
 		}
 		var stringify = function(){
@@ -28,6 +28,26 @@ var Creature = function(startX, startY, id){
 	}
 	var Equipment = function(){
 		var items = {};
+
+		var print = function(currentLine){
+			$("#equipmentItems").empty();
+			for (var i = 0; i < items.length; i++) {
+				if (state == State.Equipment && i == currentLine) {
+					$("#equipmentItems").append(">&nbsp;");
+					messageLog.append(items[i].vars.description[1])
+				} else 
+					$("#equipmentItems").append("&nbsp;&nbsp;");
+				$("#equipmentItems").append(items[i].toString() + "<br>");
+			}
+		}
+		var stringify = function(){
+			var str = items.length + ".";
+			for (var i = 0; i < items.length; i++) 
+				str += items[i].id + ".";
+			return str;
+		}
+		
+		
 		var equip = function(item){
 			// Return to old item inventory 
 			pickUp(items[item.type]);
@@ -124,7 +144,7 @@ var Creature = function(startX, startY, id){
 	var pickUp = function(item, dx, dy){
 		if (item && vars.inventory) 
 			if (vars.inventory.items.length < vars.inventory.maxSize) {
-				
+			
 				if (dx != null && dy != null) {
 					// Remove from map
 					var itemIndex = jQuery.inArray(item, maps[currentMap].vars.items);
@@ -212,6 +232,7 @@ var Creature = function(startX, startY, id){
 			vars.damage = 1; // bare hands
 			// fixme - don't hard code size
 			vars.inventory = Inventory(6);
+			vars.equipment = Equipment();
 		} else {
 			// Roll hp
 			vars.life = utils.randInt(vars.life[0] * 1, vars.life[1] * 1);

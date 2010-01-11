@@ -20,7 +20,8 @@ var State = {
 	menu: 1,
 	play: 2,
 	examine: 3,
-	inventory: 4
+	inventory: 4,
+	Equipment: 5
 }
 
 var update = function(){
