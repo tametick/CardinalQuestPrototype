@@ -21,7 +21,7 @@ var State = {
 	play: 2,
 	examine: 3,
 	inventory: 4,
-	Equipment: 5
+	equipment: 5
 }
 
 var update = function(){
@@ -35,10 +35,12 @@ var update = function(){
 	case State.play:
 		maps[currentMap].draw();
 		player.vars.inventory.print();
+		player.vars.equipment.print();
 		break;
 	case State.examine:
 		maps[currentMap].draw();
 		player.vars.inventory.print();
+		player.vars.equipment.print();
 		cursor.draw();
 		if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]]) 
 			messageLog.append("You see " + maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
@@ -51,6 +53,12 @@ var update = function(){
 	case State.inventory:
 		maps[currentMap].draw();
 		player.vars.inventory.print(currentLine);
+		player.vars.equipment.print();
+		break;
+	case State.equipment:
+		maps[currentMap].draw();
+		player.vars.inventory.print();
+		player.vars.equipment.print(currentLine);
 		break;
 	}
 	

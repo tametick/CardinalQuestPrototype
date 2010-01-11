@@ -10,24 +10,24 @@ var Item = function(startX, startY, id){
 		utils.initFromType(vars, item);
 	}
 	var use = function(creature){
-		switch (vars.type) {
-		case "consumable":
-			if (vars.effect == "heal") {
-				if (vars.value == "full") 
-					creature.vars.life = creature.vars.vitality;
-				else 
-					creature.vars.life = Math.min(creature.vars.life + value * 1, creature.vars.vitality);
-			}
-			break;
-		case "shoes":
-		case "hat":
-		case "armor":
-		case "jewelry":
-		case "gloves":
-			break;
-		case "weapon":
-			break;
+		if (vars.effect == "heal") {
+			if (vars.value == "full") 
+				creature.vars.life = creature.vars.vitality;
+			else 
+				creature.vars.life = Math.min(creature.vars.life + value * 1, creature.vars.vitality);
 		}
+	}
+	var equip = function(creature){
+		// Return to old item inventory 
+		creature.pickUp(creature.vars.equipment.items[vars.type]);
+		// Equip new item
+		creature.vars.equipment.items[vars.type] = this;
+	}
+	var wield = function(creature){
+		// Return to old item inventory 
+		creature.pickUp(creature.vars.equipment.items[vars.type]);
+		// Equip new item
+		creature.vars.equipment.items[vars.type] = this;
 	}
 	var draw = function(){
 		// fixme: color
@@ -48,6 +48,8 @@ var Item = function(startX, startY, id){
 		init: init,
 		draw: draw,
 		use: use,
+		equip: equip,
+		wield: wield,
 		stringify: stringify,
 		toString: toString
 	}

@@ -28,16 +28,18 @@ var Creature = function(startX, startY, id){
 	}
 	var Equipment = function(){
 		var items = {};
-
+		
 		var print = function(currentLine){
 			$("#equipmentItems").empty();
-			for (var i = 0; i < items.length; i++) {
-				if (state == State.Equipment && i == currentLine) {
+			var i = 0;
+			for (var itemType in items) {
+				if (state == State.equipment && i == currentLine) {
 					$("#equipmentItems").append(">&nbsp;");
-					messageLog.append(items[i].vars.description[1])
+					messageLog.append(items[itemType].vars.description[1])
 				} else 
 					$("#equipmentItems").append("&nbsp;&nbsp;");
-				$("#equipmentItems").append(items[i].toString() + "<br>");
+				$("#equipmentItems").append(items[itemType].toString() + "<br>");
+				i++;
 			}
 		}
 		var stringify = function(){
@@ -46,17 +48,10 @@ var Creature = function(startX, startY, id){
 				str += items[i].id + ".";
 			return str;
 		}
-		
-		
-		var equip = function(item){
-			// Return to old item inventory 
-			pickUp(items[item.type]);
-			// Equip new item
-			items[item.type] = item;
-		}
 		return {
 			items: items,
-			equip: equip
+			print: print,
+			stringify: stringify
 		}
 	}
 	
@@ -82,9 +77,29 @@ var Creature = function(startX, startY, id){
 		if (vars.inventory.items.length > itemIndex) {
 			var item = vars.inventory.items[itemIndex];
 			vars.inventory.items.remove(itemIndex);
-			item.use(this);
-			if (this == player) 
-				messageLog.append("You used the " + item.vars.description[0]);
+			
+			switch (item.vars.type) {
+				case "consumable":
+					item.use(this);
+					if (this == player) 
+						messageLog.append("You used the " + item.vars.description[0]);
+					break;
+				case "shoes":
+				case "hat":
+				case "armor":
+				case "jewelry":
+				case "gloves":
+					item.equip(this);
+					if (this == player) 
+						messageLog.append("You wear the " + item.vars.description[0]);				
+					break;
+				case "weapon":
+					item.wield(this);
+					if (this == player) 
+						messageLog.append("You wield the " + item.vars.description[0]);
+					break;
+			}
+			
 		}
 	}
 	var attackOther = function(other){
@@ -141,8 +156,8 @@ var Creature = function(startX, startY, id){
 		viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, id, Settings.playerColor);
 	}
 	
-	var pickUp = function(item, dx, dy){
-		if (item && vars.inventory) 
+	var pickUp = function(item, dx, dy, isPlayer){
+		if (item && vars.inventory)
 			if (vars.inventory.items.length < vars.inventory.maxSize) {
 			
 				if (dx != null && dy != null) {
@@ -156,7 +171,7 @@ var Creature = function(startX, startY, id){
 				
 				// Put in inventory
 				vars.inventory.items.push(item);
-				if (this == player) 
+				if (isPlayer) 
 					messageLog.append("You picked up a " + item.vars.description[0]);
 			}
 	}
@@ -168,15 +183,16 @@ var Creature = function(startX, startY, id){
 		
 		if (other) {
 			if (other.vars.faction == vars.faction) 
-				return true; // Bump
-
+				// Bump
+				return true;
 			else {
-				attackOther(other); // Attack
+				// Attack
+				attackOther(other);
 				return true;
 			}
 		} else {
 			// Pick up item
-			pickUp(item, dx, dy);
+			pickUp(item, dx, dy, this == player);
 			
 			// Move
 			switch (maps[currentMap].tiles[[vars.x + dx, vars.y + dy]].symbol) {
@@ -248,6 +264,7 @@ var Creature = function(startX, startY, id){
 		move: move,
 		closeDoor: closeDoor,
 		drop: drop,
+		pickUp: pickUp,
 		use: use,
 		stringify: stringify,
 		init: init
