@@ -5,6 +5,6 @@
 	"@": ["yourself", "You - a brave adventurer searching for fame and fortune."],
 	"k": ["a kobold", "These small, evil, dog-like humanoids usually live underground in tight-knit clans. They have scaly, rust-brown skin and no hair."],
 	"!": ["healing salve", "A small vial containing fragrant, light-green salve. Restores life to %100 when applied."],
-	"[": ["boots of escape"],
-	"(": ["short sword"],
+	"[": ["boots of escape", "These finely crafted leather boots allow the wearer to run with great speed."],
+	"(": ["short sword", "A one handed hilt attached to a thrusting blade approximally 60cm in length."],
 }
