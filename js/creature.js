@@ -126,11 +126,14 @@ var Creature = function(startX, startY, id){
 	var attackOther = function(other){
 		if (Math.random() < vars.attack / (vars.attack + other.vars.defense)) {
 			// Hit
-			if(vars.weapon && vars.weapon.wielded.length>0){
+			if (vars.weapon && vars.weapon.wielded.length > 0) {
+				// With weapon
 				var damageRange = vars.weapon.wielded[0].vars.damage;
-				other.vars.life -= utils.randInt(damageRange[0]*1, damageRange[1]*1);
-			} else
-				other.vars.life -= vars.damage;
+				other.vars.life -= utils.randInt(damageRange[0] * 1, damageRange[1] * 1);
+			} else {
+				// With natural attack
+				other.vars.life -= utils.randInt(vars.damage[0] * 1, vars.damage[1] * 1);
+			}
 			if (other.vars.life > 0) {
 				// Injure
 				if (id == "@") 
@@ -270,7 +273,7 @@ var Creature = function(startX, startY, id){
 		if (id == "@") {
 			// Calculate stats
 			vars.life = vars.vitality; // level 1 
-			vars.damage = 1; // bare hands
+			vars.damage = [1,1]; // bare hands
 			// fixme - don't hard code size
 			vars.inventory = Inventory(6);
 			vars.equipment = Equipment();

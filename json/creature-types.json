@@ -12,7 +12,7 @@
 	"k":{
 		"faction": 1,
 		"life": [1,2],
-		"damage": 1,
+		"damage": [1,1],
 		"attack": 2,
 		"defense":2,
 		"speed": 3
