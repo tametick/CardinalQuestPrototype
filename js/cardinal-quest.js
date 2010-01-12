@@ -36,11 +36,13 @@ var update = function(){
 		maps[currentMap].draw();
 		player.vars.inventory.print();
 		player.vars.equipment.print();
+		player.vars.weapon.print();
 		break;
 	case State.examine:
 		maps[currentMap].draw();
 		player.vars.inventory.print();
 		player.vars.equipment.print();
+		player.vars.weapon.print();
 		cursor.draw();
 		if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]]) 
 			messageLog.append("You see " + maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
@@ -54,11 +56,13 @@ var update = function(){
 		maps[currentMap].draw();
 		player.vars.inventory.print(currentLine);
 		player.vars.equipment.print();
+		player.vars.weapon.print();
 		break;
 	case State.equipment:
 		maps[currentMap].draw();
 		player.vars.inventory.print();
 		player.vars.equipment.print(currentLine);
+		player.vars.weapon.print();
 		break;
 	}
 	

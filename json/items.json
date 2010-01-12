@@ -1,16 +1,16 @@
 {
 	"!": {
+		"type": "consumable",
 		"effect": "heal",
 		"value": "full",
-		"type": "consumable"
 	},
 	"[": {
+		"type": "shoes",
 		"effect": "speed",
 		"value": 1,
-		"type": "shoes"
 	},
 	"(": {
 		"damage": [1,3],
-		"type": "weapon"
+		"type": "weapon",
 	}
 }

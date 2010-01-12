@@ -9,6 +9,20 @@ var Item = function(startX, startY, id){
 		item = ItemTypes[id];
 		utils.initFromType(vars, item);
 	}
+	var applyBuff = function(creature){
+		if (!creature.vars.buffs) 
+			creature.vars.buffs = {};
+		if (isNaN(vars.value)) 
+			// Override previous buff
+			creature.vars.buffs[vars.effect] = vars.value;
+		else {
+			// Accumulate buffs
+			if (creature.vars.buffs[vars.effect]) 
+				creature.vars.buffs[vars.effect] += vars.value * 1;
+			else 
+				creature.vars.buffs[vars.effect] = vars.value * 1;
+		}
+	}
 	var use = function(creature){
 		if (vars.effect == "heal") {
 			if (vars.value == "full") 
@@ -24,20 +38,16 @@ var Item = function(startX, startY, id){
 		
 		// Equip new item
 		creature.vars.equipment.items[vars.type] = this;
-		
-		// Apply buffs
-		if(!creature.vars.buffs)
-			creature.vars.buffs = {};
-		if(isNaN(vars.value))
-			creature.vars.buffs[vars.effect] = vars.value;
-		else
-			creature.vars.buffs[vars.effect] = vars.value*1;
+		applyBuff(creature);
 	}
 	var wield = function(creature){
 		// Return to old item inventory 
-		creature.pickUp(creature.vars.weapon);
+		creature.pickUp(creature.vars.weapon.wielded.pop());
+		// TODO: Remove old buff
+		
 		// Wield new weapon
-		creature.vars.weapon = this;
+		creature.vars.weapon.wielded.push(this);
+		applyBuff(creature);
 	}
 	var draw = function(){
 		// fixme: color
@@ -56,6 +66,7 @@ var Item = function(startX, startY, id){
 		vars: vars,
 		init: init,
 		draw: draw,
+		applyBuff: applyBuff,
 		use: use,
 		equip: equip,
 		wield: wield,

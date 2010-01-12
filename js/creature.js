@@ -54,6 +54,27 @@ var Creature = function(startX, startY, id){
 			stringify: stringify
 		}
 	}
+	var Weapon = function() {
+		var wielded = [];
+		
+		var print = function(currentLine){
+			$("#weaponWielded").empty();
+			if(wielded.length > 0)
+				$("#weaponWielded").append("&nbsp;&nbsp;"+wielded[0].toString());
+		}
+		var stringify = function(){
+			if(wielded.length > 0)
+				return wielded[0].id;
+			else
+				return "";
+		}
+		return {
+			wielded: wielded,
+			print: print,
+			stringify: stringify
+		}
+	}
+	
 	
 	var vars = {
 		x: startX,
@@ -249,6 +270,7 @@ var Creature = function(startX, startY, id){
 			// fixme - don't hard code size
 			vars.inventory = Inventory(6);
 			vars.equipment = Equipment();
+			vars.weapon = Weapon();
 		} else {
 			// Roll hp
 			vars.life = utils.randInt(vars.life[0] * 1, vars.life[1] * 1);
