@@ -126,7 +126,11 @@ var Creature = function(startX, startY, id){
 	var attackOther = function(other){
 		if (Math.random() < vars.attack / (vars.attack + other.vars.defense)) {
 			// Hit
-			other.vars.life -= vars.damage;
+			if(vars.weapon && vars.weapon.wielded.length>0){
+				var damageRange = vars.weapon.wielded[0].vars.damage;
+				other.vars.life -= utils.randInt(damageRange[0]*1, damageRange[1]*1);
+			} else
+				other.vars.life -= vars.damage;
 			if (other.vars.life > 0) {
 				// Injure
 				if (id == "@") 
@@ -208,7 +212,7 @@ var Creature = function(startX, startY, id){
 				return true;
 			else {
 				// Attack
-				attackOther(other);
+				this.attackOther(other);
 				return true;
 			}
 		} else {
