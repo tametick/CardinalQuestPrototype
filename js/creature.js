@@ -138,8 +138,9 @@ var Creature = function(startX, startY, id){
 				// Injure
 				if (id == "@") 
 					messageLog.append("You hit " + other.vars.description[0] + ".");
-				else 
+				else {
 					messageLog.append(vars.description[0] + " hits you.");
+				}
 			} else {
 				// Kill
 				var index = jQuery.inArray(other, maps[currentMap].vars.creatures);
@@ -153,6 +154,8 @@ var Creature = function(startX, startY, id){
 					messageLog.append("You killed " + other.vars.description[0] + "!");
 				} else {
 					messageLog.append(vars.description[0] + " has killed you!");
+					alert("You have Perished.\nGame Over.");
+					state = State.menu;
 				}
 			}
 		} else {

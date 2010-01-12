@@ -135,6 +135,10 @@ var Map = function(width, height){
 		vars.creatures[2].init();
 		vars.creatureMap[[vars.creatures[2].vars.x, vars.creatures[2].vars.y]] = vars.creatures[2];
 		
+		vars.creatures[3] = Creature(11, 6, "d");
+		vars.creatures[3].init();
+		vars.creatureMap[[vars.creatures[3].vars.x, vars.creatures[3].vars.y]] = vars.creatures[3];
+		
 		// Generate items
 		vars.items.push(Item(2, 5, "!"));
 		vars.items.push(Item(5, 5, "["));
