@@ -6,7 +6,26 @@
 			"attack": 5,
 			"defense":3,
 			"speed": 3,
-			"spirit": 1
+			"spirit": 1,
+			"special": "berserk"
+		},
+		"thief":{
+			"faction": 0,
+			"vitality": 2,
+			"attack": 3,
+			"defense":4,
+			"speed": 5,
+			"spirit": 3,
+			"special": "shadow"
+		},
+		"wizard":{
+			"faction": 0,
+			"vitality": 3,
+			"attack": 2,
+			"defense":3,
+			"speed": 4,
+			"spirit": 5,
+			"special": "firebolt"
 		}
 	},
 	"k":{

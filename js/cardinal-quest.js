@@ -231,6 +231,9 @@ $(document).keydown(function(e){
 		case Keys.c:
 			moved = player.closeDoor();
 			break;
+		case Keys.e:
+			moved = player.executeSpecial();
+			break;
 		case Keys.i:
 			state = State.inventory;
 			currentLine = 0;

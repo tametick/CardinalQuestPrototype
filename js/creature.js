@@ -163,6 +163,14 @@ var Creature = function(startX, startY, id){
 				messageLog.append(vars.description[0] + " misses you.");
 		}
 	}
+	var executeSpecial = function() {
+		if (vars.spiritPoints == 360) {
+			alert("SPECIAL!!");
+			vars.spiritPoints = 0;
+		} else
+			messageLog.append("You are insufficiently charged.");
+	}
+	
 	var act = function(){
 		var moved = false;
 		
@@ -292,6 +300,7 @@ var Creature = function(startX, startY, id){
 		attackOther: attackOther,
 		move: move,
 		closeDoor: closeDoor,
+		executeSpecial: executeSpecial,
 		drop: drop,
 		pickUp: pickUp,
 		use: use,
