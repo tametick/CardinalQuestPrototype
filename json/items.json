@@ -4,13 +4,92 @@
 		"effect": "heal",
 		"value": "full",
 	},
+	"ec": {
+		"type": "consumable",
+		"effect": "speed",
+		"value": 3,
+		"duration": 120
+	},
+	"ee": {
+		"type": "consumable",
+		"effect": "defense",
+		"value": 3,
+		"duration": 120
+	},
+	"eh": {
+		"type": "consumable",
+		"effect": "attack",
+		"value": 3,
+		"duration": 120
+	},
+	"el": {
+		"type": "consumable",
+		"effect": "damage",
+		"value": "double",
+		"duration": 120
+	},
 	"[": {
 		"type": "shoes",
 		"effect": "speed",
 		"value": 1,
 	},
+	"hs": {
+		"type": "shoes",
+		"effect": "speed",
+		"value": 2,
+	},
+	"la": {
+		"type": "armor",
+		"value": 1,
+	},
+	"bp": {
+		"type": "armor",
+		"value": 2,
+	},
+	"row": {
+		"type": "jewelry",
+		"effect": "spirit",
+		"value": 1,
+	},
+	"aoe": {
+		"type": "jewelry",
+		"effect": "spirit",
+		"value": 2,
+	},
+	"coe": {
+		"type": "hat",
+		"effect": "life",
+		"value": 1,
+	},
+	"hoh": {
+		"type": "hat",
+		"effect": "life",
+		"value": 2,
+	},
+	"god": {
+		"type": "gloves",
+		"effect": "attack",
+		"value": 1,
+	},
+	"hoh": {
+		"type": "gloves",
+		"effect": "attack",
+		"value": 2,
+	},
 	"(": {
-		"damage": [1,3],
 		"type": "weapon",
+		"damage": [1,3],
+	},
+	"ls": {
+		"type": "weapon",
+		"damage": [2,4],
+	},
+	"s": {
+		"type": "weapon",
+		"damage": [1,3],
+	},
+	"d": {
+		"type": "weapon",
+		"damage": [1,2],
 	}
 }
