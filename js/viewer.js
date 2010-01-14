@@ -1,7 +1,7 @@
 /* Width & height are in characters. */
 var Viewer = function(width, height){
 	var canvas;
-	var center = [Settings.viewerWidth / 2, Settings.viewerHeight / 2];
+	var center = [width / 2, height / 2];
 	
 	var Canvas = function(){
 		var canvasElement;
@@ -50,7 +50,7 @@ var Viewer = function(width, height){
 	}
 	var putTile = function(x, y, symbol, color){
 		canvas.context.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
-		canvas.context.fillText(symbol, (x-0.5) * canvas.fontWidth + 1, (y-0.5) * (canvas.fontAscent + canvas.fontDescent) + canvas.fontDescent - 1);
+		canvas.context.fillText(symbol, x * canvas.fontWidth + 3, y * (canvas.fontAscent + canvas.fontDescent) + canvas.fontDescent - 1);
 	}
 	
 	canvas = Canvas();

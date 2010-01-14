@@ -1,3 +1,14 @@
+var Room = function(x0, y0, x1, y1){
+	return {
+		x0: x0,
+		y0: y0,
+		x1: x1,
+		y1: y1,
+		w: x1 - x0,
+		h: y1 - y0
+	}
+}
+
 var Tile = function(symbol, description){
 	return {
 		symbol: symbol,
@@ -6,7 +17,9 @@ var Tile = function(symbol, description){
 }
 
 var Map = function(width, height){
-	var tiles = []
+	var tiles = [];
+	var rooms = [];
+	var rawData = [];
 	var vars = {
 		creatures: [],
 		creatureMap: [],
@@ -17,13 +30,13 @@ var Map = function(width, height){
 	var tick = function(){
 		for (var c = 0; c < vars.creatures.length; c++) {
 			// Apply speed buffs
-			var speed  = vars.creatures[c].vars.speed;
-			if(vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.speed)
-				speed+=vars.creatures[c].vars.buffs.speed;				
+			var speed = vars.creatures[c].vars.speed;
+			if (vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.speed) 
+				speed += vars.creatures[c].vars.buffs.speed;
 			// TODO: apply spirit buffs
 			var spirit = vars.creatures[c].vars.spirit;
-			if(spirit && vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.spirit)
-				spirit+=vars.creatures[c].vars.buffs.spirit;
+			if (spirit && vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.spirit) 
+				spirit += vars.creatures[c].vars.buffs.spirit;
 			
 			// Charge action & spirit points				
 			vars.creatures[c].vars.actionPoints += speed;
@@ -111,12 +124,122 @@ var Map = function(width, height){
 			vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]] = vars.items[i];
 		}
 	}
+	var axes = ["x", "y"];
+	var isTooSmall = function(room){
+		return room.h < 4 || room.w < 4;
+	}
+	var split = function(room, axis, position){
+		var r0, r1;
+		if (axis == "x") {
+			var variance = Math.floor(room.w / 6);
+			position += utils.randInt(-1 * variance, variance);
+			// split children on y
+			r0 = Room(room.x0, room.y0, position, room.y1);
+			r1 = Room(position - 1, room.y0, room.x1, room.y1);
+			
+			// exit if spliting will result in small rooms
+			if (isTooSmall(r0) || isTooSmall(r1)) {
+				rooms.push(room);
+				return;
+			}
+			
+			split(r0, "y", Math.floor(r0.y0 + r0.h / 2));
+			split(r1, "y", Math.floor(r1.y0 + r1.h / 2));
+		} else {
+			var variance = Math.floor(room.h / 6);
+			position += utils.randInt(-1 * variance, variance);
+			// split children on x
+			r0 = Room(room.x0, room.y0, room.x1, position);
+			r1 = Room(room.x0, position - 1, room.x1, room.y1);
+			
+			// exit if spliting will result in small rooms
+			if (isTooSmall(r0) || isTooSmall(r1)) {
+				rooms.push(room);
+				return;
+			}
+			
+			split(r0, "x", Math.floor(r0.x0 + r0.w / 2));
+			split(r1, "x", Math.floor(r1.x0 + r1.w / 2));
+		}
+	}
+	var isValidLocation = function(room, x, y){
+		if (x == 0 || x == width - 1 || y == 0 || y == height - 1) 
+			return false;
+		
+		var adjunctWalls = 0;
+		for (var ax = -1; ax <= 1; ax += 2) 
+			if (rawData[[x + ax, y]] == "#") 
+				adjunctWalls++;
+		for (var ay = -1; ay <= 1; ay += 2) 
+			if (rawData[[x, y + ay]] == "#") 
+				adjunctWalls++;
+		if(adjunctWalls>2)
+			return false;
+		
+		return true;
+	}
+	var insertDoor = function(r){
+		var x, y;
+		var axis = axes[utils.randInt(0, 1)];
+		var startOrEnd = utils.randInt(0, 1);
+		if (axis == "x") 
+			if (startOrEnd == 0) {
+				//left
+				x = r.x0;
+				y = r.y0 + utils.randInt(2, r.h - 2);
+			} else {
+				// right
+				x = r.x1 - 1;
+				y = r.y0 + utils.randInt(2, r.h - 2);
+			}
+		else if (startOrEnd == 0) {
+			// top
+			x = r.x0 + utils.randInt(2, r.w - 2);
+			y = r.y0;
+		} else {
+			// buttom
+			x = r.x0 + utils.randInt(2, r.w - 2);
+			y = r.y1 - 1;
+		}
+		if (isValidLocation(r, x, y)) 
+			rawData[[x, y]] = "+";
+		else 
+			// try again
+			insertDoor(r);
+	}
+	var insertDoors = function(rooms){
+		for (var r = 0; r < rooms.length; r++) 
+			insertDoor(rooms[r]);
+	}
+	var insertRoom = function(r){
+		for (var y = r.y0; y < r.y1; y++) 
+			for (var x = r.x0; x < r.x1; x++) {
+				if (x == r.x0 || y == r.y0 || x == r.x1 - 1 || y == r.y1 - 1) {
+					rawData[[x, y]] = "#";
+				} else {
+					rawData[[x, y]] = ".";
+				}
+			}
+	}
+	var insertRooms = function(rooms){
+		for (var r = 0; r < rooms.length; r++) 
+			insertRoom(rooms[r]);
+	}
+	
+	var generateRandom = function(){
+		split(Room(0, 0, width, height), "y", height / 2);
+		insertRooms(rooms);
+		insertDoors(rooms);
+		
+		generate(rawData);
+	}
+	
 	var generate = function(data){
 		for (var y = 0; y < height; y++) {
 			for (var x = 0; x < width; x++) 
-				if (data["tiles"][y].charAt(x) == '#') 
+				if (data[[x, y]] == '#') 
 					tiles[[x, y]] = Tile('#', Descriptions.wall);
-				else if (data["tiles"][y].charAt(x) == '+') 
+				else if (data[[x, y]] == '+') 
 					tiles[[x, y]] = Tile('+', Descriptions.door);
 				else 
 					tiles[[x, y]] = Tile('.', null);
@@ -125,7 +248,7 @@ var Map = function(width, height){
 		// Insert player
 		vars.creatures[0] = player;
 		vars.creatureMap[[player.vars.x, player.vars.y]] = player;
-		
+		/*
 		// Generate monsters
 		vars.creatures[1] = Creature(2, 2, "k");
 		vars.creatures[1].init();
@@ -146,8 +269,9 @@ var Map = function(width, height){
 		
 		for (var i = 0; i < vars.items.length; i++) {
 			vars.items[i].init();
-			vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]] = vars.items[i];
+			vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]] = vars.items[i];	
 		}
+		*/
 	}
 	
 	return {
@@ -159,6 +283,7 @@ var Map = function(width, height){
 		draw: draw,
 		stringify: stringify,
 		parse: parse,
+		generateRandom: generateRandom,
 		generate: generate
 	}
 }

@@ -1,6 +1,8 @@
 {
 	"viewerWidth": 20,
 	"viewerHeight": 20,
+	"mapWidth": 36,
+	"mapHeight": 36,
 	"playerColor": [0,0,255],
 	"cursorColor": [255,0,0],
 	"logSize": 2

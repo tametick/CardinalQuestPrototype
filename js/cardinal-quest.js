@@ -133,13 +133,10 @@ $(document).ready(function(){
 					messageLog.append("[Press space to continue]");
 					update();
 					
-					// FIXME: Must be loaded before first keydown because of $.getJSON
-					$.getJSON("json/map.json", function(mapData){
-						maps = [Map(mapData["width"], mapData["height"])];
-						player = Creature(Math.round((maps[0].width - 1) / 2), Math.round((maps[0].height - 1) / 2), '@');
-						maps[0].generate(mapData);
-						player.init();
-					});
+					maps = [Map(Settings["mapWidth"], Settings["mapHeight"])];
+					player = Creature(Math.round((maps[0].width - 1) / 2), Math.round((maps[0].height - 1) / 2), '@');
+					maps[0].generateRandom();
+					player.init();
 				});
 			});
 		});
