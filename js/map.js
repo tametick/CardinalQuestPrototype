@@ -163,17 +163,27 @@ var Map = function(width, height){
 		}
 	}
 	var isValidLocation = function(room, x, y){
+		// out of bounds
 		if (x == 0 || x == width - 1 || y == 0 || y == height - 1) 
 			return false;
 		
+		// out of reach
 		var adjunctWalls = 0;
-		for (var ax = -1; ax <= 1; ax += 2) 
+		// too many doors
+		var adjunctDoors = 0;
+		for (var ax = -1; ax <= 1; ax += 2) {
 			if (rawData[[x + ax, y]] == "#") 
 				adjunctWalls++;
-		for (var ay = -1; ay <= 1; ay += 2) 
+			else if (rawData[[x + ax, y]] == "+") 
+				adjunctDoors++;
+		}
+		for (var ay = -1; ay <= 1; ay += 2) {
 			if (rawData[[x, y + ay]] == "#") 
 				adjunctWalls++;
-		if(adjunctWalls>2)
+			else if (rawData[[x, y + ay]] == "+") 
+				adjunctDoors++;
+		}
+		if (adjunctWalls > 2 && adjunctDoors > 0) 
 			return false;
 		
 		return true;
@@ -208,8 +218,11 @@ var Map = function(width, height){
 			insertDoor(r);
 	}
 	var insertDoors = function(rooms){
-		for (var r = 0; r < rooms.length; r++) 
-			insertDoor(rooms[r]);
+		for (var r = 0; r < rooms.length; r++) {
+			var numberOfDoors = utils.randInt(1,3);
+			for(var d = 0; d<numberOfDoors; d++)
+				insertDoor(rooms[r]);
+		}
 	}
 	var insertRoom = function(r){
 		for (var y = r.y0; y < r.y1; y++) 
@@ -247,21 +260,26 @@ var Map = function(width, height){
 		
 		// Insert player
 		vars.creatures[0] = player;
+		while(data[[player.vars.x, player.vars.y]]!=".") {
+			player.vars.x = utils.randInt(1,width-2); 
+			player.vars.y = utils.randInt(1,height-2);
+		}
 		vars.creatureMap[[player.vars.x, player.vars.y]] = player;
-		/*
+		
 		// Generate monsters
-		vars.creatures[1] = Creature(2, 2, "k");
-		vars.creatures[1].init();
-		vars.creatureMap[[vars.creatures[1].vars.x, vars.creatures[1].vars.y]] = vars.creatures[1];
-		
-		vars.creatures[2] = Creature(10, 1, "k");
-		vars.creatures[2].init();
-		vars.creatureMap[[vars.creatures[2].vars.x, vars.creatures[2].vars.y]] = vars.creatures[2];
-		
-		vars.creatures[3] = Creature(11, 6, "d");
-		vars.creatures[3].init();
-		vars.creatureMap[[vars.creatures[3].vars.x, vars.creatures[3].vars.y]] = vars.creatures[3];
-		
+		for (var m = 0; m < Settings.monstersPerLevel; m++) {
+			var creaure = Creature(utils.randInt(1, width - 2), utils.randInt(1, height - 2), "k");
+			while (data[[creaure.vars.x, creaure.vars.y]] != ".") {
+				creaure.vars.x = utils.randInt(1, width - 2);
+				creaure.vars.y = utils.randInt(1, height - 2);
+			}
+			vars.creatures.push(creaure);
+			for (var c = 0; c < vars.creatures.length; c++) {
+				vars.creatures[c].init();
+				vars.creatureMap[[vars.creatures[c].vars.x, vars.creatures[c].vars.y]] = vars.creatures[c];
+			}
+		}
+		/*
 		// Generate items
 		vars.items.push(Item(2, 5, "!"));
 		vars.items.push(Item(5, 5, "["));
