@@ -295,6 +295,29 @@ var Map = function(width, height){
 			vars.items[i].init();
 			vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]] = vars.items[i];	
 		}
+		
+		// Add stairs up
+		if(currentMap>0){
+			var usx = utils.randInt(1, width - 2);
+			var usy = utils.randInt(1, height - 2);
+			while (data[[usx, usy]] != ".") {
+				usx = utils.randInt(1, width - 2);
+				usy = utils.randInt(1, height - 2);	
+			}
+			data[[usx, usy]] = "<";
+			tiles[[usx, usy]] = Tile("<", Descriptions.upStairs);
+		}
+		// Add stairs down
+		if(currentMap<Settings.lastLevel) {
+			var dsx = utils.randInt(1, width - 2);
+			var dsy = utils.randInt(1, height - 2);
+			while (data[[dsx, dsy]] != ".") {
+				dsx = utils.randInt(1, width - 2);
+				dsy = utils.randInt(1, height - 2);	
+			}
+			data[[dsx, dsy]] = ">";
+			tiles[[dsx, dsy]] = Tile(">", Descriptions.downStairs);
+		}
 	}
 	
 	return {

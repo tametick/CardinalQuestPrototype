@@ -10,7 +10,7 @@ var statusLines;
 var state;
 var player;
 var maps;
-var currentMap;
+var currentMap = 0;
 var ticks;
 
 var moved = true;

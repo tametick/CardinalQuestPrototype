@@ -249,6 +249,18 @@ var Creature = function(startX, startY, id){
 				return true;
 			case '#':
 				return false;
+			case '<':
+				if (this == player) {
+					currentMap--;
+					alert("You ascend to dungeon level " + (currentMap + 1) + ".");
+				}
+				return true;
+			case '>':
+				if (this == player) {
+					currentMap++;
+					alert("You descend to dungeon level " + (currentMap + 1) + ".");
+				}
+				return true;
 			}
 		}
 	}
