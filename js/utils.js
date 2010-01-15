@@ -19,69 +19,45 @@ var Utils = function(){
 		this.length = from < 0 ? this.length + from : from;
 		return this.push.apply(this, rest);
 	}
-	// Line Drawing - By Jack E. Bresenham
-	var line = function(x1, y1, x2, y2, opaque, apply){
-		var steep = Math.abs(y2 - y1) > Math.abs(x2 - x1);
+	
+	var los = function(x0, y0, x1, y1, opaque, apply){
+		var steep = Math.abs(y1 - y0) > Math.abs(x1 - x0);
 		if (steep) {
+			var t = y0;
+			y0 = x0;
+			x0 = t;
 			t = y1;
 			y1 = x1;
 			x1 = t;
-			t = y2;
-			y2 = x2;
-			x2 = t;
 		}
-		
-		var deltaX = Math.abs(x2 - x1);
-		var deltaY = Math.abs(y2 - y1);
-		var error = 0;
-		var deltaErr = deltaY;
-		var xStep;
-		var yStep;
-		var x = x1;
-		var y = y1;
-		
-		if (x1 < x2) {
-			xStep = 1;
-		} else {
-			xStep = -1;
+		if (x0 > x1) {
+			var t = x1;
+			x1 = x0;
+			x0 = t;
+			t = y1;
+			y1 = y0;
+			y0 = t;
 		}
-		if (y1 < y2) {
-			yStep = 1;
-		} else {
-			yStep = -1;
-		}
-		if (steep) {
-			if (opaque && opaque(y, x)) 
-				return false;
-			if (apply) 
-				apply(y, x);
-		} else {
-			if (opaque && opaque(x, y)) 
-				return false;
-			if (apply) 
-				apply(x, y);
-		}
-		
-		while (x != x2) {
-			x = x + xStep;
-			error = error + deltaErr;
-			if (2 * error >= deltaX) {
-				y = y + yStep;
-				error = error - deltaX;
-			}
-			if (steep) {
-				if (opaque && opaque(y, x)) 
+		var err_num = 0.0;
+		var y = y0;
+		for (var x = x0; x <= x1; x++) {
+			if (x > x0 && x < x1) 
+				if (steep) {
+					if (opaque && opaque(y, x)) 
+						return false;
+					else if (apply) 
+						apply(y, x);
+				} else if (opaque && opaque(x, y)) 
 					return false;
-				if (apply) 
-					apply(y, x);
-			} else {
-				if (opaque && opaque(y, x)) 
-					return false;
-				if (apply) 
+				else if (apply) 
 					apply(x, y);
+			
+			err_num += Math.abs(y1 - y0) / (x1 - x0);
+			if (0.5 < Math.abs(err_num)) {
+				y += y1 > y0 ? 1 : -1;
+				err_num--;
 			}
 		}
-		
 		return true;
 	}
 	
@@ -89,6 +65,6 @@ var Utils = function(){
 		initFromType: initFromType,
 		randInt: randInt,
 		inRange: inRange,
-		line: line
+		los: los
 	}
 }

@@ -137,6 +137,7 @@ $(document).ready(function(){
 					player = Creature(utils.randInt(1,maps[0].width-2), utils.randInt(1,maps[0].height-2), '@f');
 					maps[0].generateRandom();
 					player.init();
+					player.calculateFieldOfView();
 				});
 			});
 		});
@@ -247,6 +248,7 @@ $(document).keydown(function(e){
 		}
 		
 		if (moved) {
+			player.calculateFieldOfView();
 			player.vars.actionPoints = 0;
 			while (player.vars.actionPoints < 60) {
 				maps[currentMap].tick();

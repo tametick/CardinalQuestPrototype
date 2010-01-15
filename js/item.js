@@ -58,7 +58,7 @@ var Item = function(startX, startY, id){
 	}
 	// For printing to the inventory screen 
 	var toString = function(){
-		return id + " - " + vars.description[0];
+		return vars.symbol + " - " + vars.description[0];
 	}
 	
 	return {

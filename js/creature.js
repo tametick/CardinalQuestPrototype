@@ -81,6 +81,7 @@ var Creature = function(startX, startY, id){
 		y: startY,
 		actionPoints: 0,
 		spiritPoints: 0,
+		experiencePoints:0
 	}
 	var drop = function(itemIndex){
 		if (vars.inventory.items.length > itemIndex) {
@@ -157,6 +158,7 @@ var Creature = function(startX, startY, id){
 					alert("You have Perished.\nGame Over.");
 					state = State.menu;
 				}
+				vars.experiencePoints+=other.vars.experience;
 			}
 		} else {
 			// Miss
@@ -270,7 +272,7 @@ var Creature = function(startX, startY, id){
 					currentMap++;
 					alert("You descend to dungeon level " + (currentMap + 1) + ".");
 	
-					// generate new map (todo: get old map from memory is returning)
+					// generate new map (todo: get old map from memory if returning)
 					maps.push(Map(Settings["mapWidth"], Settings["mapHeight"]));
 					maps[currentMap].generateRandom();
 				}
@@ -316,12 +318,34 @@ var Creature = function(startX, startY, id){
 			vars.life = utils.randInt(vars.life[0] * 1, vars.life[1] * 1);
 		}
 	}
-	
+	var _opaque = function(x0,y0) {
+		return (maps[currentMap].tiles[[x0,y0]].symbol == "#") ||
+				(maps[currentMap].tiles[[x0,y0]].symbol == "+");
+	}
+	var _apply = function(x0,y0) {
+		maps[currentMap].tiles[[x0,y0]].seen=2;
+	}
+	var calculateFieldOfView = function(radius) {
+		for (var y = 0; y < maps[currentMap].height; y++) 
+			for (var x = 0; x < maps[currentMap].width; x++)
+				if(maps[currentMap].tiles[[x,y]].seen==2)
+					maps[currentMap].tiles[[x,y]].seen=1;
+		
+		for (var yy = Math.max(vars.y - vars.fovRadius, 0); yy <= Math.min(vars.y + vars.fovRadius, maps[currentMap].height-1); yy++) 
+			for (var xx = Math.max(vars.x - vars.fovRadius, 0); xx <= Math.min(vars.x + vars.fovRadius, maps[currentMap].width-1); xx++) {
+				if(utils.los(vars.x,vars.y,xx,yy,_opaque,null))
+					maps[currentMap].tiles[[xx,yy]].seen=2;
+			}
+						
+	}
 	return {
 		id: id,
 		vars: vars,
 		act: act,
 		draw: draw,
+		_opaque: _opaque,
+		_apply: _apply,
+		calculateFieldOfView: calculateFieldOfView,
 		attackOther: attackOther,
 		move: move,
 		closeDoor: closeDoor,

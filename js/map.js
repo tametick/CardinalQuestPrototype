@@ -10,9 +10,11 @@ var Room = function(x0, y0, x1, y1){
 }
 
 var Tile = function(symbol, description){
+	var seen = 0;
 	return {
 		symbol: symbol,
-		description: description
+		description: description,
+		seen: seen
 	}
 }
 
@@ -56,8 +58,11 @@ var Map = function(width, height){
 				if (vars.creatureMap[[x, y]] == null && vars.itemMap[[x, y]] == null) {
 					var nx = Settings.viewerWidth / 2 + x - player.vars.x;
 					var ny = Settings.viewerHeight / 2 + y - player.vars.y;
-					if (nx >= 0 && ny >= 0 && nx < Settings.viewerWidth && ny < Settings.viewerHeight) 
-						viewer.putTile(nx, ny, tiles[[x, y]].symbol, [200, 200, 200]);
+					if (nx >= 0 && ny >= 0 && nx < Settings.viewerWidth && ny < Settings.viewerHeight)
+						if(tiles[[x, y]].seen == 2)
+							viewer.putTile(nx, ny, tiles[[x, y]].symbol, [200, 200, 200]);
+						else if(tiles[[x, y]].seen == 1) 
+							viewer.putTile(nx, ny, tiles[[x, y]].symbol, [64, 64, 64]);
 				}
 		for (var c = 0; c < vars.items.length; c++) 
 			if (vars.creatureMap[[vars.items[c].vars.x, vars.items[c].vars.y]] == null) 
