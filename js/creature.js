@@ -136,7 +136,7 @@ var Creature = function(startX, startY, id){
 			}
 			if (other.vars.life > 0) {
 				// Injure
-				if (id == "@") 
+				if (id.charAt(0) == "@") 
 					messageLog.append("You hit " + other.vars.description[0] + ".");
 				else {
 					messageLog.append(vars.description[0] + " hits you.");
@@ -150,7 +150,7 @@ var Creature = function(startX, startY, id){
 					throw "Error: creature exist in creatureMap but not in creatures.";
 				maps[currentMap].vars.creatureMap[[other.vars.x, other.vars.y]] = null;
 				
-				if (id == "@") {
+				if (id.charAt(0) == "@") {
 					messageLog.append("You killed " + other.vars.description[0] + "!");
 				} else {
 					messageLog.append(vars.description[0] + " has killed you!");
@@ -160,7 +160,7 @@ var Creature = function(startX, startY, id){
 			}
 		} else {
 			// Miss
-			if (id == "@") 
+			if (id.charAt(0) == "@") 
 				messageLog.append("You miss " + other.vars.description[0] + ".");
 			else 
 				messageLog.append(vars.description[0] + " misses you.");
@@ -192,7 +192,7 @@ var Creature = function(startX, startY, id){
 	}
 	var draw = function(){
 		// fixme - load color from creature-types file
-		viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, id, Settings.playerColor);
+		viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, vars.symbol, Settings.playerColor);
 	}
 	
 	var pickUp = function(item, dx, dy, isPlayer){
@@ -272,16 +272,12 @@ var Creature = function(startX, startY, id){
 		return str;
 	}
 	var init = function(){
-		var type;
-		if (id == "@") 
-			type = CreatureTypes[id]["fighter"];
-		else 
-			type = CreatureTypes[id];
+		var type = CreatureTypes[id];
 		
 		utils.initFromType(vars, type);
 		vars.description = Descriptions[id];
 		
-		if (id == "@") {
+		if (id.charAt(0) == "@") {
 			// Calculate stats
 			vars.life = vars.vitality; // level 1 
 			vars.damage = [1,1]; // bare hands

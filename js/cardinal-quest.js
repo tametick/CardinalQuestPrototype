@@ -134,7 +134,7 @@ $(document).ready(function(){
 					update();
 					
 					maps = [Map(Settings["mapWidth"], Settings["mapHeight"])];
-					player = Creature(utils.randInt(1,maps[0].width-2), utils.randInt(1,maps[0].height-2), '@');
+					player = Creature(utils.randInt(1,maps[0].width-2), utils.randInt(1,maps[0].height-2), '@f');
 					maps[0].generateRandom();
 					player.init();
 				});
