@@ -4,6 +4,7 @@
 	"mapWidth": 36,
 	"mapHeight": 36,
 	"monstersPerLevel": 24,
+	"itemsPerLevel": 12,
 	"playerColor": [0,0,255],
 	"cursorColor": [255,0,0],
 	"logSize": 2

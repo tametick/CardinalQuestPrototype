@@ -38,7 +38,7 @@
 		"color":[128,128,128],
 		"symbol": "!"
 	},
-	"[": {
+	"be": {
 		"type": "shoes",
 		"effect": "speed",
 		"value": 1,

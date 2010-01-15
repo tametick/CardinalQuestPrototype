@@ -283,17 +283,18 @@ var Map = function(width, height){
 				vars.creatureMap[[vars.creatures[c].vars.x, vars.creatures[c].vars.y]] = vars.creatures[c];
 			}
 		}
-		/*
-		// Generate items
-		vars.items.push(Item(2, 5, "!"));
-		vars.items.push(Item(5, 5, "["));
-		vars.items.push(Item(10, 7, "("));
 		
-		for (var i = 0; i < vars.items.length; i++) {
+		// Generate items
+		for (var i = 0; i < Settings.itemsPerLevel; i++) {
+			vars.items.push(Item(utils.randInt(1, width - 2), utils.randInt(1, height - 2), "sh"));
+			while (data[[vars.items[i].vars.x, vars.items[i].vars.y]] != "." &&
+					!vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]]) {
+				vars.items[i].vars.x = utils.randInt(1, width - 2);
+				vars.items[i].vars.y = utils.randInt(1, height - 2);
+			} 
 			vars.items[i].init();
 			vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]] = vars.items[i];	
 		}
-		*/
 	}
 	
 	return {

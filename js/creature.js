@@ -274,10 +274,9 @@ var Creature = function(startX, startY, id){
 	var init = function(){
 		var type = CreatureTypes[id];
 		
-		utils.initFromType(vars, type);
-		vars.description = Descriptions[id];
-		
+		utils.initFromType(vars, type);		
 		if (id.charAt(0) == "@") {
+			vars.description = Descriptions["@"];
 			// Calculate stats
 			vars.life = vars.vitality; // level 1 
 			vars.damage = [1,1]; // bare hands
@@ -287,6 +286,7 @@ var Creature = function(startX, startY, id){
 			vars.weapon = Weapon();
 		} else {
 			// Roll hp
+			vars.description = Descriptions[id];
 			vars.life = utils.randInt(vars.life[0] * 1, vars.life[1] * 1);
 		}
 	}
