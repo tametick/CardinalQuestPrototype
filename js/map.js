@@ -297,7 +297,7 @@ var Map = function(width, height){
 		}
 		
 		// Add stairs up
-		if(currentMap>0){
+	/*	if(currentMap>0){
 			var usx = utils.randInt(1, width - 2);
 			var usy = utils.randInt(1, height - 2);
 			while (data[[usx, usy]] != ".") {
@@ -306,7 +306,7 @@ var Map = function(width, height){
 			}
 			data[[usx, usy]] = "<";
 			tiles[[usx, usy]] = Tile("<", Descriptions.upStairs);
-		}
+		}*/
 		// Add stairs down
 		if(currentMap<Settings.lastLevel) {
 			var dsx = utils.randInt(1, width - 2);

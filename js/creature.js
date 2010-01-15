@@ -251,14 +251,28 @@ var Creature = function(startX, startY, id){
 				return false;
 			case '<':
 				if (this == player) {
+					// Remove player from current map
+					maps[currentMap].vars.creatures.shift();
+					maps[currentMap].vars.creatureMap[[player.vars.x,player.vars.y]]=null;
+
 					currentMap--;
 					alert("You ascend to dungeon level " + (currentMap + 1) + ".");
+	
+					// todo: insert player to new map
 				}
 				return true;
 			case '>':
 				if (this == player) {
+					// Remove player from current map
+					maps[currentMap].vars.creatures.shift();
+					maps[currentMap].vars.creatureMap[[player.vars.x,player.vars.y]]=null;
+					
 					currentMap++;
 					alert("You descend to dungeon level " + (currentMap + 1) + ".");
+	
+					// generate new map (todo: get old map from memory is returning)
+					maps.push(Map(Settings["mapWidth"], Settings["mapHeight"]));
+					maps[currentMap].generateRandom();
 				}
 				return true;
 			}
