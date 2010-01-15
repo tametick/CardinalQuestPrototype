@@ -24,10 +24,21 @@ body {
 	margin: 0px;
 }
 
-a {color: #a1d2e0;}
-a:visited {color: #cbe7f5;}
-a:hover {color: #2c668b;}
-a:active {color: #000000;}
+a {
+	color: #a1d2e0;
+}
+
+a:visited {
+	color: #cbe7f5;
+}
+
+a:hover {
+	color: #2c668b;
+}
+
+a:active {
+	color: #000000;
+}
 
 h1 {
 	font-size: 12px;
@@ -48,6 +59,7 @@ h2 {
 }
 
 h3 {
+	font-size: 16px;
 	padding: 0px 10px;
 	margin: 0px;
 }
