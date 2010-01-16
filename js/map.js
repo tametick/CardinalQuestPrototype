@@ -256,6 +256,11 @@ var Map = function(width, height){
 		generate(rawData);
 	}
 	
+	
+	var randomItemId = function(level) {
+		return ItemTypes.ids[utils.randInt(0,ItemTypes.ids.length-1)];
+	}
+	
 	var generate = function(data){
 		for (var y = 0; y < height; y++) {
 			for (var x = 0; x < width; x++) 
@@ -283,7 +288,8 @@ var Map = function(width, height){
 				creaure.vars.y = utils.randInt(1, height - 2);
 			}
 			vars.creatures.push(creaure);
-			for (var c = 0; c < vars.creatures.length; c++) {
+			// start from first monster, no need to init the player
+			for (var c = 1; c < vars.creatures.length; c++) {
 				vars.creatures[c].init();
 				vars.creatureMap[[vars.creatures[c].vars.x, vars.creatures[c].vars.y]] = vars.creatures[c];
 			}
@@ -291,7 +297,7 @@ var Map = function(width, height){
 		
 		// Generate items
 		for (var i = 0; i < Settings.itemsPerLevel; i++) {
-			vars.items.push(Item(utils.randInt(1, width - 2), utils.randInt(1, height - 2), "sh"));
+			vars.items.push(Item(utils.randInt(1, width - 2), utils.randInt(1, height - 2), randomItemId()));
 			while (data[[vars.items[i].vars.x, vars.items[i].vars.y]] != "." &&
 					!vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]]) {
 				vars.items[i].vars.x = utils.randInt(1, width - 2);

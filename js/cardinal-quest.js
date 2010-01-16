@@ -123,6 +123,10 @@ $(document).ready(function(){
 					Settings = sett;
 					
 					utils = Utils();
+					var itemIds = [];
+					for(var id in ItemTypes)
+						itemIds.push(id);
+					ItemTypes["ids"]=itemIds;
 					
 					state = State.loading;
 					viewer = Viewer(Settings.viewerWidth, Settings.viewerHeight);
