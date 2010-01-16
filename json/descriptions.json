@@ -12,7 +12,7 @@
 	"W": ["a werewolf","These creatures are semi-intelligent and usually hunt in packs. A werewolf's bite can inflict disease on its victim."],
 	"M": ["a minotaur","A minotaur is a large man-shaped creature with the head, hide and temperament of a bull. It is larger than human size and eats humans. When attacking it may go berserk."],
 	"sh": ["healing salve", "A small vial containing fragrant, light-green salve. Restores life to %100 when applied."],
-	"ec":["elixir of the cheetah","This elixir temporarily grants great speed when quaffed."],
+	"clc":["cocoa leaf cocktail","This mysterious beverage grants great speed when quaffed."],
 	"ee":["elixir of the elephant","This elixir temporarily protects the drinker's body with a thick hide."],
 	"eh":["elixir of the hawk","This elixir temporarily grants ultra-human eyesight and reflexes."],
 	"el":["elixir of the lion","This elixir temporarily strengthens the drinker immensely."],

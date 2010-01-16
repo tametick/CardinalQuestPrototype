@@ -6,7 +6,7 @@
 		"color":[128,128,128],
 		"symbol":"!"
 	},
-	"ec": {
+	"clc": {
 		"type": "consumable",
 		"effect": "speed",
 		"value": 3,
