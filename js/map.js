@@ -256,7 +256,6 @@ var Map = function(width, height){
 		generate(rawData);
 	}
 	
-	
 	var randomItemId = function(level) {
 		return ItemTypes.ids[utils.randInt(0,ItemTypes.ids.length-1)];
 	}

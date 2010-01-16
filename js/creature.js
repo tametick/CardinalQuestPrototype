@@ -81,7 +81,8 @@ var Creature = function(startX, startY, id){
 		y: startY,
 		actionPoints: 0,
 		spiritPoints: 0,
-		experiencePoints:0
+		experiencePoints:0,
+		level:1
 	}
 	var drop = function(itemIndex){
 		if (vars.inventory.items.length > itemIndex) {
@@ -151,14 +152,21 @@ var Creature = function(startX, startY, id){
 					throw "Error: creature exist in creatureMap but not in creatures.";
 				maps[currentMap].vars.creatureMap[[other.vars.x, other.vars.y]] = null;
 				
+				vars.experiencePoints+=other.vars.experience;
 				if (id.charAt(0) == "@") {
 					messageLog.append("You killed " + other.vars.description[0] + "!");
+					if(vars.experiencePoints>= 100*Math.pow(2,vars.level)){
+						vars.level++;
+						vars.maxLife+=vars.vitality;
+						vars.life = vars.maxLife;
+						messageLog.append("You have gained a level!");
+					}
+						
 				} else {
 					messageLog.append(vars.description[0] + " has killed you!");
 					alert("You have Perished.\nGame Over.");
 					state = State.menu;
 				}
-				vars.experiencePoints+=other.vars.experience;
 			}
 		} else {
 			// Miss
@@ -258,7 +266,7 @@ var Creature = function(startX, startY, id){
 					maps[currentMap].vars.creatureMap[[player.vars.x,player.vars.y]]=null;
 
 					currentMap--;
-					alert("You ascend to dungeon level " + (currentMap + 1) + ".");
+					messageLog.append("You ascend to dungeon level " + (currentMap + 1) + ".");
 	
 					// todo: insert player to new map
 				}
@@ -270,7 +278,7 @@ var Creature = function(startX, startY, id){
 					maps[currentMap].vars.creatureMap[[player.vars.x,player.vars.y]]=null;
 					
 					currentMap++;
-					alert("You descend to dungeon level " + (currentMap + 1) + ".");
+					messageLog.append("You descend to dungeon level " + (currentMap + 1) + ".");
 	
 					// generate new map (todo: get old map from memory if returning)
 					maps.push(Map(Settings["mapWidth"], Settings["mapHeight"]));
@@ -306,7 +314,8 @@ var Creature = function(startX, startY, id){
 		if (id.charAt(0) == "@") {
 			vars.description = Descriptions["@"];
 			// Calculate stats
-			vars.life = vars.vitality; // level 1 
+			vars.life = vars.vitality; // level 1
+			vars.maxLife = vars.life;  
 			vars.damage = [1,1]; // bare hands
 			// fixme - don't hard code size
 			vars.inventory = Inventory(6);
