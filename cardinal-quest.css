@@ -154,30 +154,30 @@ html {
 #help {
 	padding: 5px;
 	width: 173px;
-	/*border: 1px solid #888888;*/
+/*	border: 1px solid #888888;*/
 	float: left;
 }
 
 #inventory {
 	padding: 5px;
 	width: 173px;
-	/*border: 1px solid #888888;*/
+/*	border: 1px solid #888888;*/
 	float: right;
 }
 
 #viewer {
-	/*border: 1px solid #888888;*/
+/*	border: 1px solid #888888;*/
 	margin: auto;
 	overflow: hidden;
 }
 
 #statusLines {
 	text-align: center;
-	/*border: 1px solid #888888;*/
+/*	border: 1px solid #888888;*/
 }
 
 #messageLog {
 	text-align: center;
 	color: #ffba4d;
-	/*border: 1px solid #888888;*/	
+/*	border: 1px solid #888888;*/	
 }
