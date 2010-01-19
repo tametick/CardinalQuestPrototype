@@ -177,12 +177,15 @@ var Creature = function(startX, startY, id){
 				messageLog.append(vars.description[0] + " misses you.");
 		}
 	}
-	var executeSpecial = function() {
+	var executeSpecial = function(other) {
 		if (vars.spiritPoints == 360) {
-			
+			Special()[vars.special](this, other);
 			vars.spiritPoints = 0;
-		} else
+			return true;
+		} else {
 			messageLog.append("You are insufficiently charged.");
+			return false;
+		}
 	}
 	
 	var act = function(){

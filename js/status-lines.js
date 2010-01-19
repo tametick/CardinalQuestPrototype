@@ -32,11 +32,24 @@ var StatusLines = function(){
 	var print = function(empty){
 		var data;
 		if (empty) 
-			data = [" ", " "," "];
-		else 
-			data = ["Vitality: " + stat(player.vars.vitality) + "&nbsp; Attack: " + stat(player.vars.attack) + "&nbsp; Defense: " + stat(player.vars.defense) + "&nbsp; Speed: " + stat(player.vars.speed) + "&nbsp; Spirit: " + stat(player.vars.spirit), 
-			"Life: " + life(player.vars.life+"/"+player.vars.maxLife) + "&nbsp; Charge: " + charge(Math.round(100 * player.vars.spiritPoints / 360.0) + "%")+"&nbsp; Experience: " + experience(player.vars.experiencePoints+"/"+player.nextLevel())+"&nbsp; Level: " +charLevel(player.vars.level),
-			life(bar(player.vars.life,player.vars.maxLife))+"&nbsp;&nbsp;&nbsp;&nbsp; "+charge(bar(player.vars.spiritPoints, 360))+"&nbsp;&nbsp;&nbsp;&nbsp; "+experience(bar(player.vars.experiencePoints,player.nextLevel()))];
+			data = [" ", " ", " "];
+		else {
+			// Abilities
+			var vit=player.vars.vitality;//+player.vars.buffs?(player.vars.buffs.vitality?player.vars.buffs.vitality:0):0;
+			var atk=player.vars.attack+(player.vars.buffs?(player.vars.buffs.attack?player.vars.buffs.attack:0):0);
+			var def=player.vars.defense+(player.vars.buffs?(player.vars.buffs.defense?player.vars.buffs.defense:0):0);
+			var spd=player.vars.speed+(player.vars.buffs?(player.vars.buffs.speed?player.vars.buffs.speed:0):0);
+			var spr=player.vars.spirit+(player.vars.buffs?(player.vars.buffs.spirit?player.vars.buffs.spirit:0):0);
+			// stats
+			var lif = player.vars.life+(player.vars.buffs?(player.vars.buffs.life?player.vars.buffs.life:0):0);
+			var mlif = player.vars.maxLife+(player.vars.buffs?(player.vars.buffs.life?player.vars.buffs.life:0):0);
+			
+			data = [
+			"Vitality: " + stat(vit) + "&nbsp; Attack: " + stat(atk) + "&nbsp; Defense: " + stat(def) + "&nbsp; Speed: " + stat(spd) + "&nbsp; Spirit: " + stat(spr), 
+			"Life: " + life(lif + "/" + mlif) + "&nbsp; Charge: " + charge(Math.round(100 * player.vars.spiritPoints / 360.0) + "%") + "&nbsp; Experience: " + experience(player.vars.experiencePoints + "/" + player.nextLevel()) + "&nbsp; Level: " + charLevel(player.vars.level), 
+			life(bar(lif, mlif)) + "&nbsp;&nbsp;&nbsp;&nbsp; " + charge(bar(player.vars.spiritPoints, 360)) + "&nbsp;&nbsp;&nbsp;&nbsp; " + experience(bar(player.vars.experiencePoints, player.nextLevel()))
+			];
+		}
 		
 		status.empty();
 		for (var i = 0; i < data.length; i++) 

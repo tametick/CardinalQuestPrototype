@@ -32,8 +32,31 @@ var Map = function(width, height){
 	var tick = function(){
 		try {
 			for (var c = 0; c < vars.creatures.length; c++) {
-				// Apply speed buffs
+				var buffs = vars.creatures[c].vars.buffs;
+				// remove timed out buffs
+				var timers = vars.creatures[c].vars.timers;
+				if (timers) {
+					var expired = [];
+					for (var t = 0; t < timers.length; t++) {
+						timers[t][0]--;
+						if (timers[t][0] == 0) {
+							// remove buff
+							if (buffs[timers[t][1]] == timers[t][2]) 
+								buffs[timers[t][1]] = null;
+							// reduce buff
+							else 
+								buffs[timers[t][1]] -= timers[t][2]
+							expired.push(t);
+						}
+					}
+					
+					// remove expired timers
+					for (var t=0; t<expired.lenth; t++) 
+						timers.remove(expired[t]);
+				}
+				
 				var speed = vars.creatures[c].vars.speed;
+				// Apply speed buffs
 				if (vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.speed) 
 					speed += vars.creatures[c].vars.buffs.speed;
 				// TODO: apply spirit buffs
@@ -53,14 +76,15 @@ var Map = function(width, height){
 				}
 			}
 			return true;
-		} catch(err) {
+		} catch (err) {
 			if (err == "Player died") {
 				alert("You have Perished.\nGame Over.");
-				var name = player.name; 
+				var name = player.name;
 				maps = [Map(Settings["mapWidth"], Settings["mapHeight"])];
-				player = Creature(utils.randInt(1,maps[0].width-2), utils.randInt(1,maps[0].height-2), '@');
+				player = Creature(utils.randInt(1, maps[0].width - 2), utils.randInt(1, maps[0].height - 2), '@');
 				player.name = name;
-			}
+			} else 
+				throw (err);
 			return false;
 		}
 	}
@@ -70,10 +94,10 @@ var Map = function(width, height){
 				if (vars.creatureMap[[x, y]] == null && vars.itemMap[[x, y]] == null) {
 					var nx = Settings.viewerWidth / 2 + x - player.vars.x;
 					var ny = Settings.viewerHeight / 2 + y - player.vars.y;
-					if (nx >= 0 && ny >= 0 && nx < Settings.viewerWidth && ny < Settings.viewerHeight)
-						if(tiles[[x, y]].seen == 2)
+					if (nx >= 0 && ny >= 0 && nx < Settings.viewerWidth && ny < Settings.viewerHeight) 
+						if (tiles[[x, y]].seen == 2) 
 							viewer.putTile(nx, ny, tiles[[x, y]].symbol, [200, 200, 200]);
-						else if(tiles[[x, y]].seen == 1) 
+						else if (tiles[[x, y]].seen == 1) 
 							viewer.putTile(nx, ny, tiles[[x, y]].symbol, [64, 64, 64]);
 				}
 		for (var c = 0; c < vars.items.length; c++) 
@@ -240,8 +264,8 @@ var Map = function(width, height){
 	}
 	var insertDoors = function(rooms){
 		for (var r = 0; r < rooms.length; r++) {
-			var numberOfDoors = utils.randInt(1,3);
-			for(var d = 0; d<numberOfDoors; d++)
+			var numberOfDoors = utils.randInt(1, 3);
+			for (var d = 0; d < numberOfDoors; d++) 
 				insertDoor(rooms[r]);
 		}
 	}
@@ -268,8 +292,8 @@ var Map = function(width, height){
 		generate(rawData);
 	}
 	
-	var randomItemId = function(level) {
-		return ItemTypes.ids[utils.randInt(0,ItemTypes.ids.length-1)];
+	var randomItemId = function(level){
+		return ItemTypes.ids[utils.randInt(0, ItemTypes.ids.length - 1)];
 	}
 	
 	var generate = function(data){
@@ -285,9 +309,9 @@ var Map = function(width, height){
 		
 		// Insert player
 		vars.creatures[0] = player;
-		while(data[[player.vars.x, player.vars.y]]!=".") {
-			player.vars.x = utils.randInt(1,width-2); 
-			player.vars.y = utils.randInt(1,height-2);
+		while (data[[player.vars.x, player.vars.y]] != ".") {
+			player.vars.x = utils.randInt(1, width - 2);
+			player.vars.y = utils.randInt(1, height - 2);
 		}
 		vars.creatureMap[[player.vars.x, player.vars.y]] = player;
 		
@@ -310,32 +334,32 @@ var Map = function(width, height){
 		for (var i = 0; i < Settings.itemsPerLevel; i++) {
 			vars.items.push(Item(utils.randInt(1, width - 2), utils.randInt(1, height - 2), randomItemId()));
 			while (data[[vars.items[i].vars.x, vars.items[i].vars.y]] != "." &&
-					!vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]]) {
+			!vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]]) {
 				vars.items[i].vars.x = utils.randInt(1, width - 2);
 				vars.items[i].vars.y = utils.randInt(1, height - 2);
-			} 
+			}
 			vars.items[i].init();
-			vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]] = vars.items[i];	
+			vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]] = vars.items[i];
 		}
 		
 		// Add stairs up
-	/*	if(currentMap>0){
-			var usx = utils.randInt(1, width - 2);
-			var usy = utils.randInt(1, height - 2);
-			while (data[[usx, usy]] != ".") {
-				usx = utils.randInt(1, width - 2);
-				usy = utils.randInt(1, height - 2);	
-			}
-			data[[usx, usy]] = "<";
-			tiles[[usx, usy]] = Tile("<", Descriptions.upStairs);
-		}*/
+		/*if(currentMap>0){
+		 var usx = utils.randInt(1, width - 2);
+		 var usy = utils.randInt(1, height - 2);
+		 while (data[[usx, usy]] != ".") {
+		 usx = utils.randInt(1, width - 2);
+		 usy = utils.randInt(1, height - 2);
+		 }
+		 data[[usx, usy]] = "<";
+		 tiles[[usx, usy]] = Tile("<", Descriptions.upStairs);
+		 }*/
 		// Add stairs down
-		if(currentMap<Settings.lastLevel) {
+		if (currentMap < Settings.lastLevel) {
 			var dsx = utils.randInt(1, width - 2);
 			var dsy = utils.randInt(1, height - 2);
 			while (data[[dsx, dsy]] != ".") {
 				dsx = utils.randInt(1, width - 2);
-				dsy = utils.randInt(1, height - 2);	
+				dsy = utils.randInt(1, height - 2);
 			}
 			data[[dsx, dsy]] = ">";
 			tiles[[dsx, dsy]] = Tile(">", Descriptions.downStairs);
