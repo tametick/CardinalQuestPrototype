@@ -30,26 +30,38 @@ var Map = function(width, height){
 	}
 	
 	var tick = function(){
-		for (var c = 0; c < vars.creatures.length; c++) {
-			// Apply speed buffs
-			var speed = vars.creatures[c].vars.speed;
-			if (vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.speed) 
-				speed += vars.creatures[c].vars.buffs.speed;
-			// TODO: apply spirit buffs
-			var spirit = vars.creatures[c].vars.spirit;
-			if (spirit && vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.spirit) 
-				spirit += vars.creatures[c].vars.buffs.spirit;
-			
-			// Charge action & spirit points				
-			vars.creatures[c].vars.actionPoints += speed;
-			if (spirit) 
-				vars.creatures[c].vars.spiritPoints = Math.min(360, vars.creatures[c].vars.spiritPoints + spirit);
-			
-			// Move if charged
-			if (c != 0 && vars.creatures[c].vars.actionPoints >= 60) {
-				if (vars.creatures[c].act()) 
-					vars.creatures[c].vars.actionPoints = 0;
+		try {
+			for (var c = 0; c < vars.creatures.length; c++) {
+				// Apply speed buffs
+				var speed = vars.creatures[c].vars.speed;
+				if (vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.speed) 
+					speed += vars.creatures[c].vars.buffs.speed;
+				// TODO: apply spirit buffs
+				var spirit = vars.creatures[c].vars.spirit;
+				if (spirit && vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.spirit) 
+					spirit += vars.creatures[c].vars.buffs.spirit;
+				
+				// Charge action & spirit points				
+				vars.creatures[c].vars.actionPoints += speed;
+				if (spirit) 
+					vars.creatures[c].vars.spiritPoints = Math.min(360, vars.creatures[c].vars.spiritPoints + spirit);
+				
+				// Move if charged
+				if (c != 0 && vars.creatures[c].vars.actionPoints >= 60) {
+					if (vars.creatures[c].act()) 
+						vars.creatures[c].vars.actionPoints = 0;
+				}
 			}
+			return true;
+		} catch(err) {
+			if (err == "Player died") {
+				alert("You have Perished.\nGame Over.");
+				var name = player.name; 
+				maps = [Map(Settings["mapWidth"], Settings["mapHeight"])];
+				player = Creature(utils.randInt(1,maps[0].width-2), utils.randInt(1,maps[0].height-2), '@');
+				player.name = name;
+			}
+			return false;
 		}
 	}
 	var draw = function(){

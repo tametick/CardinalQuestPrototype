@@ -78,11 +78,7 @@ var Creature = function(startX, startY, id){
 	
 	var vars = {
 		x: startX,
-		y: startY,
-		actionPoints: 0,
-		spiritPoints: 0,
-		experiencePoints:0,
-		level:1
+		y: startY
 	}
 	var drop = function(itemIndex){
 		if (vars.inventory.items.length > itemIndex) {
@@ -169,8 +165,8 @@ var Creature = function(startX, startY, id){
 						
 				} else {
 					messageLog.append(vars.description[0] + " has killed you!");
-					alert("You have Perished.\nGame Over.");
 					state = State.menu;
+					throw("Player died");
 				}
 			}
 		} else {
@@ -183,7 +179,7 @@ var Creature = function(startX, startY, id){
 	}
 	var executeSpecial = function() {
 		if (vars.spiritPoints == 360) {
-			alert("SPECIAL!!");
+			
 			vars.spiritPoints = 0;
 		} else
 			messageLog.append("You are insufficiently charged.");
@@ -324,6 +320,12 @@ var Creature = function(startX, startY, id){
 			type = CreatureTypes[id];
 		
 		utils.initFromType(vars, type);
+		
+		vars.actionPoints= 0;
+		vars.spiritPoints= 0;
+		vars.experiencePoints=0;
+		vars.level=1;
+		
 		if (id == "@") {
 			vars.description = Descriptions["@"];
 			// Calculate stats

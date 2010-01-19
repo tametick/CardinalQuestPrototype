@@ -172,6 +172,9 @@ $(document).keydown(function(e){
 	
 	switch (state) {
 	case State.menu:
+		player.charClassId = CharClassId[currentClass];
+		player.color = ColorId[currentColor];
+		
 		document.defaultAction = false;
 		switch (code) {
 		case Keys.up:
@@ -217,8 +220,6 @@ $(document).keydown(function(e){
 				player.name = utils.capitalize(player.name);
 			break;
 		}
-		player.charClassId = CharClassId[currentClass];
-		player.color = ColorId[currentColor];
 		 
 		break;
 	case State.examine:
@@ -311,8 +312,10 @@ $(document).keydown(function(e){
 			player.calculateFieldOfView();
 			player.vars.actionPoints = 0;
 			while (player.vars.actionPoints < 60) {
-				maps[currentMap].tick();
+				var continueTicking = maps[currentMap].tick();
 				ticks++;
+				if(!continueTicking)
+					break;
 			}
 			moved = false;
 		}
