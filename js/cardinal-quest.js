@@ -214,6 +214,7 @@ $(document).keydown(function(e){
 		default:
 			if(currentLine==0)
 				player.name += utils.alphanumeric(code);
+				player.name = utils.capitalize(player.name);
 			break;
 		}
 		player.charClassId = CharClassId[currentClass];

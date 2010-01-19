@@ -12,6 +12,9 @@ var Utils = function(){
 		else 
 			return "";
 	}
+	var capitalize = function(str){
+		return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
+	}
 	var randInt = function(min, max){
 		return min + Math.floor(Math.random() * (max - min + 1));
 	}
@@ -69,6 +72,7 @@ var Utils = function(){
 	return {
 		initFromType: initFromType,
 		alphanumeric: alphanumeric,
+		capitalize: capitalize,
 		randInt: randInt,
 		inRange: inRange,
 		los: los
