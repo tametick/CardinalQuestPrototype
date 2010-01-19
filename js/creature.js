@@ -125,6 +125,11 @@ var Creature = function(startX, startY, id){
 			
 		}
 	}
+	
+	var nextLevel = function() {
+		return 100*Math.pow(2,vars.level)
+	}
+	
 	var attackOther = function(other){
 		if (Math.random() < vars.attack / (vars.attack + other.vars.defense)) {
 			// Hit
@@ -155,7 +160,7 @@ var Creature = function(startX, startY, id){
 				vars.experiencePoints+=other.vars.experience;
 				if (id.charAt(0) == "@") {
 					messageLog.append("You killed " + other.vars.description[0] + "!");
-					if(vars.experiencePoints>= 100*Math.pow(2,vars.level)){
+					if(vars.experiencePoints>=nextLevel()){
 						vars.level++;
 						vars.maxLife+=vars.vitality;
 						vars.life = vars.maxLife;
@@ -358,6 +363,7 @@ var Creature = function(startX, startY, id){
 	return {
 		id: id,
 		vars: vars,
+		nextLevel: nextLevel,
 		act: act,
 		draw: draw,
 		_opaque: _opaque,
