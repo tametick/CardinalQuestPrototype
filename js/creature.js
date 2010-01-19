@@ -127,7 +127,11 @@ var Creature = function(startX, startY, id){
 	}
 	
 	var attackOther = function(other){
-		if (Math.random() < vars.attack / (vars.attack + other.vars.defense)) {
+		// attack & defense buffs
+		var atk = vars.attack + (vars.buffs ? (vars.buffs.attack ? vars.buffs.attack : 0) : 0);
+		var def = other.vars.defense + (other.vars.buffs ? (other.vars.buffs.defense ? other.vars.buffs.defense : 0) : 0);
+
+		if (Math.random() < atk / (atk + def)) {
 			// Hit
 			if (vars.weapon && vars.weapon.wielded.length > 0) {
 				// With weapon
@@ -137,7 +141,11 @@ var Creature = function(startX, startY, id){
 				// With natural attack
 				other.vars.life -= utils.randInt(vars.damage[0] * 1, vars.damage[1] * 1);
 			}
-			if (other.vars.life > 0) {
+			
+			// life buffs
+			var lif = other.vars.life + (other.vars.buffs ? (other.vars.buffs.life ? other.vars.buffs.life : 0) : 0);
+			
+			if (lif > 0) {
 				// Injure
 				if (id.charAt(0) == "@") 
 					messageLog.append("You hit " + other.vars.description[0] + ".");
