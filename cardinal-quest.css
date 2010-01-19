@@ -153,14 +153,14 @@ html {
 #help {
 	padding: 5px;
 	width: 173px;
-	border: 1px solid #888888;
+	/*border: 1px solid #888888;*/
 	float: left;
 }
 
 #inventory {
 	padding: 5px;
 	width: 174px;
-	border: 1px solid #888888;
+	/*border: 1px solid #888888;*/
 	float: right;
 }
 

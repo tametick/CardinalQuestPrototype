@@ -1,4 +1,5 @@
 {
+	"backspace": 8,
 	"enter": 13,
 	"esc": 27,
 	"space": 32,

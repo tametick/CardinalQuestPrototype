@@ -4,10 +4,13 @@ var utils;
 var viewer;
 var cursor;
 var currentLine;
+var currentClass;
+var currentColor;
 var messageLog;
 var statusLines;
 
 var state;
+var menu;
 var player;
 var maps;
 var currentMap = 0;
@@ -24,6 +27,17 @@ var State = {
 	equipment: 5
 }
 
+var CharClassId = {
+	0: "@f",
+	1: "@t",
+	2: "@w"
+}
+var ColorId = {
+	0: [0, 200, 0],
+	1: [0, 0, 200],
+	2: [200, 200, 0]
+}
+
 var update = function(){
 	viewer.clear();
 	var emptyStatus = false;
@@ -31,6 +45,7 @@ var update = function(){
 	switch (state) {
 	case State.menu:
 		emptyStatus = true;
+		menu.draw(currentLine,currentClass, currentColor);
 		break;
 	case State.play:
 		maps[currentMap].draw();
@@ -134,14 +149,16 @@ $(document).ready(function(){
 					statusLines = StatusLines();
 					
 					state = State.menu;
-					messageLog.append("[Press space to continue]");
+					currentLine = 0;
+					currentClass = 0;
+					currentColor = 0;
+					menu = Menu();
+					
 					update();
 					
 					maps = [Map(Settings["mapWidth"], Settings["mapHeight"])];
-					player = Creature(utils.randInt(1,maps[0].width-2), utils.randInt(1,maps[0].height-2), '@f');
-					maps[0].generateRandom();
-					player.init();
-					player.calculateFieldOfView();
+					player = Creature(utils.randInt(1,maps[0].width-2), utils.randInt(1,maps[0].height-2), '@');
+					player.name = "";
 				});
 			});
 		});
@@ -155,15 +172,53 @@ $(document).keydown(function(e){
 	
 	switch (state) {
 	case State.menu:
+		document.defaultAction = false;
 		switch (code) {
-		case Keys.space:
-			currentMap = 0;
-			ticks = 0;
-			
-			messageLog.clear();			
-			state = State.play;
+		case Keys.up:
+			if(currentLine>0)
+				currentLine--;
+			break;
+		case Keys.down:
+		case Keys.enter:
+			if(currentLine<2)
+				currentLine++;
+			else {
+				currentMap = 0;
+				ticks = 0;
+				messageLog.clear();
+				maps[0].generateRandom();
+				player.init();
+				player.calculateFieldOfView();
+				state = State.play;
+				document.defaultAction = true;
+			}
+			break;		
+		case Keys.backspace:
+			if(currentLine == 0 && player.name.length > 0)
+				player.name = player.name.substring(0, player.name.length-1);
+			break;
+		case Keys.left:
+			if (currentLine == 1) {
+				currentClass--;
+			} else if (currentLine == 2) {
+				currentColor--;
+			}
+			break;
+		case Keys.right:
+			if (currentLine == 1) {
+				currentClass++;
+			} else if (currentLine == 2) {
+				currentColor++;
+			}
+			break;
+		default:
+			if(currentLine==0)
+				player.name += utils.alphanumeric(code);
 			break;
 		}
+		player.charClassId = CharClassId[currentClass];
+		player.color = ColorId[currentColor];
+		 
 		break;
 	case State.examine:
 		switch (code) {

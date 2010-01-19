@@ -52,6 +52,10 @@ var Viewer = function(width, height){
 		canvas.context.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
 		canvas.context.fillText(symbol, x * canvas.fontWidth + 3, y * (canvas.fontAscent + canvas.fontDescent) + canvas.fontDescent - 1);
 	}
+	var print = function(x, y, str, color){
+		canvas.context.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
+		canvas.context.fillText(str, x * canvas.fontWidth + 3, y * (canvas.fontAscent + canvas.fontDescent) + canvas.fontDescent - 1);
+	}
 	
 	canvas = Canvas();
 	
@@ -60,7 +64,8 @@ var Viewer = function(width, height){
 		height: height,
 		center: center,
 		clear: clear,
-		putTile: putTile
+		putTile: putTile,
+		print: print
 	}
 }
 

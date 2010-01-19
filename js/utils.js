@@ -1,12 +1,17 @@
 var Utils = function(){
-	initFromType = function(vars, type){
+	var initFromType = function(vars, type){
 		for (var property in type) 
 			if (isNaN(type[property])) 
 				vars[property] = type[property];
 			else 
 				vars[property] = type[property] * 1;
 	}
-	
+	var alphanumeric = function alphanumeric(hh){
+		if ((hh > 47 && hh < 58) || (hh > 64 && hh < 91) || (hh > 96 && hh < 123)) 
+			return String.fromCharCode(hh);
+		else 
+			return "";
+	}
 	var randInt = function(min, max){
 		return min + Math.floor(Math.random() * (max - min + 1));
 	}
@@ -63,6 +68,7 @@ var Utils = function(){
 	
 	return {
 		initFromType: initFromType,
+		alphanumeric: alphanumeric,
 		randInt: randInt,
 		inRange: inRange,
 		los: los

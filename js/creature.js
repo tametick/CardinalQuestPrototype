@@ -202,7 +202,11 @@ var Creature = function(startX, startY, id){
 	}
 	var draw = function(){
 		// fixme - load color from creature-types file
-		viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, vars.symbol, Settings.playerColor);
+		
+		if(id=="@")
+			viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, vars.symbol, this.color);
+		else
+			viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, vars.symbol, Settings.creatureColor);
 	}
 	
 	var pickUp = function(item, dx, dy, isPlayer){
@@ -308,10 +312,14 @@ var Creature = function(startX, startY, id){
 		return str;
 	}
 	var init = function(){
-		var type = CreatureTypes[id];
+		var type;
+		if(id=='@')
+			type = CreatureTypes[this.charClassId];
+		else
+			type = CreatureTypes[id];
 		
-		utils.initFromType(vars, type);		
-		if (id.charAt(0) == "@") {
+		utils.initFromType(vars, type);
+		if (id == "@") {
 			vars.description = Descriptions["@"];
 			// Calculate stats
 			vars.life = vars.vitality; // level 1
