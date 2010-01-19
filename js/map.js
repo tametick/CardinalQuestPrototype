@@ -59,7 +59,7 @@ var Map = function(width, height){
 				// Apply speed buffs
 				if (vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.speed) 
 					speed += vars.creatures[c].vars.buffs.speed;
-				// TODO: apply spirit buffs
+				// apply spirit buffs
 				var spirit = vars.creatures[c].vars.spirit;
 				if (spirit && vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.spirit) 
 					spirit += vars.creatures[c].vars.buffs.spirit;
