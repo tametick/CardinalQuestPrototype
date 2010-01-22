@@ -1,10 +1,12 @@
 var StatusLines = function(){
 	var status = $("#statusLines");
-	var stat = function(text){
-		return '<span style="color:Yellow;">' + text + '</span>';
+	var stat = function(text, isBuffed){
+		var color = isBuffed?'Red':'Yellow';
+		return '<span style="color:'+color+';">' + text + '</span>';
 	}
-	var life = function(text){
-		return '<span style="color:ForestGreen;">' + text + '</span>';
+	var life = function(text, isBuffed){
+		var color = isBuffed?'Red':'ForestGreen';
+		return '<span style="color:'+color+';">' + text + '</span>';
 	}
 	var charge = function(text){
 		return '<span style="color:MediumOrchid;">' + text + '</span>';
@@ -29,24 +31,28 @@ var StatusLines = function(){
 		
 		return '<span style="font-family:monospace;">'+asBar+'</span>';
 	}
+	var getBuff = function(attribute) {
+		return player.vars.buffs?(player.vars.buffs[attribute]?player.vars.buffs[attribute]:0):0;
+	}
+	
 	var print = function(empty){
 		var data;
 		if (empty) 
 			data = [" ", " ", " "];
 		else {
 			// Abilities
-			var vit=player.vars.vitality;//+player.vars.buffs?(player.vars.buffs.vitality?player.vars.buffs.vitality:0):0;
-			var atk=player.vars.attack+(player.vars.buffs?(player.vars.buffs.attack?player.vars.buffs.attack:0):0);
-			var def=player.vars.defense+(player.vars.buffs?(player.vars.buffs.defense?player.vars.buffs.defense:0):0);
-			var spd=player.vars.speed+(player.vars.buffs?(player.vars.buffs.speed?player.vars.buffs.speed:0):0);
-			var spr=player.vars.spirit+(player.vars.buffs?(player.vars.buffs.spirit?player.vars.buffs.spirit:0):0);
+			var vit=player.vars.vitality;
+			var atk=player.vars.attack+getBuff("attack");
+			var def=player.vars.defense+getBuff("defense");
+			var spd=player.vars.speed+getBuff("speed");
+			var spr=player.vars.spirit+getBuff("spirit");
 			// stats
-			var lif = player.vars.life+(player.vars.buffs?(player.vars.buffs.life?player.vars.buffs.life:0):0);
-			var mlif = player.vars.maxLife+(player.vars.buffs?(player.vars.buffs.life?player.vars.buffs.life:0):0);
+			var lif = player.vars.life+getBuff("life");
+			var mlif = player.vars.maxLife+getBuff("life");
 			
 			data = [
-			"Vitality: " + stat(vit) + "&nbsp; Attack: " + stat(atk) + "&nbsp; Defense: " + stat(def) + "&nbsp; Speed: " + stat(spd) + "&nbsp; Spirit: " + stat(spr), 
-			"Life: " + life(lif + "/" + mlif) + "&nbsp; Charge: " + charge(Math.round(100 * player.vars.spiritPoints / 360.0) + "%") + "&nbsp; Experience: " + experience(player.vars.experiencePoints + "/" + player.nextLevel()) + "&nbsp; Level: " + charLevel(player.vars.level), 
+			"Vitality: " + stat(vit) + "&nbsp; Attack: " + stat(atk,getBuff("attack")>0) + "&nbsp; Defense: " + stat(def,getBuff("defense")>0) + "&nbsp; Speed: " + stat(spd,getBuff("speed")>0) + "&nbsp; Spirit: " + stat(spr,getBuff("spirit")>0), 
+			"Life: " + life(lif + "/" + mlif,getBuff("life")>0) + "&nbsp; Charge: " + charge(Math.round(100 * player.vars.spiritPoints / 360.0) + "%") + "&nbsp; Experience: " + experience(player.vars.experiencePoints + "/" + player.nextLevel()) + "&nbsp; Level: " + charLevel(player.vars.level), 
 			life(bar(lif, mlif)) + "&nbsp;&nbsp;&nbsp;&nbsp; " + charge(bar(player.vars.spiritPoints, 360)) + "&nbsp;&nbsp;&nbsp;&nbsp; " + experience(bar(player.vars.experiencePoints, player.nextLevel()))
 			];
 		}
