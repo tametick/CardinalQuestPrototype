@@ -29,6 +29,12 @@ var Item = function(startX, startY, id){
 				creature.vars.life = creature.vars.vitality;
 			else 
 				creature.vars.life = Math.min(creature.vars.life + value * 1, creature.vars.vitality);
+		} else {
+			applyBuff(creature);
+			// Add timers to remove buffs
+			if (!creature.vars.timers) 
+				creature.vars.timers = [];
+			creature.vars.timers.push([vars.duration, vars.effect, vars.value * 1]);
 		}
 	}
 	var equip = function(creature){
