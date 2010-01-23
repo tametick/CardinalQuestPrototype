@@ -282,6 +282,9 @@ $(document).keydown(function(e){
 		case Keys.right:
 			moved = player.move(1, 0);
 			break;
+		case Keys["."]:
+			moved = true;
+			break;
 		case Keys.x:
 			cursor = Cursor(player.vars.x, player.vars.y, '?');
 			state = State.examine;
