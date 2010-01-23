@@ -54,12 +54,14 @@
 	},
 	"la": {
 		"type": "armor",
+		"effect": "defense",
 		"value": 1,
 		"color":[128,128,128],
 		"symbol": "["
 	},
 	"bp": {
 		"type": "armor",
+		"effect": "defense",
 		"value": 2,
 		"color":[128,128,128],
 		"symbol": "["
