@@ -38,7 +38,7 @@ var StatusLines = function(){
 	var print = function(empty){
 		var data;
 		if (empty) 
-			data = [" ", " ", " "];
+			data = [" ", " ", " ", " "];
 		else {
 			// Abilities
 			var vit=player.vars.vitality;
@@ -47,11 +47,15 @@ var StatusLines = function(){
 			var spd=player.vars.speed+getBuff("speed");
 			var spr=player.vars.spirit+getBuff("spirit");
 			// stats
+			var dmgRange=player.vars.damage;
+			if(player.vars.weapon.wielded[0]) 
+				dmgRange=player.vars.weapon.wielded[0].vars.damage;
 			var lif = player.vars.life+getBuff("life");
 			var mlif = player.vars.maxLife+getBuff("life");
 			
 			data = [
-			"Vitality: " + stat(vit) + "&nbsp; Attack: " + stat(atk,getBuff("attack")>0) + "&nbsp; Defense: " + stat(def,getBuff("defense")>0) + "&nbsp; Speed: " + stat(spd,getBuff("speed")>0) + "&nbsp; Spirit: " + stat(spr,getBuff("spirit")>0), 
+			"Damage: "+stat(dmgRange[0]==dmgRange[1]?dmgRange[0]:(dmgRange[0]+"-"+dmgRange[1]))+"&nbsp; Attack: " + stat(atk,getBuff("attack")>0) + "&nbsp; Defense: " + stat(def,getBuff("defense")>0),
+			"Vitality: " + stat(vit) + "&nbsp; Speed: " + stat(spd,getBuff("speed")>0) + "&nbsp; Spirit: " + stat(spr,getBuff("spirit")>0),
 			"Life: " + life(lif + "/" + mlif,getBuff("life")>0) + "&nbsp; Charge: " + charge(Math.round(100 * player.vars.spiritPoints / 360.0) + "%") + "&nbsp; Experience: " + experience(player.vars.experiencePoints + "/" + player.nextLevel()) + "&nbsp; Level: " + charLevel(player.vars.level), 
 			life(bar(lif, mlif)) + "&nbsp;&nbsp;&nbsp;&nbsp; " + charge(bar(player.vars.spiritPoints, 360)) + "&nbsp;&nbsp;&nbsp;&nbsp; " + experience(bar(player.vars.experiencePoints, player.nextLevel()))
 			];
