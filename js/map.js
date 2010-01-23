@@ -216,6 +216,7 @@ var Map = function(width, height){
 		var adjunctWalls = 0;
 		// too many doors
 		var adjunctDoors = 0;
+		
 		for (var ax = -1; ax <= 1; ax += 2) {
 			if (rawData[[x + ax, y]] == "#") 
 				adjunctWalls++;
@@ -228,8 +229,9 @@ var Map = function(width, height){
 			else if (rawData[[x, y + ay]] == "+") 
 				adjunctDoors++;
 		}
-		if (adjunctWalls > 2 && adjunctDoors > 0) 
+		if (adjunctWalls > 2 || adjunctDoors > 0) {
 			return false;
+		}
 		
 		return true;
 	}
