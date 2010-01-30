@@ -6,12 +6,12 @@ var Viewer = function(width, height){
 	var Canvas = function(){
 		var canvasElement;
 		var context;
-		var fontAscent;
-		var fontDescent;
+		var fontHeight;
 		var fontWidth;
+		var tileSize;
 		
-		// Defaults to 10
 		var getFontSize = function(str){
+		// Defaults to 10
 			if (!str) 
 				return 10;
 			if (str.indexOf("px") != -1) {
@@ -23,12 +23,10 @@ var Viewer = function(width, height){
 			}
 		}
 		var changeFont = function(to){
-			size = getFontSize(to);
-			fontAscent = size * 0.1;
-			fontDescent = size;
-			fontWidth = size;
-			canvasElement.width = (fontWidth * width);
-			canvasElement.height = (fontAscent + fontDescent) * height;
+			fontHeight = getFontSize(to);
+			fontWidth = fontHeight;
+			canvasElement.height = fontHeight * height;
+			canvasElement.width = fontWidth * width;
 			context.font = to;
 		}
 		
@@ -39,8 +37,7 @@ var Viewer = function(width, height){
 		return {
 			canvasElement: canvasElement,
 			context: context,
-			fontDescent: fontDescent,
-			fontAscent: fontAscent,
+			fontHeight: fontHeight,
 			fontWidth: fontWidth
 		}
 	}
@@ -50,11 +47,11 @@ var Viewer = function(width, height){
 	}
 	var putTile = function(x, y, symbol, color){
 		canvas.context.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
-		canvas.context.fillText(symbol, x * canvas.fontWidth + 3, y * (canvas.fontAscent + canvas.fontDescent) + canvas.fontDescent - 1);
+		canvas.context.fillText(symbol, x * canvas.fontWidth, y * canvas.fontHeight);
 	}
 	var print = function(x, y, str, color){
 		canvas.context.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
-		canvas.context.fillText(str, x * canvas.fontWidth + 3, y * (canvas.fontAscent + canvas.fontDescent) + canvas.fontDescent - 1);
+		canvas.context.fillText(str, x * canvas.fontWidth, y * canvas.fontHeight);
 	}
 	
 	canvas = Canvas();
