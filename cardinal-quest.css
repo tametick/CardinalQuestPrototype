@@ -71,7 +71,7 @@ img.download {
 
 /* Container to center the layout */
 #container {
-	width: 655px;
+	width: 896px;
 	margin: auto;
 	background: #335a75 url(http://www.tametick.com/bg.gif) right repeat-y;
 }
@@ -97,8 +97,8 @@ img.download {
 }
 
 div#content {
-	min-height: 600px;
-	height: expression(this.scrollHeight > 600 ? "auto":"600px"); 
+	min-height: 576px;
+	height: expression(this.scrollHeight > 576 ? "auto":"576px"); 
 }
 
 p, pre {
@@ -153,15 +153,15 @@ html {
 
 #help {
 	padding: 5px;
-	width: 173px;
-/*	border: 1px solid #888888;*/
+/*	width: 173px;
+	border: 1px solid #888888;*/
 	float: left;
 }
 
 #inventory {
 	padding: 5px;
-	width: 173px;
-/*	border: 1px solid #888888;*/
+/*	width: 173px;
+	border: 1px solid #888888;*/
 	float: right;
 }
 
@@ -170,7 +170,6 @@ html {
 	margin: auto;
 	overflow: hidden;
 	font-family: monospace, monospace;
-	font-size: 14px;
 }
 
 #statusLines {
