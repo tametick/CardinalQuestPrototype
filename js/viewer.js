@@ -52,9 +52,14 @@ var Viewer = function(width, height){
 		canvas.context.fillRect(0, 0, canvas.canvasElement.width, canvas.canvasElement.height);
 	}
 	var putTile = function(x, y, symbol, color){
-		if(symbol=='@')
-			canvas.context.drawImage(playerImg, 0, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, y * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		else {
+		if(symbol=='@'){
+			if(player.charClassId == "@f")
+				canvas.context.drawImage(playerImg, 0, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			else if(player.charClassId == "@t")
+				canvas.context.drawImage(playerImg, canvas.tileSize, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			else if(player.charClassId == "@w")
+				canvas.context.drawImage(playerImg, canvas.tileSize*2, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+		} else {
 			canvas.context.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
 			canvas.context.fillText(symbol, x * canvas.tileSize, y * canvas.tileSize);
 		}
