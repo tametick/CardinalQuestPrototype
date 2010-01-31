@@ -2,10 +2,6 @@
 var Viewer = function(width, height){
 	var canvas;
 	var center = [width / 2, height / 2];
-	var playerImg = new Image();
-	playerImg.src = 'pics/chars.png';
-	var tilesImg = new Image();
-	tilesImg.src = '../pics/tiles-big.png';
 	
 	var Canvas = function(){
 		var canvasElement;
@@ -54,12 +50,20 @@ var Viewer = function(width, height){
 	var putTile = function(x, y, symbol, color){
 		if(symbol=='@'){
 			if(player.charClassId == "@f")
-				canvas.context.drawImage(playerImg, 0, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+				canvas.context.drawImage(Pics.player, 0, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 			else if(player.charClassId == "@t")
-				canvas.context.drawImage(playerImg, canvas.tileSize, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+				canvas.context.drawImage(Pics.player, canvas.tileSize, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 			else if(player.charClassId == "@w")
-				canvas.context.drawImage(playerImg, canvas.tileSize*2, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else {
+				canvas.context.drawImage(Pics.player, canvas.tileSize*2, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+		} else if(symbol==".") {
+			canvas.context.drawImage(Pics.tiles, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+		} else if(symbol=="#") {
+			canvas.context.drawImage(Pics.tiles, canvas.tileSize*15, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);			
+		} else if(symbol=="+") {
+			canvas.context.drawImage(Pics.tiles, canvas.tileSize*19, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);			
+		} else if(symbol=="'") {
+			canvas.context.drawImage(Pics.tiles, canvas.tileSize*21, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);			
+		}else {	
 			canvas.context.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
 			canvas.context.fillText(symbol, x * canvas.tileSize, y * canvas.tileSize);
 		}
