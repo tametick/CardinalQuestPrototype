@@ -18,6 +18,11 @@ var ticks;
 
 var moved = true;
 
+Pics = {
+	'player' : new Image(),
+	'tiles' : new Image()
+}
+
 var State = {
 	loading: 0,
 	menu: 1,
@@ -132,6 +137,9 @@ $(document).ready(function(){
 		$.getJSON("json/creature-types.json", function(creatureTypes){
 			$.getJSON("json/items.json", function(itemTypes){
 				$.getJSON("json/settings.json", function(sett){
+					Pics.player.src = 'pics/player.png';
+					Pics.tiles.src = 'pics/tiles-big.png';
+					
 					Descriptions = desc;
 					CreatureTypes = creatureTypes;
 					ItemTypes = itemTypes;
