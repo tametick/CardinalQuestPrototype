@@ -20,7 +20,8 @@ var moved = true;
 
 Pics = {
 	'player' : new Image(),
-	'tiles' : new Image()
+	'tiles' : new Image(),
+	'items' : new Image()
 }
 
 var State = {
@@ -139,6 +140,7 @@ $(document).ready(function(){
 				$.getJSON("json/settings.json", function(sett){
 					Pics.player.src = 'pics/player.png';
 					Pics.tiles.src = 'pics/tiles-big.png';
+					Pics.items.src = 'pics/items.png';
 					
 					Descriptions = desc;
 					CreatureTypes = creatureTypes;
