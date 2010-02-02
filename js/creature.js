@@ -216,9 +216,9 @@ var Creature = function(startX, startY, id){
 		// fixme - load color from creature-types file
 		
 		if(id=="@")
-			viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, vars.symbol, this.color);
+			viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, id, vars.symbol, this.color);
 		else
-			viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, vars.symbol, Settings.creatureColor);
+			viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, id, vars.symbol, Settings.creatureColor);
 	}
 	
 	var pickUp = function(item, dx, dy, isPlayer){

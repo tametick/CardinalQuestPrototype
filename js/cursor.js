@@ -4,7 +4,7 @@ Cursor = function(startX, startY, symbol){
 		y: startY
 	}
 	var draw = function(){
-		viewer.putTile(viewer.center[0] - player.vars.x + vars.x, viewer.center[1] - player.vars.y + vars.y, symbol, Settings.cursorColor);
+		viewer.putTile(viewer.center[0] - player.vars.x + vars.x, viewer.center[1] - player.vars.y + vars.y, "cursor", symbol, Settings.cursorColor);
 	}
 	var move = function(dx, dy){
 		var newX = vars.x + dx;

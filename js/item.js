@@ -57,7 +57,7 @@ var Item = function(startX, startY, id){
 	}
 	var draw = function(){
 		// fixme: color
-		viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, vars.symbol, vars.color);
+		viewer.putTile(viewer.center[0] + vars.x - player.vars.x, viewer.center[1] + vars.y - player.vars.y, id, vars.symbol, vars.color);
 	}
 	var stringify = function(){
 		return "" + vars.x + "," + vars.y + "," + id;

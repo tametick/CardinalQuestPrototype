@@ -96,9 +96,9 @@ var Map = function(width, height){
 					var ny = Settings.viewerHeight / 2 + y - player.vars.y;
 					if (nx >= 0 && ny >= 0 && nx < Settings.viewerWidth && ny <= Settings.viewerHeight) 
 						if (tiles[[x, y]].seen == 2) 
-							viewer.putTile(nx, ny, tiles[[x, y]].symbol, [200, 200, 200]);
+							viewer.putTile(nx, ny, tiles[[x, y]].id, tiles[[x, y]].symbol, [200, 200, 200]);
 						else if (tiles[[x, y]].seen == 1) 
-							viewer.putTile(nx, ny, tiles[[x, y]].symbol, [64, 64, 64]);
+							viewer.putTile(nx, ny, tiles[[x, y]].id, tiles[[x, y]].symbol, [64, 64, 64]);
 				//}
 			}
 		for (var c = 0; c < vars.items.length; c++) 
