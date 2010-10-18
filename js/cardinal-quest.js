@@ -336,4 +336,5 @@ $(document).keydown(function(e){
 	}
 	
 	update();
+	return false;
 });
