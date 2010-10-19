@@ -71,14 +71,14 @@
 		"effect": "spirit",
 		"value": 1,
 		"color":[128,128,128],
-		"symbol":'"'
+		"symbol": "\""
 	},
 	"aoe": {
 		"type": "jewelry",
 		"effect": "spirit",
 		"value": 2,
 		"color":[128,128,128],
-		"symbol": '"'
+		"symbol": "\""
 	},
 	"coe": {
 		"type": "hat",

@@ -133,7 +133,16 @@ var load = function(){
 	messageLog.clear();
 }
 
-$(document).ready(function(){
+$(function() {
+	$(document).ajaxError(function(e, xhr, settings, exception) {
+		/*
+		console.log("Ajax error!");
+		console.log(e);
+		console.log(xhr);
+		console.log(settings);
+		console.log(exception);
+		*/
+	});
 	$.getJSON("json/descriptions.json", function(desc){
 		$.getJSON("json/creature-types.json", function(creatureTypes){
 			$.getJSON("json/items.json", function(itemTypes){
@@ -155,6 +164,7 @@ $(document).ready(function(){
 					
 					state = State.loading;
 					viewer = Viewer(Settings.viewerWidth, Settings.viewerHeight);
+					viewer.clear();
 					messageLog = MessageLog();
 					statusLines = StatusLines();
 					
