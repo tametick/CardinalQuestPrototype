@@ -188,10 +188,12 @@ $(document).keydown(function(e){
 		
 		document.defaultAction = false;
 		switch (code) {
+		case Keys.numUp:
 		case Keys.up:
 			if(currentLine>0)
 				currentLine--;
 			break;
+		case Keys.numDown:
 		case Keys.down:
 		case Keys.enter:
 			if(currentLine<2)
@@ -211,6 +213,7 @@ $(document).keydown(function(e){
 			if(currentLine == 0 && player.name.length > 0)
 				player.name = player.name.substring(0, player.name.length-1);
 			break;
+		case Keys.numLeft:
 		case Keys.left:
 			if (currentLine == 1) {
 				currentClass--;
@@ -218,6 +221,7 @@ $(document).keydown(function(e){
 				currentColor--;
 			}
 			break;
+		case Keys.numRight:
 		case Keys.right:
 			if (currentLine == 1) {
 				currentClass++;
@@ -235,15 +239,19 @@ $(document).keydown(function(e){
 		break;
 	case State.examine:
 		switch (code) {
+		case Keys.numUp:
 		case Keys.up:
 			cursor.move(0, -1);
 			break;
+		case Keys.numDown:
 		case Keys.down:
 			cursor.move(0, 1);
 			break;
+		case Keys.numLeft:
 		case Keys.left:
 			cursor.move(-1, 0);
 			break;
+		case Keys.numRight:
 		case Keys.right:
 			cursor.move(1, 0);
 			break;
@@ -256,17 +264,21 @@ $(document).keydown(function(e){
 	break;
 	case State.inventory:
 		switch (code) {
+		case Keys.numUp:
 		case Keys.up:
 			currentLine--;
 			break;
+		case Keys.numDown:
 		case Keys.down:
 			currentLine++;
 			break;
+		case Keys.numRight:
 		case Keys.right:
 		case Keys.enter:
 			player.use(currentLine);
 			state = State.play;
 			break;
+		case Keys.numLeft:
 		case Keys.left:
 		case Keys.d:
 			player.drop(currentLine);
@@ -281,15 +293,19 @@ $(document).keydown(function(e){
 	case State.play:
 		// The player gets the first move in the game for free		
 		switch (code) {
+		case Keys.numUp:
 		case Keys.up:
 			moved = player.move(0, -1);
 			break;
+		case Keys.numDown:
 		case Keys.down:
 			moved = player.move(0, 1);
 			break;
+		case Keys.numLeft:
 		case Keys.left:
 			moved = player.move(-1, 0);
 			break;
+		case Keys.numRight:
 		case Keys.right:
 			moved = player.move(1, 0);
 			break;
