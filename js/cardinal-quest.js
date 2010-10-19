@@ -134,15 +134,6 @@ var load = function(){
 }
 
 $(function() {
-	$(document).ajaxError(function(e, xhr, settings, exception) {
-		/*
-		console.log("Ajax error!");
-		console.log(e);
-		console.log(xhr);
-		console.log(settings);
-		console.log(exception);
-		*/
-	});
 	$.getJSON("json/descriptions.json", function(desc){
 		$.getJSON("json/creature-types.json", function(creatureTypes){
 			$.getJSON("json/items.json", function(itemTypes){
