@@ -242,6 +242,10 @@ var Creature = function(startX, startY, id){
 	}
 	
 	var move = function(dx, dy){
+		// We don't want creatures moving diagonally.. if dx != 0 and dy != 0, randomly select one or the other
+		if ( dx != 0 && dy != 0 ) {
+			if ( Math.floor(Math.random()*2) ) dx = 0; else dy = 0;
+		}
 		// Stuff occupying destination
 		var other = maps[currentMap].vars.creatureMap[[vars.x + dx, vars.y + dy]];
 		var item = maps[currentMap].vars.itemMap[[vars.x + dx, vars.y + dy]];
