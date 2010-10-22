@@ -186,6 +186,7 @@ $(document).keydown(function(e){
 	
 	switch (state) {
 	case State.menu:
+		// Note: Shouldn't these be set in the Keys.enter code block?
 		player.charClassId = CharClassId[currentClass];
 		player.color = ColorId[currentColor];
 		
@@ -208,6 +209,7 @@ $(document).keydown(function(e){
 				maps[0].generateRandom();
 				player.init();
 				player.calculateFieldOfView();
+				player.vars.color = ColorId[currentColor];
 				state = State.play;
 				document.defaultAction = true;
 			}

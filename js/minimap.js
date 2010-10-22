@@ -6,6 +6,8 @@ function Minimap(params) {
 		wall: "#A2A2A2",
 		floor: "#816250",
 		door: "#9F6847",
+		creature: "#ff0000",
+		item: "#ffffff",
 		wallDark: "#737373",
 		floorDark: "#503C31",
 		doorDark: "#705238"
@@ -36,15 +38,26 @@ function Minimap(params) {
 	this.draw = function(map) {
 		for ( var x = 0; x < map.width; x++ ) {
 			for ( var y = 0; y < map.height; y++ ) {
-				if ( map.tiles[[x,y]].seen == 2 ) {
-					switch (map.tiles[[x,y]].symbol) {
-						case "#": this.ctx.fillStyle = this.colors.wall; break;
-						case ".": this.ctx.fillStyle = this.colors.floor; break;
-						case "+": this.ctx.fillStyle = this.colors.door; break;
-						case "'": this.ctx.fillStyle = this.colors.floor; break;
-						default: this.ctx.fillStyle = "#000"; break;
-					}
+				if ( player.vars.x == x && player.vars.y == y ) {
+					this.ctx.fillStyle = "rgb("+player.vars.color[0]+","+player.vars.color[1]+","+player.vars.color[2]+")";
 					this.ctx.fillRect( (this.tileW*x), (this.tileH*y), this.tileW, this.tileH );
+				} else if ( map.tiles[[x,y]].seen > 0 && typeof map.vars.itemMap[[x,y]] == "object" && map.vars.itemMap[[x,y]] !== null ) {
+					this.ctx.fillStyle = this.colors.item;
+					this.ctx.fillRect( (this.tileW*x), (this.tileH*y), this.tileW, this.tileH );
+				} else if ( map.tiles[[x,y]].seen == 2 ) {
+					if ( map.tiles[[x,y]].seen > 0 && typeof map.vars.creatureMap[[x,y]] == "object" && map.vars.creatureMap[[x,y]] !== null ) {
+						this.ctx.fillStyle = this.colors.creature;
+						this.ctx.fillRect( (this.tileW*x), (this.tileH*y), this.tileW, this.tileH );
+					} else { 
+						switch (map.tiles[[x,y]].symbol) {
+							case "#": this.ctx.fillStyle = this.colors.wall; break;
+							case ".": this.ctx.fillStyle = this.colors.floor; break;
+							case "+": this.ctx.fillStyle = this.colors.door; break;
+							case "'": this.ctx.fillStyle = this.colors.floor; break;
+							default: this.ctx.fillStyle = "#000"; break;
+						}
+						this.ctx.fillRect( (this.tileW*x), (this.tileH*y), this.tileW, this.tileH );
+					}
 				} else if ( map.tiles[[x,y]].seen == 1 ) {
 					switch (map.tiles[[x,y]].symbol) {
 						case "#": this.ctx.fillStyle = this.colors.wallDark; break;
