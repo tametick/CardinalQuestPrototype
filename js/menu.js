@@ -26,7 +26,7 @@ var Menu = function(){
 			} else if (currentClass == 2) {
 				viewer.print(13, line++, ">", [0, 200, 200]);
 				line++;
-				viewer.print(1, line++, "I... am an enchanter.", [255, 255, 255]);
+				viewer.print(1, line++, "I...am an enchanter.", [255, 255, 255]);
 				viewer.print(1, line++, "There are some who call me...", [255, 255, 255]);
 				viewer.print(1, line++, player.name+".", [255, 255, 255]);
 			}
