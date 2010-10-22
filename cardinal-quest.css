@@ -71,7 +71,7 @@ img.download {
 
 /* Container to center the layout */
 #container {
-	width: 950px;
+	width: 990px;
 	margin: auto;
 	background: #335a75 url(http://www.tametick.com/bg.gif) right repeat-y;
 }
@@ -170,8 +170,8 @@ html {
 
 #inventory {
 	padding: 5px;
-/*	width: 173px;
-	border: 1px solid #888888;*/
+	width: 190px;
+/*	border: 1px solid #888888;*/
 	float: right;
 }
 
