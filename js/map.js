@@ -102,11 +102,16 @@ var Map = function(width, height){
 							viewer.putTile(nx, ny, tiles[[x, y]].id, tiles[[x, y]].symbol, [64, 64, 64]);
 				//}
 			}
-		for (var c = 0; c < vars.items.length; c++) 
-			if (vars.creatureMap[[vars.items[c].vars.x, vars.items[c].vars.y]] == null) 
+		for (var c = 0; c < vars.items.length; c++) {
+			if ( (debug == true || tiles[[vars.items[c].vars.x, vars.items[c].vars.y]].seen == 2) && vars.creatureMap[[vars.items[c].vars.x, vars.items[c].vars.y]] == null) {
 				vars.items[c].draw();
-		for (var c = 0; c < vars.creatures.length; c++) 
-			vars.creatures[c].draw();
+			}
+		}
+		for (var c = 0; c < vars.creatures.length; c++) {
+			if ( debug == true || tiles[[vars.creatures[c].vars.x, vars.creatures[c].vars.y]].seen == 2 ) {
+				vars.creatures[c].draw();
+			}
+		}
 		minimap.draw(this);
 	}
 	var stringify = function(){
