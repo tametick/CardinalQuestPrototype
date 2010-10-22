@@ -13,22 +13,27 @@
 		<div id="content">
 			<div id="messageLog">
 			</div>
-			<div id="help">
-				<h3 style="text-align:center">Key bindings</h3>
-					  Movment: 
-				<br>* Arrows keys.
-				<br>
-				<br>  Modes:
-				<br>* Inventory: i.
-				<br>* Examine: x. 
-				<br>
-				<br>  Actions:
-				<br>* Close door: c.
-				<br>* Execute special: e.
-				<br>
-				<br>  Actions(inventory mode):
-				<br>* Drop item: d or left arrow.
-				<br>* Use item: enter or right arrow.
+			<div id="leftBar">
+				<h3 style="text-align:center">Minimap</h3>
+				<canvas id="minimap" width="180" height="180">
+				</canvas>
+				<div id="help">
+					<h3 style="text-align:center">Key bindings</h3>
+						  Movment: 
+					<br>* Arrows keys.
+					<br>
+					<br>  Modes:
+					<br>* Inventory: i.
+					<br>* Examine: x. 
+					<br>
+					<br>  Actions:
+					<br>* Close door: c.
+					<br>* Execute special: e.
+					<br>
+					<br>  Actions(inventory mode):
+					<br>* Drop item: d or left arrow.
+					<br>* Use item: enter or right arrow.
+				</div>
 			</div>
 			<div id="inventory">
 				<h3 style="text-align:center">Inventory</h3>
@@ -67,6 +72,8 @@
 		<script type="application/javascript" src="./js/utils.js">
 		</script>
 		<script type="application/javascript" src="./js/viewer.js">
+		</script>
+		<script type="application/javascript" src="./js/minimap.js">
 		</script>
 		<script type="application/javascript" src="./js/cursor.js">
 		</script>

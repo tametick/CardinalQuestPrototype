@@ -79,6 +79,7 @@ var Map = function(width, height){
 		} catch (err) {
 			if (err == "Player died") {
 				alert("You have Perished.\nGame Over.");
+				minimap.clear();
 				var name = player.name;
 				maps = [Map(Settings["mapWidth"], Settings["mapHeight"])];
 				player = Creature(utils.randInt(1, maps[0].width - 2), utils.randInt(1, maps[0].height - 2), '@');
@@ -106,6 +107,7 @@ var Map = function(width, height){
 				vars.items[c].draw();
 		for (var c = 0; c < vars.creatures.length; c++) 
 			vars.creatures[c].draw();
+		minimap.draw(this);
 	}
 	var stringify = function(){
 		tilesStr = "";

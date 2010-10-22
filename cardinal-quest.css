@@ -151,11 +151,21 @@ html {
 	margin: auto;
 }
 
+#leftBar {
+	float: left;
+}
+
+#minimap {
+	overflow: hidden;
+	font-family: monospace, monospace;
+	margin-left: 12px;
+}
+
 #help {
 	padding: 5px;
 /*	width: 173px;
 	border: 1px solid #888888;*/
-	float: left;
+	/*float: left;*/
 }
 
 #inventory {

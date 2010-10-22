@@ -2,6 +2,7 @@ var debug = true;
 var utils;
 
 var viewer;
+var minimap;
 var cursor;
 var currentLine;
 var currentClass;
@@ -156,6 +157,8 @@ $(function() {
 					state = State.loading;
 					viewer = Viewer(Settings.viewerWidth, Settings.viewerHeight);
 					viewer.clear();
+					minimap = new Minimap();
+					minimap.clear();
 					messageLog = MessageLog();
 					statusLines = StatusLines();
 					
