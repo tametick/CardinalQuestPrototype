@@ -303,6 +303,7 @@ var Creature = function(startX, startY, id){
 					// generate new map (todo: get old map from memory if returning)
 					maps.push(Map(Settings["mapWidth"], Settings["mapHeight"]));
 					maps[currentMap].generateRandom();
+					minimap.clear();
 				}
 				return true;
 			}
