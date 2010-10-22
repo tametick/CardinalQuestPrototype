@@ -110,7 +110,14 @@ var Viewer = function(width, height){
 		canvas.context.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
 		canvas.context.fillText(str, x * canvas.fontWidth, y * canvas.fontHeight);
 	}
-	
+
+	var putShadow = function( x, y ) {
+		var dx = x * canvas.tileSize;
+		var dy = (y-1) * canvas.tileSize;
+		canvas.context.fillStyle = "rgba(0, 0, 0, 0.5)";
+		canvas.context.fillRect( dx, dy, canvas.tileSize, canvas.tileSize );
+	}
+
 	canvas = Canvas();
 	
 	return {
@@ -119,7 +126,8 @@ var Viewer = function(width, height){
 		center: center,
 		clear: clear,
 		putTile: putTile,
-		print: print
+		print: print,
+		putShadow: putShadow
 	}
 }
 
