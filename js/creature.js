@@ -100,8 +100,10 @@ var Creature = function(startX, startY, id){
 			switch (item.vars.type) {
 				case "consumable":
 					item.use(this);
-					if (this == player) 
+					if (this == player) {
 						messageLog.append("You used the " + item.vars.description[0]);
+						$("#use_sfx").get()[0].play();
+					}
 					break;
 				case "shoes":
 				case "hat":
@@ -109,13 +111,17 @@ var Creature = function(startX, startY, id){
 				case "jewelry":
 				case "gloves":
 					item.equip(this);
-					if (this == player) 
+					if (this == player) {
 						messageLog.append("You wear the " + item.vars.description[0]);				
+						$("#equip_sfx").get()[0].play();
+					}
 					break;
 				case "weapon":
 					item.wield(this);
-					if (this == player) 
+					if (this == player) {
 						messageLog.append("You wield the " + item.vars.description[0]);
+						$("#equip_sfx").get()[0].play();
+					}
 					break;
 			}
 			
