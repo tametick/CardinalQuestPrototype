@@ -145,7 +145,7 @@ var Map = function(width, height){
 			for (var x = 0; x < width; x++) {
 				currentChar = tilesStr.charAt(width * y + x);
 				if (currentChar == '#') 
-					tiles[[x, y]] = Tile('#', Descriptions.wall);
+					tiles[[x, y]] = Tile('#'+utils.randInt(1,4), Descriptions.wall);
 				else if (currentChar == '+') 
 					tiles[[x, y]] = Tile('+', Descriptions.door);
 				else if (currentChar == "'") 
@@ -319,7 +319,7 @@ var Map = function(width, height){
 		for (var y = 0; y < height; y++) {
 			for (var x = 0; x < width; x++) 
 				if (data[[x, y]] == '#') 
-					tiles[[x, y]] = Tile('#', Descriptions.wall);
+					tiles[[x, y]] = Tile('#'+utils.randInt(1,4), Descriptions.wall);
 				else if (data[[x, y]] == '+') 
 					tiles[[x, y]] = Tile('+', Descriptions.door);
 				else 

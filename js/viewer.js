@@ -57,8 +57,14 @@ var Viewer = function(width, height){
 				canvas.context.drawImage(Pics.player, canvas.tileSize*2, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol==".") {
 			canvas.context.drawImage(Pics.tiles, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(symbol=="#") {
-			canvas.context.drawImage(Pics.tiles, canvas.tileSize*15, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);			
+		} else if(symbol=="#1") {
+			canvas.context.drawImage(Pics.tiles, canvas.tileSize*11, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+		} else if(symbol=="#2") {
+			canvas.context.drawImage(Pics.tiles, canvas.tileSize*13, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+		} else if(symbol=="#3") {
+			canvas.context.drawImage(Pics.tiles, canvas.tileSize*15, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+		} else if(symbol=="#4") {
+			canvas.context.drawImage(Pics.tiles, canvas.tileSize*17, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol=="+") {
 			canvas.context.drawImage(Pics.tiles, canvas.tileSize*19, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);			
 		} else if(symbol=="'") {

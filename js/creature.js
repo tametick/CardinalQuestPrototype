@@ -366,7 +366,7 @@ var Creature = function(startX, startY, id){
 		}
 	}
 	var _opaque = function(x0,y0) {
-		return (maps[currentMap].tiles[[x0,y0]].symbol == "#") ||
+		return (maps[currentMap].tiles[[x0,y0]].symbol.startsWith("#",true)) ||
 				(maps[currentMap].tiles[[x0,y0]].symbol == "+");
 	}
 	var _apply = function(x0,y0) {
