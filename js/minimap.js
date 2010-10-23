@@ -19,7 +19,9 @@ function Minimap(params) {
 	this.confg = function(params) {
 		var self = this;
 		if ( typeof params === "object" ) {
-			$.each(params, function(key, val) { self[key] = val; });
+			$.each(params, function(key, val) {
+				self[key] = val;
+			});
 		}
 	}
 
@@ -50,21 +52,41 @@ function Minimap(params) {
 						this.ctx.fillRect( (this.tileW*x), (this.tileH*y), this.tileW, this.tileH );
 					} else { 
 						switch (map.tiles[[x,y]].symbol) {
-							case "#": this.ctx.fillStyle = this.colors.wall; break;
-							case ".": this.ctx.fillStyle = this.colors.floor; break;
-							case "+": this.ctx.fillStyle = this.colors.door; break;
-							case "'": this.ctx.fillStyle = this.colors.floor; break;
-							default: this.ctx.fillStyle = "#000"; break;
+							case "#":
+								this.ctx.fillStyle = this.colors.wall;
+								break;
+							case ".":
+								this.ctx.fillStyle = this.colors.floor;
+								break;
+							case "+":
+								this.ctx.fillStyle = this.colors.door;
+								break;
+							case "'":
+								this.ctx.fillStyle = this.colors.floor;
+								break;
+							default:
+								this.ctx.fillStyle = "#000";
+								break;
 						}
 						this.ctx.fillRect( (this.tileW*x), (this.tileH*y), this.tileW, this.tileH );
 					}
 				} else if ( map.tiles[[x,y]].seen == 1 ) {
 					switch (map.tiles[[x,y]].symbol) {
-						case "#": this.ctx.fillStyle = this.colors.wallDark; break;
-						case ".": this.ctx.fillStyle = this.colors.floorDark; break;
-						case "+": this.ctx.fillStyle = this.colors.doorDark; break;
-						case "'": this.ctx.fillStyle = this.colors.floorDark; break;
-						default: this.ctx.fillStyle = "#000"; break;
+						case "#":
+							this.ctx.fillStyle = this.colors.wallDark;
+							break;
+						case ".":
+							this.ctx.fillStyle = this.colors.floorDark;
+							break;
+						case "+":
+							this.ctx.fillStyle = this.colors.doorDark;
+							break;
+						case "'":
+							this.ctx.fillStyle = this.colors.floorDark;
+							break;
+						default:
+							this.ctx.fillStyle = "#000";
+							break;
 					}
 					this.ctx.fillRect( (this.tileW*x), (this.tileH*y), this.tileW, this.tileH );
 				}

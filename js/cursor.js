@@ -10,12 +10,12 @@ Cursor = function(startX, startY, symbol){
 		var newX = vars.x + dx;
 		var newY = vars.y + dy;
 		if (newX > 0 && newY > 0 &&
-		newX < maps[currentMap].width - 1 &&
-		newY < maps[currentMap].height - 1 &&
-		Math.abs(newX - player.vars.x) < viewer.center[0] &&
-		Math.abs(newY - player.vars.y) < viewer.center[1]) {
-			vars.x = newX;
-			vars.y = newY;
+			newX < maps[currentMap].width - 1 &&
+			newY < maps[currentMap].height - 1 &&
+			Math.abs(newX - player.vars.x) < viewer.center[0] &&
+			Math.abs(newY - player.vars.y) < viewer.center[1]) {
+				vars.x = newX;
+				vars.y = newY;
 		}
 	}
 	

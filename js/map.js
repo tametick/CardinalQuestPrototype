@@ -99,17 +99,17 @@ var Map = function(width, height){
 		for (var y = 0; y < height; y++) 
 			for (var x = 0; x < width; x++) { 
 				//if (vars.creatureMap[[x, y]] == null && vars.itemMap[[x, y]] == null) {
-					var nx = Settings.viewerWidth / 2 + x - player.vars.x;
-					var ny = Settings.viewerHeight / 2 + y - player.vars.y;
-					if (nx >= 0 && ny >= 0 && nx < Settings.viewerWidth && ny <= Settings.viewerHeight) 
-						if (tiles[[x, y]].seen == 2) {
-							viewer.putTile(nx, ny, tiles[[x, y]].id, tiles[[x, y]].symbol, [200, 200, 200]);
-							viewer.putShadow(nx, ny, Math.min(0.15*dist(x,y,player.vars.x,player.vars.y),0.8));
-						} else if (tiles[[x, y]].seen == 1) {
-							viewer.putTile(nx, ny, tiles[[x, y]].id, tiles[[x, y]].symbol, [64, 64, 64]);
-							viewer.putShadow(nx, ny, 0.8);
-						}
-				//}
+				var nx = Settings.viewerWidth / 2 + x - player.vars.x;
+				var ny = Settings.viewerHeight / 2 + y - player.vars.y;
+				if (nx >= 0 && ny >= 0 && nx < Settings.viewerWidth && ny <= Settings.viewerHeight)
+					if (tiles[[x, y]].seen == 2) {
+						viewer.putTile(nx, ny, tiles[[x, y]].id, tiles[[x, y]].symbol, [200, 200, 200]);
+						viewer.putShadow(nx, ny, Math.min(0.15*dist(x,y,player.vars.x,player.vars.y),0.8));
+					} else if (tiles[[x, y]].seen == 1) {
+						viewer.putTile(nx, ny, tiles[[x, y]].id, tiles[[x, y]].symbol, [64, 64, 64]);
+						viewer.putShadow(nx, ny, 0.8);
+					}
+			//}
 			}
 		for (var c = 0; c < vars.items.length; c++) {
 			if ( (debug == true || tiles[[vars.items[c].vars.x, vars.items[c].vars.y]].seen == 2) && vars.creatureMap[[vars.items[c].vars.x, vars.items[c].vars.y]] == null) {
@@ -353,7 +353,7 @@ var Map = function(width, height){
 		for (var i = 0; i < Settings.itemsPerLevel; i++) {
 			vars.items.push(Item(utils.randInt(1, width - 2), utils.randInt(1, height - 2), randomItemId()));
 			while (data[[vars.items[i].vars.x, vars.items[i].vars.y]] != "." &&
-			!vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]]) {
+				!vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]]) {
 				vars.items[i].vars.x = utils.randInt(1, width - 2);
 				vars.items[i].vars.y = utils.randInt(1, height - 2);
 			}

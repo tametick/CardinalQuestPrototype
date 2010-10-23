@@ -1,6 +1,5 @@
 var debug = true;
 var utils;
-
 var viewer;
 var minimap;
 var cursor;
@@ -50,42 +49,42 @@ var update = function(){
 	var emptyStatus = false;
 	
 	switch (state) {
-	case State.menu:
-		emptyStatus = true;
-		menu.draw(currentLine,currentClass, currentColor);
-		break;
-	case State.play:
-		maps[currentMap].draw();
-		player.vars.inventory.print();
-		player.vars.equipment.print();
-		player.vars.weapon.print();
-		break;
-	case State.examine:
-		maps[currentMap].draw();
-		player.vars.inventory.print();
-		player.vars.equipment.print();
-		player.vars.weapon.print();
-		cursor.draw();
-		if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]]) 
-			messageLog.append("You see " + maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
-		else if (maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]]) 
-			messageLog.append("You see " + maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
-		else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description) 
-			messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description[0]);
+		case State.menu:
+			emptyStatus = true;
+			menu.draw(currentLine,currentClass, currentColor);
+			break;
+		case State.play:
+			maps[currentMap].draw();
+			player.vars.inventory.print();
+			player.vars.equipment.print();
+			player.vars.weapon.print();
+			break;
+		case State.examine:
+			maps[currentMap].draw();
+			player.vars.inventory.print();
+			player.vars.equipment.print();
+			player.vars.weapon.print();
+			cursor.draw();
+			if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]])
+				messageLog.append("You see " + maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
+			else if (maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]])
+				messageLog.append("You see " + maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
+			else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description)
+				messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description[0]);
 
-		break;
-	case State.inventory:
-		maps[currentMap].draw();
-		player.vars.inventory.print(currentLine);
-		player.vars.equipment.print();
-		player.vars.weapon.print();
-		break;
-	case State.equipment:
-		maps[currentMap].draw();
-		player.vars.inventory.print();
-		player.vars.equipment.print(currentLine);
-		player.vars.weapon.print();
-		break;
+			break;
+		case State.inventory:
+			maps[currentMap].draw();
+			player.vars.inventory.print(currentLine);
+			player.vars.equipment.print();
+			player.vars.weapon.print();
+			break;
+		case State.equipment:
+			maps[currentMap].draw();
+			player.vars.inventory.print();
+			player.vars.equipment.print(currentLine);
+			player.vars.weapon.print();
+			break;
 	}
 	
 	if (messageLog) 
@@ -149,7 +148,9 @@ $(function() {
 					Settings = sett;
 
 					$("#game_music").hide();
-					$("#game_music").get()[0].addEventListener('ended', function(){this.currentTime = 0;}, false);
+					$("#game_music").get()[0].addEventListener('ended', function(){
+						this.currentTime = 0;
+					}, false);
 
 					utils = Utils();
 					var itemIds = [];
@@ -188,178 +189,178 @@ $(document).keydown(function(e){
 	var code = (window.event || e).keyCode;
 	
 	switch (state) {
-	case State.menu:
-		// Note: Shouldn't these be set in the Keys.enter code block?
-		player.charClassId = CharClassId[currentClass];
-		player.color = ColorId[currentColor];
+		case State.menu:
+			// Note: Shouldn't these be set in the Keys.enter code block?
+			player.charClassId = CharClassId[currentClass];
+			player.color = ColorId[currentColor];
 		
-		document.defaultAction = false;
-		switch (code) {
-		case Keys.numUp:
-		case Keys.up:
-			if(currentLine>0)
-				currentLine--;
-			break;
-		case Keys.numDown:
-		case Keys.down:
-		case Keys.enter:
-			if(currentLine<2)
-				currentLine++;
-			else {
-				currentMap = 0;
-				ticks = 0;
-				messageLog.clear();
-				maps[0].generateRandom();
-				player.init();
-				player.calculateFieldOfView();
-				player.vars.color = ColorId[currentColor];
-				state = State.play;
-				$("#game_music").show();
-				$("#game_music").get()[0].play();
-				document.defaultAction = true;
-			}
-			break;		
-		case Keys.backspace:
-			if(currentLine == 0 && player.name.length > 0)
-				player.name = player.name.substring(0, player.name.length-1);
-			break;
-		case Keys.numLeft:
-		case Keys.left:
-			if (currentLine == 1) {
-				currentClass--;
-			} else if (currentLine == 2) {
-				currentColor--;
-			}
-			break;
-		case Keys.numRight:
-		case Keys.right:
-			if (currentLine == 1) {
-				currentClass++;
-			} else if (currentLine == 2) {
-				currentColor++;
-			}
-			break;
-		default:
-			if(currentLine==0)
-				player.name += utils.alphanumeric(code);
-				player.name = utils.capitalize(player.name);
-			break;
-		}
-		 
-		break;
-	case State.examine:
-		switch (code) {
-		case Keys.numUp:
-		case Keys.up:
-			cursor.move(0, -1);
-			break;
-		case Keys.numDown:
-		case Keys.down:
-			cursor.move(0, 1);
-			break;
-		case Keys.numLeft:
-		case Keys.left:
-			cursor.move(-1, 0);
-			break;
-		case Keys.numRight:
-		case Keys.right:
-			cursor.move(1, 0);
-			break;
-		case Keys.x:
-		case Keys.esc:
-			cursor = null;
-			state = State.play;
-			break;
-		}
-	break;
-	case State.inventory:
-		switch (code) {
-		case Keys.numUp:
-		case Keys.up:
-			currentLine--;
-			break;
-		case Keys.numDown:
-		case Keys.down:
-			currentLine++;
-			break;
-		case Keys.numRight:
-		case Keys.right:
-		case Keys.enter:
-			player.use(currentLine);
-			state = State.play;
-			break;
-		case Keys.numLeft:
-		case Keys.left:
-		case Keys.d:
-			player.drop(currentLine);
-			state = State.play;
-			break;
-		case Keys.i:
-		case Keys.esc:
-			state = State.play;
-			break;
-		}
-	break;
-	case State.play:
-		// The player gets the first move in the game for free		
-		switch (code) {
-		case Keys.numUp:
-		case Keys.up:
-			moved = player.move(0, -1);
-			break;
-		case Keys.numDown:
-		case Keys.down:
-			moved = player.move(0, 1);
-			break;
-		case Keys.numLeft:
-		case Keys.left:
-			moved = player.move(-1, 0);
-			break;
-		case Keys.numRight:
-		case Keys.right:
-			moved = player.move(1, 0);
-			break;
-		case Keys["."]:
-			moved = true;
-			break;
-		case Keys.x:
-			cursor = Cursor(player.vars.x, player.vars.y, '?');
-			state = State.examine;
-			moved = false;
-			break;
-		case Keys.c:
-			moved = player.closeDoor();
-			break;
-		case Keys.e:
-			moved = player.executeSpecial();
-			break;
-		case Keys.i:
-			state = State.inventory;
-			currentLine = 0;
-			moved = false;
-			break;
-		case Keys.f2:
-			if (debug)
-				save();
-			break;
-		case Keys.f4:
-			if (debug)
-				load();
-			break;
-		}
-		
-		if (moved) {
-			player.calculateFieldOfView();
-			player.vars.actionPoints = 0;
-			while (player.vars.actionPoints < 60) {
-				var continueTicking = maps[currentMap].tick();
-				ticks++;
-				if(!continueTicking)
+			document.defaultAction = false;
+			switch (code) {
+				case Keys.numUp:
+				case Keys.up:
+					if(currentLine>0)
+						currentLine--;
+					break;
+				case Keys.numDown:
+				case Keys.down:
+				case Keys.enter:
+					if(currentLine<2)
+						currentLine++;
+					else {
+						currentMap = 0;
+						ticks = 0;
+						messageLog.clear();
+						maps[0].generateRandom();
+						player.init();
+						player.calculateFieldOfView();
+						player.vars.color = ColorId[currentColor];
+						state = State.play;
+						$("#game_music").show();
+						$("#game_music").get()[0].play();
+						document.defaultAction = true;
+					}
+					break;
+				case Keys.backspace:
+					if(currentLine == 0 && player.name.length > 0)
+						player.name = player.name.substring(0, player.name.length-1);
+					break;
+				case Keys.numLeft:
+				case Keys.left:
+					if (currentLine == 1) {
+						currentClass--;
+					} else if (currentLine == 2) {
+						currentColor--;
+					}
+					break;
+				case Keys.numRight:
+				case Keys.right:
+					if (currentLine == 1) {
+						currentClass++;
+					} else if (currentLine == 2) {
+						currentColor++;
+					}
+					break;
+				default:
+					if(currentLine==0)
+						player.name += utils.alphanumeric(code);
+					player.name = utils.capitalize(player.name);
 					break;
 			}
-			moved = false;
-		}
-		break;
+		 
+			break;
+		case State.examine:
+			switch (code) {
+				case Keys.numUp:
+				case Keys.up:
+					cursor.move(0, -1);
+					break;
+				case Keys.numDown:
+				case Keys.down:
+					cursor.move(0, 1);
+					break;
+				case Keys.numLeft:
+				case Keys.left:
+					cursor.move(-1, 0);
+					break;
+				case Keys.numRight:
+				case Keys.right:
+					cursor.move(1, 0);
+					break;
+				case Keys.x:
+				case Keys.esc:
+					cursor = null;
+					state = State.play;
+					break;
+			}
+			break;
+		case State.inventory:
+			switch (code) {
+				case Keys.numUp:
+				case Keys.up:
+					currentLine--;
+					break;
+				case Keys.numDown:
+				case Keys.down:
+					currentLine++;
+					break;
+				case Keys.numRight:
+				case Keys.right:
+				case Keys.enter:
+					player.use(currentLine);
+					state = State.play;
+					break;
+				case Keys.numLeft:
+				case Keys.left:
+				case Keys.d:
+					player.drop(currentLine);
+					state = State.play;
+					break;
+				case Keys.i:
+				case Keys.esc:
+					state = State.play;
+					break;
+			}
+			break;
+		case State.play:
+			// The player gets the first move in the game for free
+			switch (code) {
+				case Keys.numUp:
+				case Keys.up:
+					moved = player.move(0, -1);
+					break;
+				case Keys.numDown:
+				case Keys.down:
+					moved = player.move(0, 1);
+					break;
+				case Keys.numLeft:
+				case Keys.left:
+					moved = player.move(-1, 0);
+					break;
+				case Keys.numRight:
+				case Keys.right:
+					moved = player.move(1, 0);
+					break;
+				case Keys["."]:
+					moved = true;
+					break;
+				case Keys.x:
+					cursor = Cursor(player.vars.x, player.vars.y, '?');
+					state = State.examine;
+					moved = false;
+					break;
+				case Keys.c:
+					moved = player.closeDoor();
+					break;
+				case Keys.e:
+					moved = player.executeSpecial();
+					break;
+				case Keys.i:
+					state = State.inventory;
+					currentLine = 0;
+					moved = false;
+					break;
+				case Keys.f2:
+					if (debug)
+						save();
+					break;
+				case Keys.f4:
+					if (debug)
+						load();
+					break;
+			}
+		
+			if (moved) {
+				player.calculateFieldOfView();
+				player.vars.actionPoints = 0;
+				while (player.vars.actionPoints < 60) {
+					var continueTicking = maps[currentMap].tick();
+					ticks++;
+					if(!continueTicking)
+						break;
+				}
+				moved = false;
+			}
+			break;
 	}
 	
 	update();

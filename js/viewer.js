@@ -11,7 +11,7 @@ var Viewer = function(width, height){
 		var tileSize;
 		
 		var getFontSize = function(str){
-		// Defaults to 10
+			// Defaults to 10
 			if (!str) 
 				return 10;
 			if (str.indexOf("px") != -1) {

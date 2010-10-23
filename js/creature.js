@@ -282,47 +282,47 @@ var Creature = function(startX, startY, id){
 			
 			// Move
 			switch (maps[currentMap].tiles[[vars.x + dx, vars.y + dy]].symbol) {
-			case '.':
-			case "'":
-				// Move
-				maps[currentMap].vars.creatureMap[[vars.x, vars.y]] = null;
-				vars.x += dx;
-				vars.y += dy;
-				maps[currentMap].vars.creatureMap[[vars.x, vars.y]] = this;
-				return true;
-			case '+':
-				// Open door
-				maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile("'", Descriptions.openDoor);
-				return true;
-			case '#':
-				return false;
-			case '<':
-				if (this == player) {
-					// Remove player from current map
-					maps[currentMap].vars.creatures.shift();
-					maps[currentMap].vars.creatureMap[[player.vars.x,player.vars.y]]=null;
+				case '.':
+				case "'":
+					// Move
+					maps[currentMap].vars.creatureMap[[vars.x, vars.y]] = null;
+					vars.x += dx;
+					vars.y += dy;
+					maps[currentMap].vars.creatureMap[[vars.x, vars.y]] = this;
+					return true;
+				case '+':
+					// Open door
+					maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile("'", Descriptions.openDoor);
+					return true;
+				case '#':
+					return false;
+				case '<':
+					if (this == player) {
+						// Remove player from current map
+						maps[currentMap].vars.creatures.shift();
+						maps[currentMap].vars.creatureMap[[player.vars.x,player.vars.y]]=null;
 
-					currentMap--;
-					messageLog.append("You ascend to dungeon level " + (currentMap + 1) + ".");
+						currentMap--;
+						messageLog.append("You ascend to dungeon level " + (currentMap + 1) + ".");
 	
 					// todo: insert player to new map
-				}
-				return true;
-			case '>':
-				if (this == player) {
-					// Remove player from current map
-					maps[currentMap].vars.creatures.shift();
-					maps[currentMap].vars.creatureMap[[player.vars.x,player.vars.y]]=null;
+					}
+					return true;
+				case '>':
+					if (this == player) {
+						// Remove player from current map
+						maps[currentMap].vars.creatures.shift();
+						maps[currentMap].vars.creatureMap[[player.vars.x,player.vars.y]]=null;
 					
-					currentMap++;
-					messageLog.append("You descend to dungeon level " + (currentMap + 1) + ".");
+						currentMap++;
+						messageLog.append("You descend to dungeon level " + (currentMap + 1) + ".");
 	
-					// generate new map (todo: get old map from memory if returning)
-					maps.push(Map(Settings["mapWidth"], Settings["mapHeight"]));
-					maps[currentMap].generateRandom();
-					minimap.clear();
-				}
-				return true;
+						// generate new map (todo: get old map from memory if returning)
+						maps.push(Map(Settings["mapWidth"], Settings["mapHeight"]));
+						maps[currentMap].generateRandom();
+						minimap.clear();
+					}
+					return true;
 			}
 		}
 	}
@@ -331,7 +331,7 @@ var Creature = function(startX, startY, id){
 		for (var dx = -1; dx <= 1; dx++) 
 			for (var dy = -1; dy <= 1; dy++) 
 				if (maps[currentMap].tiles[[vars.x + dx, vars.y + dy]].symbol == "'" &&
-				!(maps[currentMap].vars.creatureMap[[vars.x + dx, vars.y + dy]])) {
+					!(maps[currentMap].vars.creatureMap[[vars.x + dx, vars.y + dy]])) {
 					closed = true;
 					maps[currentMap].tiles[[vars.x + dx, vars.y + dy]] = Tile('+', Descriptions.door);
 					if (this == player) 
@@ -377,7 +377,7 @@ var Creature = function(startX, startY, id){
 	}
 	var _opaque = function(x0,y0) {
 		return (maps[currentMap].tiles[[x0,y0]].symbol.startsWith("#",true)) ||
-				(maps[currentMap].tiles[[x0,y0]].symbol == "+");
+		(maps[currentMap].tiles[[x0,y0]].symbol == "+");
 	}
 	var _apply = function(x0,y0) {
 		maps[currentMap].tiles[[x0,y0]].seen=2;
@@ -401,8 +401,6 @@ var Creature = function(startX, startY, id){
 		nextLevel: nextLevel,
 		act: act,
 		draw: draw,
-		_opaque: _opaque,
-		_apply: _apply,
 		calculateFieldOfView: calculateFieldOfView,
 		attackOther: attackOther,
 		move: move,
