@@ -147,7 +147,9 @@ $(function() {
 					CreatureTypes = creatureTypes;
 					ItemTypes = itemTypes;
 					Settings = sett;
-					
+
+					$("#game_music").hide();
+
 					utils = Utils();
 					var itemIds = [];
 					for(var id in ItemTypes)
@@ -211,6 +213,8 @@ $(document).keydown(function(e){
 				player.calculateFieldOfView();
 				player.vars.color = ColorId[currentColor];
 				state = State.play;
+				$("#game_music").show();
+				$("#game_music").get()[0].play();
 				document.defaultAction = true;
 			}
 			break;		

@@ -182,6 +182,8 @@ var Creature = function(startX, startY, id){
 				} else {
 					messageLog.append(vars.description[0] + " has killed you!");
 					state = State.menu;
+					$("#game_music").hide();
+					$("#game_music").get()[0].pause();
 					throw("Player died");
 				}
 			}
