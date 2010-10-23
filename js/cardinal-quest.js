@@ -149,6 +149,7 @@ $(function() {
 					Settings = sett;
 
 					$("#game_music").hide();
+					$("#game_music").get()[0].addEventListener('ended', function(){this.currentTime = 0;}, false);
 
 					utils = Utils();
 					var itemIds = [];
