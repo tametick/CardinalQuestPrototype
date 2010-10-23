@@ -256,6 +256,8 @@ var Creature = function(startX, startY, id){
 				return true;
 			else {
 				// Attack
+				var atk = $(this == player?"#attack_sfx":"#attacked_sfx").get()[0];
+				atk.play();
 				this.attackOther(other);
 				return true;
 			}
