@@ -123,7 +123,7 @@ var Creature = function(startX, startY, id){
 	}
 	
 	var nextLevel = function() {
-		return 100*Math.pow(2,vars.level)
+		return 50*Math.pow(2,vars.level)
 	}
 	
 	var attackOther = function(other){
@@ -168,6 +168,8 @@ var Creature = function(startX, startY, id){
 						vars.level++;
 						vars.maxLife+=vars.vitality;
 						vars.life = vars.maxLife;
+						var levelup = $("#levelup_sfx").get()[0];
+						levelup.play();
 						messageLog.append("You have gained a level!");
 					}
 						
