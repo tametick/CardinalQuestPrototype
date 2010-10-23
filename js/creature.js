@@ -236,8 +236,11 @@ var Creature = function(startX, startY, id){
 				
 				// Put in inventory
 				vars.inventory.items.push(item);
-				if (isPlayer) 
+				if (isPlayer) {
 					messageLog.append("You picked up a " + item.vars.description[0]);
+					var pickup = $("#pickup_sfx").get()[0];
+					pickup.play();
+				}
 			}
 	}
 	
