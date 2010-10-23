@@ -365,7 +365,7 @@ var Creature = function(startX, startY, id){
 	var _apply = function(x0,y0) {
 		maps[currentMap].tiles[[x0,y0]].seen=2;
 	}
-	var calculateFieldOfView = function(radius) {
+	var calculateFieldOfView = function() {
 		for (var y = 0; y < maps[currentMap].height; y++) 
 			for (var x = 0; x < maps[currentMap].width; x++)
 				if(maps[currentMap].tiles[[x,y]].seen==2)

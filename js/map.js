@@ -89,6 +89,12 @@ var Map = function(width, height){
 			return false;
 		}
 	}
+	var dist = function(x1,y1,x2,y2){
+		dx = x1-x2;
+		dy = y1-y2;
+		return Math.sqrt(dx*dx+dy*dy);
+	}
+
 	var draw = function(){
 		for (var y = 0; y < height; y++) 
 			for (var x = 0; x < width; x++) { 
@@ -96,11 +102,12 @@ var Map = function(width, height){
 					var nx = Settings.viewerWidth / 2 + x - player.vars.x;
 					var ny = Settings.viewerHeight / 2 + y - player.vars.y;
 					if (nx >= 0 && ny >= 0 && nx < Settings.viewerWidth && ny <= Settings.viewerHeight) 
-						if (tiles[[x, y]].seen == 2) 
+						if (tiles[[x, y]].seen == 2) {
 							viewer.putTile(nx, ny, tiles[[x, y]].id, tiles[[x, y]].symbol, [200, 200, 200]);
-						else if (tiles[[x, y]].seen == 1) {
+							viewer.putShadow(nx, ny, Math.min(0.15*dist(x,y,player.vars.x,player.vars.y),0.8));
+						} else if (tiles[[x, y]].seen == 1) {
 							viewer.putTile(nx, ny, tiles[[x, y]].id, tiles[[x, y]].symbol, [64, 64, 64]);
-							viewer.putShadow(nx, ny);
+							viewer.putShadow(nx, ny, 0.8);
 						}
 				//}
 			}

@@ -111,10 +111,10 @@ var Viewer = function(width, height){
 		canvas.context.fillText(str, x * canvas.fontWidth, y * canvas.fontHeight);
 	}
 
-	var putShadow = function( x, y ) {
+	var putShadow = function( x, y, opacity ) {
 		var dx = x * canvas.tileSize;
 		var dy = (y-1) * canvas.tileSize;
-		canvas.context.fillStyle = "rgba(0, 0, 0, 0.5)";
+		canvas.context.fillStyle = "rgba(0,0,0,+"+opacity+")";
 		canvas.context.fillRect( dx, dy, canvas.tileSize, canvas.tileSize );
 	}
 
