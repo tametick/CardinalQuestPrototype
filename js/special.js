@@ -8,6 +8,8 @@ var Special = function(){
 	}
 
 	var berserk = function(self){
+		$("#berserk_sfx").get()[0].play();
+
 		_initBuffs(self);
 		
 		// Accumulate speed buffs
@@ -27,6 +29,8 @@ var Special = function(){
 		self.vars.timers.push([60,"attack",3]);
 	}
 	var shadowWalk = function(self){
+		$("#shadowwalk_sfx").get()[0].play();
+
 		_initBuffs(self);
 
 		self.vars.buffs["shadowWalk"] = 1;
@@ -37,6 +41,8 @@ var Special = function(){
 		self.vars.timers.push([60,"damageMultipler",2]);
 	}
 	var fireNova = function(self){
+		$("#firenova_sfx").get()[0].play();
+
 		_initBuffs(self);
 
 		for(var x = -2; x<=2;x++)
