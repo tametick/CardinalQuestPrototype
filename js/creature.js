@@ -112,7 +112,7 @@ var Creature = function(startX, startY, id){
 				case "gloves":
 					item.equip(this);
 					if (this == player) {
-						messageLog.append("You wear the " + item.vars.description[0]);				
+						messageLog.append("You wear the " + item.vars.description[0]);
 						$("#equip_sfx").get()[0].play();
 					}
 					break;

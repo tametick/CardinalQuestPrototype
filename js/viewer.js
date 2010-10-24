@@ -49,12 +49,26 @@ var Viewer = function(width, height){
 	}
 	var putTile = function(x, y, id, symbol, color){
 		if(symbol=='@'){
+			var weaponUsed= player.vars.weapon.wielded[0];
+			var weaponLine;
+			if(!weaponUsed)
+				weaponLine = 0;
+			else if(weaponUsed.id=="d")
+				weaponLine = 4;
+			else if(weaponUsed.id=="ss")
+				weaponLine = 2;
+			else if(weaponUsed.id=="ls")
+				weaponLine = 1;
+			else if(weaponUsed.id=="s")
+				weaponLine = 3;
+
 			if(player.charClassId == "@f")
-				canvas.context.drawImage(Pics.player, 0, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+				canvas.context.drawImage(Pics.player, 0, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 			else if(player.charClassId == "@w")
-				canvas.context.drawImage(Pics.player, canvas.tileSize, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+				canvas.context.drawImage(Pics.player, canvas.tileSize, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 			else if(player.charClassId == "@t")
-				canvas.context.drawImage(Pics.player, canvas.tileSize*2, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+				canvas.context.drawImage(Pics.player, canvas.tileSize*2, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			
 		} else if(symbol==".") {
 			canvas.context.drawImage(Pics.tiles, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol=="#1") {
