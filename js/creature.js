@@ -79,7 +79,7 @@ var Creature = function(startX, startY, id){
 	var vars = {
 		x: startX,
 		y: startY
-	}
+	};
 	var drop = function(itemIndex){
 		if (vars.inventory.items.length > itemIndex) {
 			var item = vars.inventory.items[itemIndex];
@@ -197,9 +197,9 @@ var Creature = function(startX, startY, id){
 				messageLog.append(vars.description[0] + " misses you.");
 		}
 	}
-	var executeSpecial = function(other) {
+	var executeSpecial = function() {
 		if (vars.spiritPoints == 360) {
-			Special()[vars.special](this, other);
+			Special()[vars.special](this);
 			vars.spiritPoints = 0;
 			return true;
 		} else {

@@ -37,10 +37,19 @@ var Item = function(startX, startY, id){
 			creature.vars.timers.push([vars.duration, vars.effect, vars.value * 1]);
 		}
 	}
+	var _removeBuff = function(creature, item) {
+		creature.vars.buffs[item.vars.effect] -= item.vars.value * 1;
+	}
+
 	var equip = function(creature){
-		// Return to old item inventory 
-		creature.pickUp(creature.vars.equipment.items[vars.type]);
-		// TODO: Remove old buff
+		var oldItem = creature.vars.equipment.items[vars.type];
+
+		// Return to old item inventory
+		creature.pickUp(oldItem);
+		
+		// Remove old buff
+		if(oldItem)
+			_removeBuff(creature, oldItem);
 		
 		// Equip new item
 		creature.vars.equipment.items[vars.type] = this;
@@ -49,7 +58,6 @@ var Item = function(startX, startY, id){
 	var wield = function(creature){
 		// Return to old item inventory 
 		creature.pickUp(creature.vars.weapon.wielded.pop());
-		// TODO: Remove old buff
 		
 		// Wield new weapon
 		creature.vars.weapon.wielded.push(this);

@@ -1,5 +1,5 @@
 var Special = function(){
-	var berserk = function(self, other){
+	var berserk = function(self){
 		if (!self.vars.buffs) 
 			self.vars.buffs = {};
 		
@@ -22,10 +22,10 @@ var Special = function(){
 		self.vars.timers.push([60,"speed",3]);
 		self.vars.timers.push([60,"attack",3]);
 	}
-	var shadowWalk = function(self, other){
+	var shadowWalk = function(self){
 		alert("shadowWalk");
 	}
-	var fireNova = function(self, other){
+	var fireNova = function(self){
 		alert("fireNova");
 	}
 	return {
