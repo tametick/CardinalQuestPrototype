@@ -37,9 +37,24 @@ var Special = function(){
 		self.vars.timers.push([60,"damageMultipler",2]);
 	}
 	var fireNova = function(self){
-		_initBuffs();
+		_initBuffs(self);
 
-		alert("fireNova");
+		for(var x = -2; x<=2;x++)
+			for(var y = -2; y<=2;y++)
+				if(utils.dist(x,y,0,0)<=2) {
+					var creature = maps[currentMap].vars.creatureMap[[self.vars.x+x, self.vars.y+y]];
+					if(creature && creature!=self) {
+						creature.vars.life -= utils.randInt(1, 6);
+
+						// life buffs
+						var lif = creature.vars.life + (creature.vars.buffs ? (creature.vars.buffs.life ? creature.vars.buffs.life : 0) : 0);
+
+						if (lif > 0)
+							self.injure(creature);
+						else
+							self.kill(creature);
+					}
+				}
 	}
 	return {
 		berserk: berserk,

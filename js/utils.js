@@ -34,6 +34,11 @@ var Utils = function(){
 	var inRange = function(x0, y0, x1, y1){
 		return Math.abs(y1 - y0) + Math.abs(x1 - x0) < 5;
 	}
+	var dist = function(x1,y1,x2,y2){
+		dx = x1-x2;
+		dy = y1-y2;
+		return Math.sqrt(dx*dx+dy*dy);
+	}
 	// Array Remove - By John Resig (MIT Licensed)
 	Array.prototype.remove = function(from, to){
 		var rest = this.slice((to || from) + 1 || this.length);
@@ -88,6 +93,7 @@ var Utils = function(){
 		capitalize: capitalize,
 		randInt: randInt,
 		inRange: inRange,
+		dist: dist,
 		los: los
 	}
 }

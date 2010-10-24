@@ -131,7 +131,46 @@ var Creature = function(startX, startY, id){
 	var nextLevel = function() {
 		return 50*Math.pow(2,vars.level)
 	}
-	
+
+	var injure = function(other){
+		if (id.charAt(0) == "@")
+			messageLog.append("You hit " + other.vars.description[0] + ".");
+		else
+			messageLog.append(vars.description[0] + " hits you.");
+	}
+
+	var kill = function(other) {
+		// Kill
+		var index = jQuery.inArray(other, maps[currentMap].vars.creatures);
+		if (index != -1)
+			maps[currentMap].vars.creatures.remove(index);
+		else
+			throw "Error: creature exist in creatureMap but not in creatures.";
+		maps[currentMap].vars.creatureMap[[other.vars.x, other.vars.y]] = null;
+
+		vars.experiencePoints+=other.vars.experience;
+		if (id.charAt(0) == "@") {
+			messageLog.append("You killed " + other.vars.description[0] + "!");
+			if(vars.experiencePoints>=nextLevel()){
+				vars.level++;
+				vars.maxLife+=vars.vitality;
+				vars.life = vars.maxLife;
+				var levelup = $("#levelup_sfx").get()[0];
+				levelup.play();
+				messageLog.append("You have gained a level!");
+			}
+
+		} else {
+			messageLog.append(vars.description[0] + " has killed you!");
+			state = State.menu;
+			var music = $("#game_music");
+			music.hide();
+			music.get()[0].pause();
+			music.get()[0].currentTime = 0
+			throw("Player died");
+		}
+	}
+
 	var attackOther = function(other){
 		// attack & defense buffs
 		var atk = vars.attack + (vars.buffs ? (vars.buffs.attack ? vars.buffs.attack : 0) : 0);
@@ -156,44 +195,11 @@ var Creature = function(startX, startY, id){
 			// life buffs
 			var lif = other.vars.life + (other.vars.buffs ? (other.vars.buffs.life ? other.vars.buffs.life : 0) : 0);
 			
-			if (lif > 0) {
-				// Injure
-				if (id.charAt(0) == "@") 
-					messageLog.append("You hit " + other.vars.description[0] + ".");
-				else {
-					messageLog.append(vars.description[0] + " hits you.");
-				}
-			} else {
-				// Kill
-				var index = jQuery.inArray(other, maps[currentMap].vars.creatures);
-				if (index != -1) 
-					maps[currentMap].vars.creatures.remove(index);
-				else 
-					throw "Error: creature exist in creatureMap but not in creatures.";
-				maps[currentMap].vars.creatureMap[[other.vars.x, other.vars.y]] = null;
-				
-				vars.experiencePoints+=other.vars.experience;
-				if (id.charAt(0) == "@") {
-					messageLog.append("You killed " + other.vars.description[0] + "!");
-					if(vars.experiencePoints>=nextLevel()){
-						vars.level++;
-						vars.maxLife+=vars.vitality;
-						vars.life = vars.maxLife;
-						var levelup = $("#levelup_sfx").get()[0];
-						levelup.play();
-						messageLog.append("You have gained a level!");
-					}
-						
-				} else {
-					messageLog.append(vars.description[0] + " has killed you!");
-					state = State.menu;
-					var music = $("#game_music");
-					music.hide();
-					music.get()[0].pause();
-					music.get()[0].currentTime = 0
-					throw("Player died");
-				}
-			}
+			if (lif > 0)
+				injure(other);
+			else
+				kill(other);
+
 		} else {
 			// Miss
 			if (id.charAt(0) == "@") 
@@ -409,6 +415,8 @@ var Creature = function(startX, startY, id){
 		draw: draw,
 		calculateFieldOfView: calculateFieldOfView,
 		attackOther: attackOther,
+		kill:kill,
+		injure: injure,
 		move: move,
 		closeDoor: closeDoor,
 		executeSpecial: executeSpecial,
