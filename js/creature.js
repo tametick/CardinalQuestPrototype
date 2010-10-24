@@ -139,13 +139,18 @@ var Creature = function(startX, startY, id){
 
 		if (Math.random() < atk / (atk + def)) {
 			// Hit
+			var dmgMultipler = 1;
+			if(vars.buffs && vars.buffs.damageMultipler && vars.buffs.damageMultipler!=0)
+				dmgMultipler = vars.buffs.damageMultipler * 1;
+
 			if (vars.weapon && vars.weapon.wielded.length > 0) {
 				// With weapon
 				var damageRange = vars.weapon.wielded[0].vars.damage;
-				other.vars.life -= utils.randInt(damageRange[0] * 1, damageRange[1] * 1);
+
+				other.vars.life -= utils.randInt(damageRange[0] * dmgMultipler, damageRange[1] * dmgMultipler);
 			} else {
 				// With natural attack
-				other.vars.life -= utils.randInt(vars.damage[0] * 1, vars.damage[1] * 1);
+				other.vars.life -= utils.randInt(vars.damage[0] * dmgMultipler, vars.damage[1] * dmgMultipler);
 			}
 			
 			// life buffs
