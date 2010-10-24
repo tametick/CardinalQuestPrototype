@@ -216,7 +216,8 @@ $(document).keydown(function(e){
 						player.vars.color = ColorId[currentColor];
 						state = State.play;
 						$("#game_music").show();
-						$("#game_music").get()[0].play();
+						if(!debug)
+							$("#game_music").get()[0].play();
 						document.defaultAction = true;
 					}
 					break;
