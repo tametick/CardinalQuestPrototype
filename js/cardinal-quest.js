@@ -147,6 +147,7 @@ $(function() {
 					ItemTypes = itemTypes;
 					Settings = sett;
 
+					$("#music_description").hide();
 					$("#game_music").hide();
 					$("#game_music").get()[0].addEventListener('ended', function(){
 						this.currentTime = 0;
@@ -215,6 +216,7 @@ $(document).keydown(function(e){
 						player.calculateFieldOfView();
 						player.vars.color = ColorId[currentColor];
 						state = State.play;
+						$("#music_description").show();
 						$("#game_music").show();
 						if(!debug)
 							$("#game_music").get()[0].play();
