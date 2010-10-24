@@ -216,8 +216,9 @@ var Creature = function(startX, startY, id){
 	var act = function(){
 		var moved = false;
 		
-		// Chase player if nearby
-		if (utils.inRange(vars.x, vars.y, player.vars.x, player.vars.y)) 
+		// Chase player if nearby & visible
+		if (utils.inRange(vars.x, vars.y, player.vars.x, player.vars.y) &&
+			!(player.vars.buffs && player.vars.buffs.shadowWalk && player.vars.buffs.shadowWalk>0))
 			if (Math.abs(player.vars.y - vars.y) > Math.abs(player.vars.x - vars.x)) 
 				moved = this.move(0, (player.vars.y - vars.y) / Math.abs(player.vars.y - vars.y));
 			else 
