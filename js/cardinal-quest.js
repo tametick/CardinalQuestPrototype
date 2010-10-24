@@ -1,4 +1,4 @@
-var debug = true;
+var debug = false;
 var utils;
 var viewer;
 var minimap;
@@ -21,7 +21,8 @@ var moved = true;
 Pics = {
 	'player' : new Image(),
 	'tiles' : new Image(),
-	'items' : new Image()
+	'items' : new Image(),
+	'monsters' : new Image(),
 }
 
 var State = {
@@ -141,6 +142,7 @@ $(function() {
 					Pics.player.src = 'pics/player.png';
 					Pics.tiles.src = 'pics/tiles-big.png';
 					Pics.items.src = 'pics/items.png';
+					Pics.monsters.src = 'pics/monsters.png';
 					
 					Descriptions = desc;
 					CreatureTypes = creatureTypes;

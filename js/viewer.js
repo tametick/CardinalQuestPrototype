@@ -61,14 +61,15 @@ var Viewer = function(width, height){
 				weaponLine = 1;
 			else if(weaponUsed.id=="s")
 				weaponLine = 3;
-
+				
 			if(player.charClassId == "@f")
 				canvas.context.drawImage(Pics.player, 0, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 			else if(player.charClassId == "@w")
 				canvas.context.drawImage(Pics.player, canvas.tileSize, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 			else if(player.charClassId == "@t")
 				canvas.context.drawImage(Pics.player, canvas.tileSize*2, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-			
+		} else if(symbol=="k") {
+			canvas.context.drawImage(Pics.monsters, 0, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol==".") {
 			canvas.context.drawImage(Pics.tiles, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol==">") {
