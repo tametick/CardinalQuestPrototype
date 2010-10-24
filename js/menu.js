@@ -17,18 +17,27 @@ var Menu = function(){
 				viewer.print(1, line++, "see them driven before me,", [255, 255, 255]);
 				viewer.print(1, line++, "and to hear the lamentation", [255, 255, 255]);
 				viewer.print(1, line++, "of their women.", [255, 255, 255]);
+				viewer.print(1, line++, "", [255, 255, 255]);
+				viewer.print(1, line++, "Specail move:", [255, 255, 255]);
+				viewer.print(1, line++, "Breserk", [128, 0, 128]);
 			} else if (currentClass == 1) {
 				viewer.print(8, line++, ">", [0, 200, 200]);
 				line++;
 				viewer.print(1, line++, "To raid, pillage, plunder", [255, 255, 255]);
 				viewer.print(1, line++, "and otherwise pilfer my", [255, 255, 255]);
 				viewer.print(1, line++, "weaselly black guts out.", [255, 255, 255]);
+				viewer.print(1, line++, "", [255, 255, 255]);
+				viewer.print(1, line++, "Specail move:", [255, 255, 255]);
+				viewer.print(1, line++, "Shadow Walk", [128, 0, 128]);
 			} else if (currentClass == 2) {
 				viewer.print(13, line++, ">", [0, 200, 200]);
 				line++;
 				viewer.print(1, line++, "I...am an enchanter.", [255, 255, 255]);
 				viewer.print(1, line++, "There are some who call me...", [255, 255, 255]);
 				viewer.print(1, line++, player.name+".", [255, 255, 255]);
+				viewer.print(1, line++, "", [255, 255, 255]);
+				viewer.print(1, line++, "Specail move:", [255, 255, 255]);
+				viewer.print(1, line++, "Fire Nova", [128, 0, 128]);
 			}
 		}
 		if (currentLine >= 2) {
