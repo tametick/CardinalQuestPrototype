@@ -4,8 +4,10 @@ var Viewer = function(width, height){
 	var center = [width / 2, height / 2];
 	
 	var Canvas = function(){
-		var canvasElement;
-		var context;
+		var mapCanvasElement;
+		var mapContext;
+		var lightingCanvasElement;
+		var lightingContext;
 		var fontHeight;
 		var fontWidth;
 		var tileSize;
@@ -25,28 +27,53 @@ var Viewer = function(width, height){
 		var changeFont = function(to){
 			fontHeight = getFontSize(to);
 			fontWidth = fontHeight;
-			canvasElement.height = fontHeight * height;
-			canvasElement.width = fontWidth * width;
-			context.font = to;
+			lightingCanvasElement.height =  mapCanvasElement.height = fontHeight * height;
+			lightingCanvasElement.width = mapCanvasElement.width = fontWidth * width;
+			mapContext.font = to;
 		}
 		
-		canvasElement = $("#viewer").get()[0];
-		context = canvasElement.getContext("2d");
+		mapCanvasElement = $("#viewer").get()[0];
+		mapContext = mapCanvasElement.getContext("2d");
+		lightingCanvasElement = $("#lighting").get()[0];
+		lightingContext = lightingCanvasElement.getContext("2d");
 		changeFont("32px monospace");
 		tileSize= 32;
 		
 		return {
-			canvasElement: canvasElement,
-			context: context,
+			mapCanvasElement: mapCanvasElement,
+			lightingCanvasElement: lightingCanvasElement,
+			mapContext: mapContext,
+			lightingContext: lightingContext,
 			fontHeight: fontHeight,
 			fontWidth: fontWidth,
-			tileSize: tileSize,
+			tileSize: tileSize
 		}
 	}
-	var clear = function(){
-		canvas.context.fillStyle = "rgb(0, 0, 0)";
-		canvas.context.fillRect(0, 0, canvas.canvasElement.width, canvas.canvasElement.height);
+	var hitEffect = function(dx,dy) {
+		var x = canvas.tileSize*(width / 2 + dx);
+		var y = canvas.tileSize*(height / 2 + dy);
+
+		var hitGradient = canvas.mapContext.createRadialGradient(0,0,1,0,0,canvas.tileSize);
+		hitGradient.addColorStop(0, 'rgba(255,0,0,1)');
+		hitGradient.addColorStop(1, 'rgba(255,0,0,0)');
+		canvas.mapContext.fillStyle = hitGradient;
+		canvas.mapContext.fillRect(x, y, canvas.tileSize, canvas.tileSize);
+		
 	}
+
+	var _clear = function(context){
+		context.fillStyle = "rgb(0, 0, 0)";
+		context.fillRect(0, 0, canvas.mapCanvasElement.width, canvas.mapCanvasElement.height);
+	}
+
+	var clear = function() {
+		_clear(canvas.mapContext);
+	}
+
+	var clearLighting = function() {
+		_clear(canvas.lightingContext);
+	}
+
 	var putTile = function(x, y, id, symbol, color){
 		var monsterRow = symbol.substring(symbol.length-1)*1;
 
@@ -65,92 +92,92 @@ var Viewer = function(width, height){
 				weaponLine = 3;
 				
 			if(player.charClassId == "@f")
-				canvas.context.drawImage(Pics.player, 0, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+				canvas.mapContext.drawImage(Pics.player, 0, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 			else if(player.charClassId == "@w")
-				canvas.context.drawImage(Pics.player, canvas.tileSize, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+				canvas.mapContext.drawImage(Pics.player, canvas.tileSize, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 			else if(player.charClassId == "@t")
-				canvas.context.drawImage(Pics.player, canvas.tileSize*2, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+				canvas.mapContext.drawImage(Pics.player, canvas.tileSize*2, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol.startsWith("k")) {
-			canvas.context.drawImage(Pics.monsters, canvas.tileSize*monsterRow, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol.startsWith("W")) {
-			canvas.context.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol.startsWith("b")) {
-			canvas.context.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol.startsWith("M")) {
-			canvas.context.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize*3, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize*3, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol.startsWith("su")) {
-			canvas.context.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize*4, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize*4, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol.startsWith("S")) {
-			canvas.context.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol==".") {
-			canvas.context.drawImage(Pics.tiles, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol==">") {
-			canvas.context.drawImage(Pics.tiles, canvas.tileSize*3, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*3, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol=="#1") {
-			canvas.context.drawImage(Pics.tiles, canvas.tileSize*11, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*11, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol=="#2") {
-			canvas.context.drawImage(Pics.tiles, canvas.tileSize*13, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*13, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol=="#3") {
-			canvas.context.drawImage(Pics.tiles, canvas.tileSize*15, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*15, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol=="#4") {
-			canvas.context.drawImage(Pics.tiles, canvas.tileSize*17, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*17, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol=="+") {
-			canvas.context.drawImage(Pics.tiles, canvas.tileSize*19, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);			
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*19, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol=="'") {
-			canvas.context.drawImage(Pics.tiles, canvas.tileSize*21, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);			
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*21, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="sh"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="clc"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*4, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*4, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="ee"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*6, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*6, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="eh"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*8, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*8, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="el"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*7, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*7, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="be"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="hs"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*9, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*9, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="la"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*2, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*2, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="bp"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*3, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*3, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="row"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*7, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*7, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="aoe"){
-			canvas.context.drawImage(Pics.items, 0, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, 0, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="coe"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*6, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*6, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="hoh"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*9, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*9, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="god"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*5, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*5, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="ab"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*8, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*8, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="ss"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*2, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*2, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="ls"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize*3, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*3, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="s"){
-			canvas.context.drawImage(Pics.items, 0, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, 0, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="d"){
-			canvas.context.drawImage(Pics.items, canvas.tileSize, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.items, canvas.tileSize, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else {	
-			canvas.context.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
-			canvas.context.fillText(symbol, x * canvas.tileSize, y * canvas.tileSize);
+			canvas.mapContext.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
+			canvas.mapContext.fillText(symbol, x * canvas.tileSize, y * canvas.tileSize);
 		}
 	}
 	var print = function(x, y, str, color){
-		canvas.context.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
-		canvas.context.fillText(str, x * canvas.fontWidth, y * canvas.fontHeight);
+		canvas.mapContext.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
+		canvas.mapContext.fillText(str, x * canvas.fontWidth, y * canvas.fontHeight);
 	}
 
 	var putShadow = function( x, y, opacity ) {
 		var dx = x * canvas.tileSize;
 		var dy = (y-1) * canvas.tileSize;
-		canvas.context.fillStyle = "rgba(0,0,0,+"+opacity+")";
-		canvas.context.fillRect( dx, dy, canvas.tileSize, canvas.tileSize );
+		canvas.mapContext.fillStyle = "rgba(0,0,0,+"+opacity+")";
+		canvas.mapContext.fillRect( dx, dy, canvas.tileSize, canvas.tileSize );
 	}
 
 	canvas = Canvas();
@@ -160,9 +187,11 @@ var Viewer = function(width, height){
 		height: height,
 		center: center,
 		clear: clear,
+		clearLighting: clearLighting,
 		putTile: putTile,
 		print: print,
-		putShadow: putShadow
+		putShadow: putShadow,
+		hitEffect: hitEffect
 	}
 }
 

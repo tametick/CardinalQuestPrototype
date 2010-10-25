@@ -176,6 +176,7 @@ $(function() {
 					state = State.loading;
 					viewer = Viewer(Settings.viewerWidth, Settings.viewerHeight);
 					viewer.clear();
+					viewer.clearLighting();
 					minimap = new Minimap();
 					minimap.clear();
 					messageLog = MessageLog();
