@@ -391,6 +391,16 @@ var Creature = function(startX, startY, id){
 	var randomize = function() {
 		if(vars.symbol == "k")
 			vars.symbol += utils.randInt(0,2);
+		else if(vars.symbol == "W")
+			vars.symbol += utils.randInt(0,2);
+		else if(vars.symbol == "b")
+			vars.symbol += utils.randInt(0,3);
+		else if(vars.symbol == "M")
+			vars.symbol += utils.randInt(0,2);
+		else if(vars.symbol == "su")
+			vars.symbol += utils.randInt(0,3);
+		else if(vars.symbol == "S")
+			vars.symbol += utils.randInt(0,3);
 	}
 
 	var _opaque = function(x0,y0) {
