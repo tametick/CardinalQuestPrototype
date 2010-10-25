@@ -88,8 +88,12 @@ var Creature = function(startX, startY, id){
 			item.vars.x = vars.x;
 			item.vars.y = vars.y;
 			maps[currentMap].vars.itemMap[[vars.x, vars.y]] = item;
-			if (this == player) 
-				messageLog.append("You dropped the " + item.vars.description[0]);
+			if (this == player) {
+				var str = "You dropped the ";
+				str += "<b style='color: rgb("+item.vars.color.join()+");'>";
+				str += item.vars.description[0]+"</b>";
+				messageLog.append(str);
+			}
 		}
 	}
 	var use = function(itemIndex){
@@ -101,7 +105,8 @@ var Creature = function(startX, startY, id){
 				case "consumable":
 					item.use(this);
 					if (this == player) {
-						messageLog.append("You used the " + item.vars.description[0]);
+						var str = "You used the <b style='color: rgb("+item.vars.color.join()+");'>"+item.vars.description[0]+"</b>";
+						messageLog.append(str);
 						$("#use_sfx").get()[0].play();
 					}
 					break;
@@ -112,14 +117,16 @@ var Creature = function(startX, startY, id){
 				case "gloves":
 					item.equip(this);
 					if (this == player) {
-						messageLog.append("You wear the " + item.vars.description[0]);
+						var str = "You wear the <b style='color: rgb("+item.vars.color.join()+");'>"+item.vars.description[0]+"</b>";
+						messageLog.append(str);
 						$("#equip_sfx").get()[0].play();
 					}
 					break;
 				case "weapon":
 					item.wield(this);
 					if (this == player) {
-						messageLog.append("You wield the " + item.vars.description[0]);
+						var str = "You wield the <b style='color: rgb("+item.vars.color.join()+");'>"+item.vars.description[0]+"</b>";
+						messageLog.append(str);
 						$("#equip_sfx").get()[0].play();
 					}
 					break;
@@ -133,10 +140,11 @@ var Creature = function(startX, startY, id){
 	}
 
 	var injure = function(other){
-		if (id.charAt(0) == "@")
-			messageLog.append("You hit " + other.vars.description[0] + ".");
-		else
-			messageLog.append(vars.description[0] + " hits you.");
+		if (id.charAt(0) == "@") {
+			messageLog.append("You hit <b style='color: rgb("+other.vars.color.join()+");'>"+other.vars.description[0]+"</b>.");
+		} else {
+			messageLog.append("<b style='color: rgb("+vars.color.join()+");'>"+vars.description[0]+"</b> hits you.");
+		}
 	}
 
 	var kill = function(other) {
@@ -150,14 +158,17 @@ var Creature = function(startX, startY, id){
 
 		vars.experiencePoints+=other.vars.experience;
 		if (id.charAt(0) == "@") {
-			messageLog.append("You killed " + other.vars.description[0] + "!");
+			var str = "<span style='color:#f44;'>You killed ";
+			str += "<b style='color: rgb("+other.vars.color.join()+")'>";
+			str += other.vars.description[0]+"</b>!</span>";
+			messageLog.append(str);
 			if(vars.experiencePoints>=nextLevel()){
 				vars.level++;
 				vars.maxLife+=vars.vitality;
 				vars.life = vars.maxLife;
 				var levelup = $("#levelup_sfx").get()[0];
 				levelup.play();
-				messageLog.append("You have gained a level!");
+				messageLog.append("<b style='color:#ff0000;'>You have gained a level!</b>");
 			}
 
 		} else {
@@ -202,10 +213,11 @@ var Creature = function(startX, startY, id){
 
 		} else {
 			// Miss
-			if (id.charAt(0) == "@") 
-				messageLog.append("You miss " + other.vars.description[0] + ".");
-			else 
-				messageLog.append(vars.description[0] + " misses you.");
+			if (id.charAt(0) == "@") {
+				messageLog.append("You miss <b style='color: rgb("+other.vars.color.join()+");'>"+other.vars.description[0]+"</b>.");
+			} else {
+				messageLog.append("<b style='color: rgb("+vars.color.join()+");'>"+vars.description[0]+"</b> misses you.");
+			}
 		}
 	}
 	var executeSpecial = function() {
@@ -261,7 +273,7 @@ var Creature = function(startX, startY, id){
 				// Put in inventory
 				vars.inventory.items.push(item);
 				if (isPlayer) {
-					messageLog.append("You picked up a " + item.vars.description[0]);
+					messageLog.append("You picked up a <b style='color: rgb("+item.vars.color.join()+");'>"+item.vars.description[0]+"</b>");
 					var pickup = $("#pickup_sfx").get()[0];
 					pickup.play();
 				}

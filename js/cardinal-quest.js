@@ -78,8 +78,6 @@ var update = function(){
 					str += maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description[0];
 					str += "</b>";
 					messageLog.append(str);
-
-					//messageLog.append("You see " + maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
 				} else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description) {
 					messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description[0]);
 				}
