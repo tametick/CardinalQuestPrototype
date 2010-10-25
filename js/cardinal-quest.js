@@ -1,4 +1,4 @@
-var debug = false;
+var debug = true;
 var utils;
 var viewer;
 var minimap;
@@ -22,7 +22,7 @@ Pics = {
 	'player' : new Image(),
 	'tiles' : new Image(),
 	'items' : new Image(),
-	'monsters' : new Image(),
+	'monsters' : new Image()
 }
 
 var State = {

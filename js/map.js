@@ -338,9 +338,11 @@ var Map = function(width, height){
 				creaure.vars.y = utils.randInt(1, height - 2);
 			}
 			vars.creatures.push(creaure);
+
 			// start from first monster, no need to init the player
 			for (var c = 1; c < vars.creatures.length; c++) {
 				vars.creatures[c].init();
+				vars.creatures[c].randomize();
 				vars.creatureMap[[vars.creatures[c].vars.x, vars.creatures[c].vars.y]] = vars.creatures[c];
 			}
 		}

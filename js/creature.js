@@ -382,11 +382,17 @@ var Creature = function(startX, startY, id){
 			vars.equipment = Equipment();
 			vars.weapon = Weapon();
 		} else {
-			// Roll hp
 			vars.description = Descriptions[id];
+			// Roll hp
 			vars.life = utils.randInt(vars.life[0] * 1, vars.life[1] * 1);
 		}
 	}
+
+	var randomize = function() {
+		if(vars.symbol == "k")
+			vars.symbol += utils.randInt(0,2);
+	}
+
 	var _opaque = function(x0,y0) {
 		return (maps[currentMap].tiles[[x0,y0]].symbol.startsWith("#",true)) ||
 		(maps[currentMap].tiles[[x0,y0]].symbol == "+");
@@ -424,6 +430,7 @@ var Creature = function(startX, startY, id){
 		pickUp: pickUp,
 		use: use,
 		stringify: stringify,
-		init: init
+		init: init,
+		randomize: randomize
 	}
 }
