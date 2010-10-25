@@ -49,16 +49,25 @@ var Viewer = function(width, height){
 			tileSize: tileSize
 		}
 	}
+
+	var clearEffect = function(x,y) {
+		var clearImageData = canvas.lightingContext.createImageData(canvas.tileSize, canvas.tileSize);
+		canvas.lightingContext.putImageData(clearImageData, x, y);
+	}
+
 	var hitEffect = function(dx,dy) {
 		var x = canvas.tileSize*(width / 2 + dx);
-		var y = canvas.tileSize*(height / 2 + dy);
+		var y = canvas.tileSize*(height / 2 + dy-1);
 
-		var hitGradient = canvas.mapContext.createRadialGradient(0,0,1,0,0,canvas.tileSize);
+		var hitGradient = canvas.mapContext.createRadialGradient(x+canvas.tileSize/2, y+canvas.tileSize/2, 1,
+			x+canvas.tileSize/2, y+canvas.tileSize/2, canvas.tileSize/2);
 		hitGradient.addColorStop(0, 'rgba(255,0,0,1)');
 		hitGradient.addColorStop(1, 'rgba(255,0,0,0)');
-		canvas.mapContext.fillStyle = hitGradient;
-		canvas.mapContext.fillRect(x, y, canvas.tileSize, canvas.tileSize);
 		
+		canvas.lightingContext.fillStyle = hitGradient;
+		canvas.lightingContext.fillRect(x, y, canvas.tileSize, canvas.tileSize);
+
+		setTimeout("viewer.clearEffect("+x+","+y+")", 250);
 	}
 
 	var _clear = function(context, color){
@@ -191,7 +200,8 @@ var Viewer = function(width, height){
 		putTile: putTile,
 		print: print,
 		putShadow: putShadow,
-		hitEffect: hitEffect
+		hitEffect: hitEffect,
+		clearEffect :clearEffect 
 	}
 }
 
