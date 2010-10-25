@@ -145,6 +145,7 @@ var load = function(){
 }
 
 $(function() {
+
 	$.getJSON("json/descriptions.json", function(desc){
 		$.getJSON("json/creature-types.json", function(creatureTypes){
 			$.getJSON("json/items.json", function(itemTypes){
@@ -175,6 +176,7 @@ $(function() {
 					viewer = Viewer(Settings.viewerWidth, Settings.viewerHeight);
 					viewer.clear();
 					viewer.clearLighting();
+
 					minimap = new Minimap();
 					minimap.clear();
 					messageLog = MessageLog();

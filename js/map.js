@@ -445,6 +445,7 @@ var Map = function(width, height){
 		stringify: stringify,
 		parse: parse,
 		generateRandom: generateRandom,
-		generate: generate
+		generate: generate,
+		rooms: rooms
 	}
 }

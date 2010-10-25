@@ -93,4 +93,43 @@ function Minimap(params) {
 			}
 		}
 	}
+
+	this.drawDebug = function(map) {
+		for ( var x = 0; x < map.width; x++ ) {
+			for ( var y = 0; y < map.height; y++ ) {
+				switch (map.tiles[[x,y]].symbol) {
+					case "#":
+						this.ctx.fillStyle = this.colors.wall;
+						break;
+					case ".":
+						this.ctx.fillStyle = this.colors.floor;
+						break;
+					case "+":
+						this.ctx.fillStyle = this.colors.door;
+						break;
+					case "'":
+						this.ctx.fillStyle = this.colors.floor;
+						break;
+					default:
+						this.ctx.fillStyle = "#000";
+						break;
+				}
+				this.ctx.fillRect( (this.tileW*x), (this.tileH*y), this.tileW, this.tileH );
+			}
+		}
+	}
+
+	this.debugRooms = function(map) {
+		var self = this;
+		var i = 0;
+		$.each(map.rooms, function(key, val) {
+			//console.log("Filling rect.. x: %i,y: %i, w: %i, h: %i", val.x0, val.y0, val.w, val.h);
+			if ( i == 0 ) {
+				self.ctx.fillStyle = "rgba(225,99,64,0.5)";
+				self.ctx.fillRect((val.x0 * self.tileW), (val.y0 * self.tileH), (val.w*self.tileW), (val.h * self.tileH));
+			}
+			i++;
+		});
+	}
+
 }

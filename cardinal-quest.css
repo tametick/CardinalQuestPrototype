@@ -175,20 +175,30 @@ html {
 	float: right;
 }
 
+#canvasBox {
+	position: relative;
+	width: 576px;
+	height: 576px;
+	margin: auto;
+	overflow: hidden;
+}
+
 #viewer {
 /*	border: 1px solid #888888;*/
 	margin: auto;
 	overflow: hidden;
 	font-family: monospace, monospace;
-	position: relative;
+	position: absolute;
 	z-index: 1;
 }
 #lighting {
 	margin: auto;
 	overflow: hidden;
 	font-family: monospace, monospace;
-	position: relative;
+	position: absolute;
 	z-index: 2;
+	left: 0px;
+	top: 0px;
 }
 
 #statusLines {
