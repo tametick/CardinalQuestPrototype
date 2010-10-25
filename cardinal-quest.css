@@ -180,6 +180,15 @@ html {
 	margin: auto;
 	overflow: hidden;
 	font-family: monospace, monospace;
+	position: relative;
+	z-index: 1;
+}
+#lighting {
+	margin: auto;
+	overflow: hidden;
+	font-family: monospace, monospace;
+	position: relative;
+	z-index: 2;
 }
 
 #statusLines {
