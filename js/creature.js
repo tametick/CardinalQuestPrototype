@@ -267,7 +267,7 @@ var Creature = function(startX, startY, id){
 				}
 			}
 	}
-	
+
 	var move = function(dx, dy){
 		// We don't want creatures moving diagonally.. if dx != 0 and dy != 0, randomly select one or the other
 		if ( dx != 0 && dy != 0 ) {
@@ -285,6 +285,7 @@ var Creature = function(startX, startY, id){
 				// Attack
 				var atk = $(this == player?"#attack_sfx":"#attacked_sfx").get()[0];
 				atk.play();
+				viewer.hitEffect(other.vars.x-player.vars.x,other.vars.y-player.vars.y);
 				this.attackOther(other);
 				return true;
 			}
