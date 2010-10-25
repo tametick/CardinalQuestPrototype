@@ -37,7 +37,7 @@
 	},
 	"k":{
 		"symbol": "k",
-		"color":[0,0,200],
+		"color":[136,136,255],
 		"faction": 1,
 		"life": [1,2],
 		"damage": [1,1],
@@ -48,7 +48,7 @@
 	},
 	"b":{
 		"symbol": "b",
-		"color":[0,0,200],
+		"color":[136,136,255],
 		"faction": 1,
 		"life": [1,4],
 		"damage": [1,3],
@@ -59,7 +59,7 @@
 	},
 	"su":{
 		"symbol": "su",
-		"color":[0,0,200],
+		"color":[136,136,255],
 		"faction": 1,
 		"life": [2,8],
 		"damage": [1,3],
@@ -70,7 +70,7 @@
 	},
 	"S":{
 		"symbol": "S",
-		"color":[0,0,200],
+		"color":[136,136,255],
 		"faction": 1,
 		"life": [3,12],
 		"damage": [2,8],
@@ -81,7 +81,7 @@
 	},
 	"W":{
 		"symbol": "W",
-		"color":[0,0,200],
+		"color":[136,136,255],
 		"faction": 1,
 		"life": [4,16],
 		"damage": [2,4],
@@ -92,7 +92,7 @@
 	},
 	"M":{
 		"symbol": "M",
-		"color":[0,0,200],
+		"color":[136,136,255],
 		"faction": 1,
 		"life": [6,24],
 		"damage": [2,16],
