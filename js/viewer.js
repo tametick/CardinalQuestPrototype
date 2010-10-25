@@ -61,17 +61,17 @@ var Viewer = function(width, height){
 		
 	}
 
-	var _clear = function(context){
-		context.fillStyle = "rgb(0, 0, 0)";
+	var _clear = function(context, color){
+		context.fillStyle = color;
 		context.fillRect(0, 0, canvas.mapCanvasElement.width, canvas.mapCanvasElement.height);
 	}
 
 	var clear = function() {
-		_clear(canvas.mapContext);
+		_clear(canvas.mapContext, "rgb(0, 0, 0)");
 	}
 
 	var clearLighting = function() {
-		_clear(canvas.lightingContext);
+		_clear(canvas.lightingContext, "rgba(0,0,0,0)");
 	}
 
 	var putTile = function(x, y, id, symbol, color){
