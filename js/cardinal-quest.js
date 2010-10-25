@@ -67,12 +67,22 @@ var update = function(){
 			player.vars.weapon.print();
 			cursor.draw();
 			if ( maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].seen == 2 ) {
-				if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]])
-					messageLog.append("You see " + maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
-				else if (maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]])
-					messageLog.append("You see " + maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
-				else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description)
+				var str = "You see ";
+				if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]]) {
+					str += "<b style='color: rgb("+maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.color.join()+");'>";
+					str += maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description[0];
+					str += "</b>";
+					messageLog.append(str);
+				} else if (maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]]) {
+					str += "<b style='color: rgb("+maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.color.join()+");'>";
+					str += maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description[0];
+					str += "</b>";
+					messageLog.append(str);
+
+					//messageLog.append("You see " + maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
+				} else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description) {
 					messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description[0]);
+				}
 			}
 
 			break;
