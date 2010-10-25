@@ -66,12 +66,14 @@ var update = function(){
 			player.vars.equipment.print();
 			player.vars.weapon.print();
 			cursor.draw();
-			if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]])
-				messageLog.append("You see " + maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
-			else if (maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]])
-				messageLog.append("You see " + maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
-			else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description)
-				messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description[0]);
+			if ( maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].seen == 2 ) {
+				if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]])
+					messageLog.append("You see " + maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
+				else if (maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]])
+					messageLog.append("You see " + maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description[0]);
+				else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description)
+					messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description[0]);
+			}
 
 			break;
 		case State.inventory:
