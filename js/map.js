@@ -332,7 +332,59 @@ var Map = function(width, height){
 		
 		// Generate monsters
 		for (var m = 0; m < Settings.monstersPerLevel; m++) {
-			var creaure = Creature(utils.randInt(1, width - 2), utils.randInt(1, height - 2), "k");
+			var monsterId;
+			switch (currentMap+1) {
+				case 1:
+				case 2:
+					monsterId = "k";
+					break;
+				case 3:
+					if(Math.random()<0.7)
+						monsterId = "k";
+					else
+						monsterId = "b";
+					break;
+				case 4:
+					monsterId = "b";
+					break;
+				case 5:
+					if(Math.random()<0.7)
+						monsterId = "b";
+					else
+						monsterId = "su";
+					break;
+				case 6:
+					monsterId = "su";
+					break;
+				case 7:
+					if(Math.random()<0.7)
+						monsterId = "su";
+					else
+						monsterId = "S";
+					break;
+				case 8:
+					monsterId = "S";
+					break;
+				case 9:
+					if(Math.random()<0.7)
+						monsterId = "S";
+					else
+						monsterId = "W";
+					break;
+				case 10:
+					monsterId = "W";
+					break;
+				case 11:
+					if(Math.random()<0.7)
+						monsterId = "W";
+					else
+						monsterId = "M";
+					break;
+				case 12:
+					monsterId = "M";
+					break;
+			}
+			var creaure = Creature(utils.randInt(1, width - 2), utils.randInt(1, height - 2), monsterId);
 			while (data[[creaure.vars.x, creaure.vars.y]] != ".") {
 				creaure.vars.x = utils.randInt(1, width - 2);
 				creaure.vars.y = utils.randInt(1, height - 2);
