@@ -240,6 +240,14 @@ html {
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3B3F2), color-stop(100%,#B433D8));
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E3B3F2', endColorstr='#B433D8',GradientType=0 );
 }
+.chargeBarFlash {
+	background: #EADEED; /* old browsers */
+	background: -moz-linear-gradient(top, #EADEED 0%, #BC78D3 100%); /* firefox */
+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#EADEED), color-stop(100%,#BC78D3)); /* webkit */
+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EADEED', endColorstr='#BC78D3',GradientType=0 ); /* ie */
+}
 .xpBar { 
 	background: #D8A633; 
 	background: -moz-linear-gradient(top, #f6e6b4 0%, #D8A633 100%);
