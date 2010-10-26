@@ -78,9 +78,14 @@ var StatusLines = function(){
 		for (var i = 0; i < data.length; i++) 
 			status.append(data[i] + "<br>");
 
+		if ( chargeFlashed == true && player && player.vars.spiritPoints >= 360 ) {
+			$(".chargeBar").addClass('chargeBarFlash');
+		}
 		if ( chargeFlashed == false && player && player.vars.spiritPoints >= 360 ) {
 			chargeFlashed = true;
 			$(".chargeBar")
+				.toggleClass('chargeBarFlash', 25)
+				.delay(100)
 				.toggleClass('chargeBarFlash', 25)
 				.delay(100)
 				.toggleClass('chargeBarFlash', 25)
