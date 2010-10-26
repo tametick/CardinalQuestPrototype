@@ -1,4 +1,6 @@
 var StatusLines = function(){
+	var chargeFlashed = false;
+
 	var status = $("#statusLines");
 	var stat = function(text, isBuffed){
 		var color = isBuffed?'Red':'Yellow';
@@ -33,7 +35,7 @@ var StatusLines = function(){
 		return '<span style="font-family:monospace;">'+asBar+'</span>';
 		*/
 		var percent = (val / maxVal) * 100;
-		return "<div class='statusBar'><div class='"+style+"' style='width: "+percent+"%;'></div></div>";
+		return "<div class='statusBar'><div id='"+style+"' class='"+style+"' style='width: "+percent+"%;'></div></div>";
 	}
 	var getBuff = function(attribute) {
 		return player.vars.buffs?(player.vars.buffs[attribute]?player.vars.buffs[attribute]:0):0;
@@ -75,6 +77,28 @@ var StatusLines = function(){
 		status.empty();
 		for (var i = 0; i < data.length; i++) 
 			status.append(data[i] + "<br>");
+
+		if ( chargeFlashed == true && player && player.vars.spiritPoints >= 360 ) {
+			$(".chargeBar").addClass('chargeBarFlash');
+		}
+		if ( chargeFlashed == false && player && player.vars.spiritPoints >= 360 ) {
+			chargeFlashed = true;
+			$(".chargeBar")
+				.toggleClass('chargeBarFlash', 25)
+				.delay(100)
+				.toggleClass('chargeBarFlash', 25)
+				.delay(100)
+				.toggleClass('chargeBarFlash', 25)
+				.delay(100)
+				.toggleClass('chargeBarFlash', 25)
+				.delay(100)
+				.toggleClass('chargeBarFlash', 25)
+				.delay(100)
+				.toggleClass('chargeBarFlash', 25)
+				.delay(100)
+				.toggleClass('chargeBarFlash', 25);
+		}
+		if ( player && player.vars.spiritPoints < 360 ) chargeFlashed = false;
 	}
 	
 	return {
