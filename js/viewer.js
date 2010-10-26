@@ -163,21 +163,21 @@ var Viewer = function(width, height){
 		} else if(symbol.startsWith("S")) {
 			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol==".") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*5, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol==">") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*3, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*3, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol=="#1") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*11, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*11, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol=="#2") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*13, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*13, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol=="#3") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*15, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*15, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol=="#4") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*17, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*17, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol=="+") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*19, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*19, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol=="'") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*21, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*21, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="sh"){
 			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(id=="clc"){
