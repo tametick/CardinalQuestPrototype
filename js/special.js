@@ -12,6 +12,9 @@ var Special = function(){
 
 		_initBuffs(self);
 		
+		// aura
+		self.vars.aura = "berserk-aura";
+
 		// Accumulate speed buffs
 		if (self.vars.buffs["speed"]) 
 			self.vars.buffs["speed"] += 3;
@@ -24,14 +27,18 @@ var Special = function(){
 		else 
 			self.vars.buffs["attack"] = 3;
 			
-		// Add timers to remove buffs
+		// Add timers to remove buffs & aura
 		self.vars.timers.push([60,"speed",3]);
 		self.vars.timers.push([60,"attack",3]);
+		self.vars.timers.push([60,"berserk-aura"]);
 	}
 	var shadowWalk = function(self){
 		$("#shadowwalk_sfx").get()[0].play();
 
 		_initBuffs(self);
+
+		// aura
+		self.vars.aura = "shadowwalk-aura";
 
 		self.vars.buffs["shadowWalk"] = 1;
 		self.vars.buffs["damageMultipler"] = 2;
@@ -39,6 +46,7 @@ var Special = function(){
 		// Add timers to remove buffs
 		self.vars.timers.push([60,"shadowWalk",1]);
 		self.vars.timers.push([60,"damageMultipler",2]);
+		self.vars.timers.push([60,"shadowwalk-aura"]);
 	}
 	var fireNova = function(self){
 		$("#firenova_sfx").get()[0].play();

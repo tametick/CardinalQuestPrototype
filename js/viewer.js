@@ -59,7 +59,7 @@ var Viewer = function(width, height){
 		var x = canvas.tileSize*(width / 2 );
 		var y = canvas.tileSize*(height / 2 -1);
 
-		var hitGradient = canvas.mapContext.createRadialGradient(x+canvas.tileSize/2, y+canvas.tileSize/2, 1,
+		var hitGradient = canvas.lightingContext.createRadialGradient(x+canvas.tileSize/2, y+canvas.tileSize/2, 1,
 			x+canvas.tileSize/2, y+canvas.tileSize/2, r*canvas.tileSize);
 			
 		hitGradient.addColorStop(0, 'rgba(255,0,0,1)');
@@ -75,7 +75,7 @@ var Viewer = function(width, height){
 		var x = canvas.tileSize*(width / 2 + dx);
 		var y = canvas.tileSize*(height / 2 + dy-1);
 
-		var hitGradient = canvas.mapContext.createRadialGradient(x+canvas.tileSize/2, y+canvas.tileSize/2, 1,
+		var hitGradient = canvas.lightingContext.createRadialGradient(x+canvas.tileSize/2, y+canvas.tileSize/2, 1,
 			x+canvas.tileSize/2, y+canvas.tileSize/2, canvas.tileSize/2);
 		hitGradient.addColorStop(0, 'rgba(255,0,0,1)');
 		hitGradient.addColorStop(1, 'rgba(255,0,0,0)');
@@ -84,6 +84,27 @@ var Viewer = function(width, height){
 
 		canvas.lightingContext.fillRect(x, y, canvas.tileSize, canvas.tileSize);
 		setTimeout("viewer.clearEffect("+x+","+y+","+canvas.tileSize+","+canvas.tileSize+")", 250);
+	}
+
+	var _aura = function(c1, c2) {
+		var x = canvas.tileSize*width/2;
+		var y = canvas.tileSize*(height/2-1) ;
+
+		var hitGradient = canvas.mapContext.createRadialGradient(x+canvas.tileSize/2, y+canvas.tileSize/2, canvas.tileSize/3,
+			x+canvas.tileSize/2, y+canvas.tileSize/2, canvas.tileSize);
+		hitGradient.addColorStop(0, c1);
+		hitGradient.addColorStop(1, c2);
+		
+		canvas.mapContext.fillStyle = hitGradient;
+
+		canvas.mapContext.fillRect(x, y, canvas.tileSize, canvas.tileSize);
+	}
+
+	var _berserkAura = function(){
+		_aura('rgba(128,0,0,0)','rgba(255,0,0,1)');
+	}
+	var _shadowWalkAura= function(){
+		_aura('rgba(0,0,128,0)','rgba(0,0,128,1)');
 	}
 
 	var _clear = function(context, color){
@@ -116,12 +137,19 @@ var Viewer = function(width, height){
 			else if(weaponUsed.id=="s")
 				weaponLine = 3;
 				
-			if(player.charClassId == "@f")
+			if(player.charClassId == "@f"){
 				canvas.mapContext.drawImage(Pics.player, 0, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-			else if(player.charClassId == "@w")
+				if(player.vars.aura)
+					_berserkAura();
+			} else if(player.charClassId == "@w") {
 				canvas.mapContext.drawImage(Pics.player, canvas.tileSize, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-			else if(player.charClassId == "@t")
-				canvas.mapContext.drawImage(Pics.player, canvas.tileSize*2, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			} else if(player.charClassId == "@t") {
+				if(player.vars.aura)
+					_shadowWalkAura();
+				else
+					canvas.mapContext.drawImage(Pics.player, canvas.tileSize*2, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+				
+			}
 		} else if(symbol.startsWith("k")) {
 			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 		} else if(symbol.startsWith("W")) {

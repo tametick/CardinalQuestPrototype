@@ -33,19 +33,25 @@ var Map = function(width, height){
 		try {
 			for (var c = 0; c < vars.creatures.length; c++) {
 				var buffs = vars.creatures[c].vars.buffs;
-				// remove timed out buffs
+				var aura = vars.creatures[c].vars.aura;
+				// remove timed out buffs & auras
 				var timers = vars.creatures[c].vars.timers;
 				if (timers) {
 					var expired = [];
 					for (var t = 0; t < timers.length; t++) {
 						timers[t][0]--;
 						if (timers[t][0] == 0) {
-							// remove buff
-							if (buffs[timers[t][1]] == timers[t][2]) 
-								buffs[timers[t][1]] = null;
-							// reduce buff
-							else 
-								buffs[timers[t][1]] -= timers[t][2]
+							if(buffs[timers[t][1]]){
+								// remove buff
+								if (buffs[timers[t][1]] == timers[t][2])
+									buffs[timers[t][1]] = null;
+								// reduce buff
+								else
+									buffs[timers[t][1]] -= timers[t][2]
+							} else if(aura==timers[t][1]) {
+								// remove aura
+								vars.creatures[c].vars.aura = null;
+							}
 							expired.push(t);
 						}
 					}
