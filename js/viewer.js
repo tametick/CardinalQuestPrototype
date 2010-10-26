@@ -50,8 +50,8 @@ var Viewer = function(width, height){
 		}
 	}
 
-	var clearEffect = function(x,y) {
-		var clearImageData = canvas.lightingContext.createImageData(canvas.tileSize, canvas.tileSize);
+	var clearEffect = function(x,y,width,height) {
+		var clearImageData = canvas.lightingContext.createImageData(width,height);
 		canvas.lightingContext.putImageData(clearImageData, x, y);
 	}
 
@@ -67,7 +67,7 @@ var Viewer = function(width, height){
 		canvas.lightingContext.fillStyle = hitGradient;
 		canvas.lightingContext.fillRect(x, y, canvas.tileSize, canvas.tileSize);
 
-		setTimeout("viewer.clearEffect("+x+","+y+")", 250);
+		setTimeout("viewer.clearEffect("+x+","+y+","+canvas.tileSize+","+canvas.tileSize+")", 250);
 	}
 
 	var _clear = function(context, color){
