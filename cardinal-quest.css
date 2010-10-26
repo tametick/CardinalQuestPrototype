@@ -212,3 +212,37 @@ html {
 /*	border: 1px solid #888888;*/	
 	height: 75px;
 }
+
+.statusBar {
+	display: inline-block;
+	position: relative;
+	height: 10px;
+	width: 100px;
+	background-color: #333;
+	overflow: hidden;
+	border: 1px solid #000;
+}
+.statusBar div {
+	position: absolute;
+	height: 10px;
+	left: 0px;
+	top: 0px;
+}
+.healthBar { 
+	background: #00B910; 
+	background: -moz-linear-gradient(top, #CAF2B3 0%, #00B910 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#CAF2B3), color-stop(100%,#00B910));
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#CAF2B3', endColorstr='#00B910',GradientType=0 ); 
+}
+.chargeBar { 
+	background: #B433D8; 
+	background: -moz-linear-gradient(top, #E3B3F2 0%, #B433D8 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3B3F2), color-stop(100%,#B433D8));
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E3B3F2', endColorstr='#B433D8',GradientType=0 );
+}
+.xpBar { 
+	background: #D8A633; 
+	background: -moz-linear-gradient(top, #f6e6b4 0%, #D8A633 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6e6b4), color-stop(100%,#D8A633));
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6e6b4', endColorstr='#D8A633',GradientType=0 );
+}

@@ -17,7 +17,8 @@ var StatusLines = function(){
 	var charLevel = function(text){
 		return '<span style="color:IndianRed;">' + text + '</span>';  
 	}
-	var bar = function(val, maxVal) {
+	var bar = function(val, maxVal, style) {
+		/*
 		var points = 10.0;
 		var NormI = val * points / maxVal;
 
@@ -30,6 +31,9 @@ var StatusLines = function(){
 		asBar += "]";
 		
 		return '<span style="font-family:monospace;">'+asBar+'</span>';
+		*/
+		var percent = (val / maxVal) * 100;
+		return "<div class='statusBar'><div class='"+style+"' style='width: "+percent+"%;'></div></div>";
 	}
 	var getBuff = function(attribute) {
 		return player.vars.buffs?(player.vars.buffs[attribute]?player.vars.buffs[attribute]:0):0;
@@ -61,10 +65,10 @@ var StatusLines = function(){
 			var mlif = player.vars.maxLife+getBuff("life");
 			
 			data = [
-			"Damage: "+stat(dmgRange[0]==dmgRange[1]?dmgRange[0]*dmgMultipler:(dmgRange[0]*dmgMultipler+"-"+dmgRange[1]*dmgMultipler))+"&nbsp; Attack: " + stat(atk,getBuff("attack")>0) + "&nbsp; Defense: " + stat(def,getBuff("defense")>0),
-			"Vitality: " + stat(vit) + "&nbsp; Speed: " + stat(spd,getBuff("speed")>0) + "&nbsp; Spirit: " + stat(spr,getBuff("spirit")>0),
-			"Life: " + life(lif + "/" + mlif,getBuff("life")>0) + "&nbsp; Charge: " + charge(Math.round(100 * player.vars.spiritPoints / 360.0) + "%") + "&nbsp; Experience: " + experience(player.vars.experiencePoints + "/" + player.nextLevel()) + "&nbsp; Level: " + charLevel(player.vars.level), 
-			life(bar(lif, mlif)) + "&nbsp;&nbsp;&nbsp;&nbsp; " + charge(bar(player.vars.spiritPoints, 360)) + "&nbsp;&nbsp;&nbsp;&nbsp; " + experience(bar(player.vars.experiencePoints, player.nextLevel()))
+				"Damage: "+stat(dmgRange[0]==dmgRange[1]?dmgRange[0]*dmgMultipler:(dmgRange[0]*dmgMultipler+"-"+dmgRange[1]*dmgMultipler))+"&nbsp; Attack: " + stat(atk,getBuff("attack")>0) + "&nbsp; Defense: " + stat(def,getBuff("defense")>0),
+				"Vitality: " + stat(vit) + "&nbsp; Speed: " + stat(spd,getBuff("speed")>0) + "&nbsp; Spirit: " + stat(spr,getBuff("spirit")>0),
+				"Life: " + life(lif + "/" + mlif,getBuff("life")>0) + "&nbsp; Charge: " + charge(Math.round(100 * player.vars.spiritPoints / 360.0) + "%") + "&nbsp; Experience: " + experience(player.vars.experiencePoints + "/" + player.nextLevel()) + "&nbsp; Level: " + charLevel(player.vars.level), 
+				life(bar(lif, mlif, 'healthBar')) + "&nbsp;&nbsp;&nbsp;&nbsp; " + charge(bar(player.vars.spiritPoints, 360, 'chargeBar')) + "&nbsp;&nbsp;&nbsp;&nbsp; " + experience(bar(player.vars.experiencePoints, player.nextLevel(), 'xpBar'))
 			];
 		}
 		
