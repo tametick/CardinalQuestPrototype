@@ -217,7 +217,7 @@ html {
 	display: inline-block;
 	position: relative;
 	height: 10px;
-	width: 100px;
+	width: 185px;
 	background-color: #333;
 	overflow: hidden;
 	border: 1px solid #000;
@@ -227,6 +227,10 @@ html {
 	height: 10px;
 	left: 0px;
 	top: 0px;
+}
+table.vitals {
+	position: relative;
+	margin: 2px auto;
 }
 .healthBar { 
 	background: #00B910; 
