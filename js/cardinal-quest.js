@@ -202,6 +202,9 @@ $(function() {
 	});
 });
 $(document).keydown(function(e){
+	if(e.altKey || e.ctrlKey || e.metaKey) 
+		return;
+
 	var code = (window.event || e).keyCode;
 	
 	switch (state) {
