@@ -55,6 +55,22 @@ var Viewer = function(width, height){
 		canvas.lightingContext.putImageData(clearImageData, x, y);
 	}
 
+	var fireNovaEffect = function(r) {
+		var x = canvas.tileSize*(width / 2 );
+		var y = canvas.tileSize*(height / 2 -1);
+
+		var hitGradient = canvas.mapContext.createRadialGradient(x+canvas.tileSize/2, y+canvas.tileSize/2, 1,
+			x+canvas.tileSize/2, y+canvas.tileSize/2, r*canvas.tileSize);
+			
+		hitGradient.addColorStop(0, 'rgba(255,0,0,1)');
+		hitGradient.addColorStop(1, 'rgba(255,0,0,0)');
+
+		canvas.lightingContext.fillStyle = hitGradient;
+
+		canvas.lightingContext.fillRect(x-r*canvas.tileSize, y-r*canvas.tileSize, r*2*canvas.tileSize, r*2*canvas.tileSize);
+		setTimeout("viewer.clearEffect("+(x-r*canvas.tileSize)+","+(y-r*canvas.tileSize)+","+(r*2*canvas.tileSize)+","+(r*2*canvas.tileSize)+")", 250);
+	}
+
 	var hitEffect = function(dx,dy) {
 		var x = canvas.tileSize*(width / 2 + dx);
 		var y = canvas.tileSize*(height / 2 + dy-1);
@@ -65,8 +81,8 @@ var Viewer = function(width, height){
 		hitGradient.addColorStop(1, 'rgba(255,0,0,0)');
 		
 		canvas.lightingContext.fillStyle = hitGradient;
-		canvas.lightingContext.fillRect(x, y, canvas.tileSize, canvas.tileSize);
 
+		canvas.lightingContext.fillRect(x, y, canvas.tileSize, canvas.tileSize);
 		setTimeout("viewer.clearEffect("+x+","+y+","+canvas.tileSize+","+canvas.tileSize+")", 250);
 	}
 
@@ -201,6 +217,7 @@ var Viewer = function(width, height){
 		print: print,
 		putShadow: putShadow,
 		hitEffect: hitEffect,
+		fireNovaEffect: fireNovaEffect,
 		clearEffect :clearEffect 
 	}
 }

@@ -42,12 +42,15 @@ var Special = function(){
 	}
 	var fireNova = function(self){
 		$("#firenova_sfx").get()[0].play();
+		var radius = 2;
+
+		viewer.fireNovaEffect(radius);
 
 		_initBuffs(self);
 
-		for(var x = -2; x<=2;x++)
-			for(var y = -2; y<=2;y++)
-				if(utils.dist(x,y,0,0)<=2) {
+		for(var x = -radius; x<=radius;x++)
+			for(var y = -radius; y<=radius;y++)
+				if(utils.dist(x,y,0,0)<=radius) {
 					var creature = maps[currentMap].vars.creatureMap[[self.vars.x+x, self.vars.y+y]];
 					if(creature && creature!=self) {
 						creature.vars.life -= utils.randInt(1, 6);
