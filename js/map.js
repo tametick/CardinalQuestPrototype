@@ -67,12 +67,13 @@ var Map = function(width, height){
 					speed += vars.creatures[c].vars.buffs.speed;
 				// apply spirit buffs
 				var spirit = vars.creatures[c].vars.spirit;
+				var specialActive = vars.creatures[c].vars.aura != null;
 				if (spirit && vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.spirit) 
 					spirit += vars.creatures[c].vars.buffs.spirit;
 				
 				// Charge action & spirit points				
 				vars.creatures[c].vars.actionPoints += speed;
-				if (spirit) 
+				if (spirit && !specialActive)
 					vars.creatures[c].vars.spiritPoints = Math.min(360, vars.creatures[c].vars.spiritPoints + spirit);
 				
 				// Move if charged
