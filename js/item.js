@@ -26,7 +26,7 @@ var Item = function(startX, startY, id){
 	var use = function(creature){
 		if (vars.effect == "heal") {
 			if (vars.value == "full") 
-				creature.vars.life = creature.vars.vitality;
+				creature.vars.life = creature.vars.maxLife;
 			else 
 				creature.vars.life = Math.min(creature.vars.life + value * 1, creature.vars.vitality);
 		} else {
