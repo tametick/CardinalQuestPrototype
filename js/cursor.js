@@ -18,10 +18,30 @@ Cursor = function(startX, startY, symbol){
 				vars.y = newY;
 		}
 	}
+
+	var examine = function() {
+		if ( maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].seen == 2 ) {
+			var str = "You see ";
+			if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]]) {
+				str += "<b style='color: rgb("+maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.color.join()+");'>";
+				str += maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description[0];
+				str += "</b>";
+				messageLog.append(str);
+			} else if (maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]]) {
+				str += "<b style='color: rgb("+maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.color.join()+");'>";
+				str += maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description[0];
+				str += "</b>";
+				messageLog.append(str);
+			} else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description) {
+				messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description[0]);
+			}
+		}
+	}
 	
 	return {
 		vars: vars,
 		draw: draw,
-		move: move
+		move: move,
+		examine: examine
 	}
 }
