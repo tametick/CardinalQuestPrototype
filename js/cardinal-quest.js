@@ -299,10 +299,12 @@ $(document).keydown(function(e){
 				case Keys.numUp:
 				case Keys.up:
 					currentLine--;
+					if ( currentLine < 0 ) currentLine = 0;
 					break;
 				case Keys.numDown:
 				case Keys.down:
 					currentLine++;
+					if ( currentLine == player.vars.inventory.items.length ) currentLine--;
 					break;
 				case Keys.numRight:
 				case Keys.right:
