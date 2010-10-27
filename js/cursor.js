@@ -32,13 +32,20 @@ Cursor = function(startX, startY, symbol){
 					str = maps[currentMap].vars.creatureMap[[vars.x, vars.y]].vars.description[1];
 				}
 				messageLog.append(str);
-			} else if (maps[currentMap].vars.itemMap[[vars.x, vars.y]]) {
+			} else if (maps[currentMap].vars.itemMap[[vars.x, vars.y]].length > 0) {
 				if ( vars.detailed == false ) {
-					str += "<b style='color: rgb("+maps[currentMap].vars.itemMap[[vars.x, vars.y]].vars.color.join()+");'>";
-					str += maps[currentMap].vars.itemMap[[vars.x, vars.y]].vars.description[0];
-					str += "</b>";
+					for ( var i = 0; i < maps[currentMap].vars.itemMap[[vars.x, vars.y]].length; i++ ) {
+						if ( i > 0 ) str += ", ";
+						str += "<b style='color: rgb("+maps[currentMap].vars.itemMap[[vars.x, vars.y]][i].vars.color.join()+");'>";
+						str += maps[currentMap].vars.itemMap[[vars.x, vars.y]][i].vars.description[0];
+						str += "</b>";
+					}
 				} else {
-					str = maps[currentMap].vars.itemMap[[vars.x, vars.y]].vars.description[1];
+					var str = "";
+					for ( var i = 0; i < maps[currentMap].vars.itemMap[[vars.x, vars.y]].length; i++ ) {
+						if ( i > 0 ) str += "<br />";
+						str += maps[currentMap].vars.itemMap[[vars.x, vars.y]][i].vars.description[1];
+					}
 				}
 				messageLog.append(str);
 			} else if (maps[currentMap].tiles[[vars.x, vars.y]].description) {

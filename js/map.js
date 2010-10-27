@@ -143,6 +143,11 @@ var Map = function(width, height){
 		
 		return [tilesStr, creaturesStr, itemsStr];
 	}
+	var initItemMap = function() {
+		for ( var x = 0; x < width; x++ )
+			for ( var y = 0; y < height; y++ )
+				vars.itemMap[[x,y]] = [];
+	}
 	var parse = function(tilesStr, creaturesStr, itemsStr){
 		for (var y = 0; y < height; y++) 
 			for (var x = 0; x < width; x++) {
@@ -179,14 +184,16 @@ var Map = function(width, height){
 		
 		
 		vars.items = [];
-		vars.itemMap = [];
+		//vars.itemMap = [];
+		initItemMap();
 		var itemsArray = itemsStr.split("_");
 		for (var i = 0; i < itemsArray.length - 1; i++) {
 			parsedItem = itemsArray[i].split(",");
 			
 			vars.items[i] = Item(parsedItem[0] * 1, parsedItem[1] * 1, parsedItem[2]);
 			vars.items[i];
-			vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]] = vars.items[i];
+			//vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]] = vars.items[i];
+			vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]].push(vars.items[i]);
 		}
 	}
 	var axes = ["x", "y"];
@@ -412,15 +419,18 @@ var Map = function(width, height){
 
 
 		// Generate items
+		initItemMap();
 		for (var i = 0; i < Settings.itemsPerLevel; i++) {
 			vars.items.push(Item(utils.randInt(1, width - 2), utils.randInt(1, height - 2), randomItemId()));
 			while (data[[vars.items[i].vars.x, vars.items[i].vars.y]] != "." &&
-				!vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]]) {
+				vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]].length == 0) {
 				vars.items[i].vars.x = utils.randInt(1, width - 2);
 				vars.items[i].vars.y = utils.randInt(1, height - 2);
 			}
 			vars.items[i].init();
-			vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]] = vars.items[i];
+			//vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]] = vars.items[i];
+			vars.itemMap[[vars.items[i].vars.x, vars.items[i].vars.y]].push(vars.items[i]);
+
 		}
 		
 		// Add stairs up

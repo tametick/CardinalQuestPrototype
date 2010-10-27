@@ -43,7 +43,7 @@ function Minimap(params) {
 				if ( player.vars.x == x && player.vars.y == y ) {
 					this.ctx.fillStyle = "rgb("+player.vars.color[0]+","+player.vars.color[1]+","+player.vars.color[2]+")";
 					this.ctx.fillRect( (this.tileW*x), (this.tileH*y), this.tileW, this.tileH );
-				} else if ( map.tiles[[x,y]].seen > 0 && typeof map.vars.itemMap[[x,y]] == "object" && map.vars.itemMap[[x,y]] !== null ) {
+				} else if ( map.tiles[[x,y]].seen > 0 && map.vars.itemMap[[x,y]].length > 0 ) {
 					this.ctx.fillStyle = this.colors.item;
 					this.ctx.fillRect( (this.tileW*x), (this.tileH*y), this.tileW, this.tileH );
 				} else if ( map.tiles[[x,y]].seen == 2 ) {

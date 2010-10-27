@@ -87,7 +87,7 @@ var Creature = function(startX, startY, id){
 			maps[currentMap].vars.items.push(item);
 			item.vars.x = vars.x;
 			item.vars.y = vars.y;
-			maps[currentMap].vars.itemMap[[vars.x, vars.y]] = item;
+			maps[currentMap].vars.itemMap[[vars.x, vars.y]].push(item);
 			if (this == player) {
 				var str = "You dropped the ";
 				str += "<b style='color: rgb("+item.vars.color.join()+");'>";
@@ -258,7 +258,7 @@ var Creature = function(startX, startY, id){
 	}
 	
 	var pickUp = function(item, dx, dy, isPlayer){
-		if (item && vars.inventory)
+		if (item && vars.inventory) {
 			if (vars.inventory.items.length < vars.inventory.maxSize) {
 			
 				if (dx != null && dy != null) {
@@ -266,7 +266,10 @@ var Creature = function(startX, startY, id){
 					var itemIndex = jQuery.inArray(item, maps[currentMap].vars.items);
 					if (itemIndex != -1) {
 						maps[currentMap].vars.items.remove(itemIndex);
-						maps[currentMap].vars.itemMap[[vars.x + dx, vars.y + dy]] = null;
+						var itemMapIndex = jQuery.inArray(item, maps[currentMap].vars.itemMap[[vars.x + dx, vars.y + dy]]);
+						if ( itemMapIndex != -1 ) {
+							maps[currentMap].vars.itemMap[[vars.x + dx, vars.y + dy]].remove(itemMapIndex);
+						}
 					}
 				}
 				
@@ -278,6 +281,7 @@ var Creature = function(startX, startY, id){
 					pickup.play();
 				}
 			}
+		}
 	}
 
 	var move = function(dx, dy){
@@ -287,7 +291,7 @@ var Creature = function(startX, startY, id){
 		}
 		// Stuff occupying destination
 		var other = maps[currentMap].vars.creatureMap[[vars.x + dx, vars.y + dy]];
-		var item = maps[currentMap].vars.itemMap[[vars.x + dx, vars.y + dy]];
+		var items = maps[currentMap].vars.itemMap[[vars.x + dx, vars.y + dy]];
 		
 		if (other) {
 			if (other.vars.faction == vars.faction) 
@@ -303,7 +307,13 @@ var Creature = function(startX, startY, id){
 			}
 		} else {
 			// Pick up item
-			pickUp(item, dx, dy, this == player);
+			if ( items.length > 0 ) {
+				itemList = items.slice(0);
+				for ( var i = 0; i < itemList.length; i++ ) {
+					pickUp(itemList[i], dx, dy, this == player);
+				}
+				itemList = [];
+			}
 			
 			// Move
 			switch (maps[currentMap].tiles[[vars.x + dx, vars.y + dy]].symbol) {
