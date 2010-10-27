@@ -1,7 +1,8 @@
 Cursor = function(startX, startY, symbol){
 	var vars = {
 		x: startX,
-		y: startY
+		y: startY,
+		detailed: false
 	}
 	var draw = function(){
 		viewer.putTile(viewer.center[0] - player.vars.x + vars.x, viewer.center[1] - player.vars.y + vars.y, "cursor", symbol, Settings.cursorColor);
@@ -20,22 +21,35 @@ Cursor = function(startX, startY, symbol){
 	}
 
 	var examine = function() {
-		if ( maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].seen == 2 ) {
+		if ( maps[currentMap].tiles[[vars.x, vars.y]].seen == 2 ) {
 			var str = "You see ";
-			if (maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]]) {
-				str += "<b style='color: rgb("+maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.color.join()+");'>";
-				str += maps[currentMap].vars.creatureMap[[cursor.vars.x, cursor.vars.y]].vars.description[0];
-				str += "</b>";
+			if (maps[currentMap].vars.creatureMap[[vars.x, vars.y]]) {
+				if ( vars.detailed == false ) {
+					str += "<b style='color: rgb("+maps[currentMap].vars.creatureMap[[vars.x, vars.y]].vars.color.join()+");'>";
+					str += maps[currentMap].vars.creatureMap[[vars.x, vars.y]].vars.description[0];
+					str += "</b>";
+				} else {
+					str = maps[currentMap].vars.creatureMap[[vars.x, vars.y]].vars.description[1];
+				}
 				messageLog.append(str);
-			} else if (maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]]) {
-				str += "<b style='color: rgb("+maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.color.join()+");'>";
-				str += maps[currentMap].vars.itemMap[[cursor.vars.x, cursor.vars.y]].vars.description[0];
-				str += "</b>";
+			} else if (maps[currentMap].vars.itemMap[[vars.x, vars.y]]) {
+				if ( vars.detailed == false ) {
+					str += "<b style='color: rgb("+maps[currentMap].vars.itemMap[[vars.x, vars.y]].vars.color.join()+");'>";
+					str += maps[currentMap].vars.itemMap[[vars.x, vars.y]].vars.description[0];
+					str += "</b>";
+				} else {
+					str = maps[currentMap].vars.itemMap[[vars.x, vars.y]].vars.description[1];
+				}
 				messageLog.append(str);
-			} else if (maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description) {
-				messageLog.append("You see " + maps[currentMap].tiles[[cursor.vars.x, cursor.vars.y]].description[0]);
+			} else if (maps[currentMap].tiles[[vars.x, vars.y]].description) {
+				if ( vars.detailed == true ) {
+					messageLog.append("You see " + maps[currentMap].tiles[[vars.x, vars.y]].description[1]);
+				} else {
+					messageLog.append("You see " + maps[currentMap].tiles[[vars.x, vars.y]].description[0]);
+				}
 			}
 		}
+		vars.detailed = false;
 	}
 	
 	return {

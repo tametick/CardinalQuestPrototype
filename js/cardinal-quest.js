@@ -272,6 +272,9 @@ $(document).keydown(function(e){
 				case Keys.right:
 					cursor.move(1, 0);
 					break;
+				case Keys.enter:
+					cursor.vars.detailed = true;
+					break;
 				case Keys.x:
 				case Keys.esc:
 					cursor = null;
