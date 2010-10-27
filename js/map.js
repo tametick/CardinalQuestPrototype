@@ -392,20 +392,25 @@ var Map = function(width, height){
 					break;
 			}
 			var creaure = Creature(utils.randInt(1, width - 2), utils.randInt(1, height - 2), monsterId);
-			while (data[[creaure.vars.x, creaure.vars.y]] != ".") {
-				creaure.vars.x = utils.randInt(1, width - 2);
-				creaure.vars.y = utils.randInt(1, height - 2);
-			}
 			vars.creatures.push(creaure);
-
-			// start from first monster, no need to init the player
-			for (var c = 1; c < vars.creatures.length; c++) {
-				vars.creatures[c].init();
-				vars.creatures[c].randomize();
-				vars.creatureMap[[vars.creatures[c].vars.x, vars.creatures[c].vars.y]] = vars.creatures[c];
-			}
 		}
-		
+	
+		// start from first monster, no need to init the player
+		for (var c = 1; c < vars.creatures.length; c++) {
+			vars.creatures[c].init();
+			vars.creatures[c].randomize();
+			var pass = false, varX = 0, varY = 0;
+			while ( !pass ) {
+				varX = utils.randInt(1, width - 2);
+				varY = utils.randInt(1, height - 2);
+				if ( data[[varX, varY]] == "." && vars.creatureMap[[varX, varY]] == undefined ) pass = true;
+			}
+			creaure.vars.x = varX;
+			creaure.vars.y = varY;
+			vars.creatureMap[[vars.creatures[c].vars.x, vars.creatures[c].vars.y]] = vars.creatures[c];
+		}
+
+
 		// Generate items
 		for (var i = 0; i < Settings.itemsPerLevel; i++) {
 			vars.items.push(Item(utils.randInt(1, width - 2), utils.randInt(1, height - 2), randomItemId()));
