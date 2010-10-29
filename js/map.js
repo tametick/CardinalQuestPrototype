@@ -42,12 +42,8 @@ var Map = function(width, height){
 						timers[t][0]--;
 						if (timers[t][0] == 0) {
 							if(buffs[timers[t][1]]){
-								// remove buff
-								//if (buffs[timers[t][1]] == timers[t][2])
-								//	buffs[timers[t][1]] = null;
 								// reduce buff
-								//else
-									buffs[timers[t][1]] -= timers[t][2]
+								buffs[timers[t][1]] -= timers[t][2]
 							} else if(aura==timers[t][1]) {
 								// remove aura
 								vars.creatures[c].vars.aura = null;
