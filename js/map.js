@@ -43,10 +43,10 @@ var Map = function(width, height){
 						if (timers[t][0] == 0) {
 							if(buffs[timers[t][1]]){
 								// remove buff
-								if (buffs[timers[t][1]] == timers[t][2])
-									buffs[timers[t][1]] = null;
+								//if (buffs[timers[t][1]] == timers[t][2])
+								//	buffs[timers[t][1]] = null;
 								// reduce buff
-								else
+								//else
 									buffs[timers[t][1]] -= timers[t][2]
 							} else if(aura==timers[t][1]) {
 								// remove aura

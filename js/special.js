@@ -73,9 +73,57 @@ var Special = function(){
 					}
 				}
 	}
+	var weaken = function(self) {
+		// TODO: Add sound
+		// TODO: Add aura to player
+
+		_initBuffs(player);
+
+		var debuffAmount = Math.floor(player.vars.attack / 2);
+		if ( player.vars.buffs["attack"]) {
+			player.vars.buffs["attack"] -= debuffAmount;
+		} else {
+			player.vars.buffs["attack"] = -debuffAmount;
+		}
+
+		player.vars.timers.push([60,"attack",-debuffAmount]);
+	}
+	var slow = function(self) {
+		// TODO: Add sound
+		// TODO: Add aura to player
+
+		_initBuffs(player);
+
+		var debuffAmount = Math.floor(player.vars.speed / 2);
+		if ( player.vars.buffs["speed"]) {
+			player.vars.buffs["speed"] -= debuffAmount;
+		} else {
+			player.vars.buffs["speed"] = -debuffAmount;
+		}
+
+		player.vars.timers.push([60,"speed",-debuffAmount]);
+	}
+	var disease = function(self) {
+		// TODO: Add sound
+		// TODO: Add aura to player
+
+		_initBuffs(player);
+
+		var debuffAmount = Math.floor(player.vars.defense / 2);
+		if ( player.vars.buffs["defense"]) {
+			player.vars.buffs["defense"] -= debuffAmount;
+		} else {
+			player.vars.buffs["defense"] = -debuffAmount;
+		}
+
+		player.vars.timers.push([60,"defense",-debuffAmount]);
+	}
 	return {
 		berserk: berserk,
 		shadowWalk: shadowWalk,
-		fireNova: fireNova
+		fireNova: fireNova,
+		weaken: weaken,
+		slow: slow,
+		disease: disease
 	}
 }
