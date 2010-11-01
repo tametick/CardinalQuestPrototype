@@ -408,8 +408,8 @@ var Map = function(width, height){
 				varY = utils.randInt(1, height - 2);
 				if ( data[[varX, varY]] == "." && vars.creatureMap[[varX, varY]] == undefined ) pass = true;
 			}
-			creaure.vars.x = varX;
-			creaure.vars.y = varY;
+			vars.creatures[c].vars.x = varX;
+			vars.creatures[c].vars.y = varY;
 			vars.creatureMap[[vars.creatures[c].vars.x, vars.creatures[c].vars.y]] = vars.creatures[c];
 		}
 
