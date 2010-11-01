@@ -189,6 +189,13 @@ var Creature = function(startX, startY, id){
 
 		if (Math.random() < atk / (atk + def)) {
 			// Hit
+			
+			if ( vars.faction > 0 && vars.special != undefined && Math.random() <= 0.25 ) {
+				// Use my special rather than apply attack damage
+				Special()[vars.special](this);
+				return;
+			}
+
 			var dmgMultipler = 1;
 			if(vars.buffs && vars.buffs.damageMultipler && vars.buffs.damageMultipler!=0)
 				dmgMultipler = vars.buffs.damageMultipler * 1;
