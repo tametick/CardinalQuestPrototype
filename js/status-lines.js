@@ -67,8 +67,8 @@ var StatusLines = function(){
 			var mlif = player.vars.maxLife+getBuff("life");
 			
 			data = [
-				"Damage: "+stat(dmgRange[0]==dmgRange[1]?dmgRange[0]*dmgMultipler:(dmgRange[0]*dmgMultipler+"-"+dmgRange[1]*dmgMultipler))+"&nbsp; Attack: " + stat(atk,getBuff("attack")>0) + "&nbsp; Defense: " + stat(def,getBuff("defense")>0),
-				"Vitality: " + stat(vit) + "&nbsp; Speed: " + stat(spd,getBuff("speed")>0) + "&nbsp; Spirit: " + stat(spr,getBuff("spirit")>0),
+				"Damage: "+stat(dmgRange[0]==dmgRange[1]?dmgRange[0]*dmgMultipler:(dmgRange[0]*dmgMultipler+"-"+dmgRange[1]*dmgMultipler))+"&nbsp; Attack: " + stat(atk,getBuff("attack")!=0) + "&nbsp; Defense: " + stat(def,getBuff("defense")!=0),
+				"Vitality: " + stat(vit) + "&nbsp; Speed: " + stat(spd,getBuff("speed")!=0) + "&nbsp; Spirit: " + stat(spr,getBuff("spirit")!=0),
 				"<table class='vitals'><tr><td>Life: " + life(lif + "/" + mlif,getBuff("life")>0) + "</td><td>Charge: " + charge(Math.round(100 * player.vars.spiritPoints / 360.0) + "%") + "</td><td>XP: " + experience(player.vars.experiencePoints + "/" + player.nextLevel()) + "&nbsp; Level: " + charLevel(player.vars.level) + "</td></tr>\
 				<tr><td>"+life(bar(lif, mlif, 'healthBar')) + "</td><td>" + charge(bar(player.vars.spiritPoints, 360, 'chargeBar')) + "</td><td>" + experience(bar(player.vars.experiencePoints, player.nextLevel(), 'xpBar')) + "</td></tr></table>"
 			];
