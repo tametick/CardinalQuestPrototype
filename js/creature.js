@@ -184,8 +184,8 @@ var Creature = function(startX, startY, id){
 
 	var attackOther = function(other){
 		// attack & defense buffs
-		var atk = vars.attack + (vars.buffs ? (vars.buffs.attack ? vars.buffs.attack : 0) : 0);
-		var def = other.vars.defense + (other.vars.buffs ? (other.vars.buffs.defense ? other.vars.buffs.defense : 0) : 0);
+		var atk = Math.max(vars.attack + (vars.buffs ? (vars.buffs.attack ? vars.buffs.attack : 0) : 0), 1);
+		var def = Math.max(other.vars.defense + (other.vars.buffs ? (other.vars.buffs.defense ? other.vars.buffs.defense : 0) : 0), 1);
 
 		if (Math.random() < atk / (atk + def)) {
 			// Hit
