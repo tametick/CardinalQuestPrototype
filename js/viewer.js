@@ -74,15 +74,10 @@ var Viewer = function(width, height){
 	var hitEffect = function(dx,dy) {
 		var x = canvas.tileSize*(width / 2 + dx);
 		var y = canvas.tileSize*(height / 2 + dy-1);
-
-		var hitGradient = canvas.lightingContext.createRadialGradient(x+canvas.tileSize/2, y+canvas.tileSize/2, 1,
-			x+canvas.tileSize/2, y+canvas.tileSize/2, canvas.tileSize/2);
-		hitGradient.addColorStop(0, 'rgba(255,0,0,1)');
-		hitGradient.addColorStop(1, 'rgba(255,0,0,0)');
+		var e = utils.randInt(0,1);
 		
-		canvas.lightingContext.fillStyle = hitGradient;
+		canvas.lightingContext.drawImage(Pics.effects, canvas.tileSize*e, 0, canvas.tileSize, canvas.tileSize, x , y, canvas.tileSize ,canvas.tileSize);
 
-		canvas.lightingContext.fillRect(x, y, canvas.tileSize, canvas.tileSize);
 		setTimeout("viewer.clearEffect("+x+","+y+","+canvas.tileSize+","+canvas.tileSize+")", 250);
 	}
 

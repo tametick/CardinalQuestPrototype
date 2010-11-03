@@ -22,7 +22,8 @@ Pics = {
 	'player' : new Image(),
 	'tiles' : new Image(),
 	'items' : new Image(),
-	'monsters' : new Image()
+	'monsters' : new Image(),
+	'effects' : new Image()
 }
 
 var State = {
@@ -139,6 +140,7 @@ $(function() {
 					Pics.tiles.src = 'pics/tiles-big.png';
 					Pics.items.src = 'pics/items.png';
 					Pics.monsters.src = 'pics/monsters.png';
+					Pics.effects.src = 'pics/effects.png';
 					
 					Descriptions = desc;
 					CreatureTypes = creatureTypes;
