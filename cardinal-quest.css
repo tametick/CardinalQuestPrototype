@@ -279,6 +279,8 @@ table.vitals {
 }
 
 #xpLabel { margin-right: 5px; }
+.statBuffed { color: #0f0 !important; font-weight: bold; }
+.statDebuffed { color: #f22 !Important; font-weight: bold; }
 
 #vitalsPanel {
 	position: relative;
