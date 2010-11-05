@@ -149,6 +149,7 @@ html {
 	margin-right: 0px;
 	overflow: hidden;
 	margin: auto;
+	padding-top: 10px;
 }
 
 #leftBar {
@@ -202,10 +203,7 @@ html {
 	top: 0px;
 }
 
-#statusLines {
-	text-align: center;
-/*	border: 1px solid #888888;*/
-}
+
 
 #messageLog {
 	text-align: center;
@@ -284,7 +282,7 @@ table.vitals {
 
 #vitalsPanel {
 	position: relative;
-	min-height: 85px;
+	min-height: 114px;
 	margin: 10px;
 	margin-right: 0px;
 	padding: 5px;

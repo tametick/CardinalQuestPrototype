@@ -103,20 +103,23 @@ var StatusLines = function(){
 		printNew(empty);
 	}
 
-	var renderStat = function(name, value, buffed) {
+	var renderStat = function(name, value, buffed, noBreak) {
 		var cssClass = '';
 		if ( buffed < 0 ) {
 			cssClass = 'statDebuffed';
 		} else if ( buffed > 0 ) {
 			cssClass = 'statBuffed';
 		}
-		var str = name+": <label class='"+cssClass+"'>"+value+"</label><br />";
+		var str = name+": <label class='"+cssClass+"'>"+value+"</label>";
+		if ( noBreak == undefined || !noBreak ) str += "<br />";
 		//element.html(str);
 		return str;
 	}
 
 	var printNew = function(empty) {
-		if (empty ) {
+		if ( empty ) {
+			$("#vitalsPanel").empty();
+			$("#statsPanel").empty();
 			return;
 		}
 		// Abilities
@@ -149,9 +152,44 @@ var StatusLines = function(){
 		output += renderStat('Speed', spd, getBuff("speed"));
 		output += renderStat('Spirit', spr, getBuff("spirit"));
 		statsPanel.html(output);
+
+		var vitalsPanel = $("#vitalsPanel");
+		vitalsPanel.empty();
+		output = '';
+		output += renderStat('Life', lif+"/"+mlif, getBuff("life"));
+		output += bar(lif, mlif, 'healthBar') + "<br />";
+		output += renderStat('Charge', Math.round(100 * player.vars.spiritPoints / 360.0) + '%', 0);
+		output += bar(player.vars.spiritPoints, 360, 'chargeBar') + "<br />";
+		output += renderStat('XP', player.vars.experiencePoints+"/"+player.nextLevel(), 0, true) + "  ";
+		output += renderStat('Level', player.vars.level, 0);
+		output += bar(player.vars.experiencePoints, player.nextLevel(), 'xpBar');
+		vitalsPanel.html(output);
+		
+		if ( chargeFlashed == true && player && player.vars.spiritPoints >= 360 ) {
+			$(".chargeBar").addClass('chargeBarFlash');
+		}
+		if ( chargeFlashed == false && player && player.vars.spiritPoints >= 360 ) {
+			chargeFlashed = true;
+			$(".chargeBar")
+				.toggleClass('chargeBarFlash', 25)
+				.delay(100)
+				.toggleClass('chargeBarFlash', 25)
+				.delay(100)
+				.toggleClass('chargeBarFlash', 25)
+				.delay(100)
+				.toggleClass('chargeBarFlash', 25)
+				.delay(100)
+				.toggleClass('chargeBarFlash', 25)
+				.delay(100)
+				.toggleClass('chargeBarFlash', 25)
+				.delay(100)
+				.toggleClass('chargeBarFlash', 25);
+		}
+		if ( player && player.vars.spiritPoints < 360 ) chargeFlashed = false;
+		
 	}
 
 	return {
-		print: print
+		print: printNew
 	}
 }
