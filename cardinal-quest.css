@@ -218,7 +218,8 @@ html {
 	display: inline-block;
 	position: relative;
 	height: 10px;
-	width: 185px;
+	width: 165px;
+	margin: 5px 0px;
 	background-color: #333;
 	overflow: hidden;
 	border: 1px solid #000;
@@ -268,9 +269,19 @@ table.vitals {
 	-webkit-border-radius: 5px; -moz-border-radius: 5px;
 	border-radius: 5px;
 	border: 1px solid #75B9D7;
+	position: relative;
 }
 
+#statsPanel label {
+	position: absolute;
+	left: 90px;
+	color: #ff0;
+}
+
+#xpLabel { margin-right: 5px; }
+
 #vitalsPanel {
+	position: relative;
 	min-height: 85px;
 	margin: 10px;
 	margin-right: 0px;
@@ -278,6 +289,10 @@ table.vitals {
 	-webkit-border-radius: 5px; -moz-border-radius: 5px;
 	border-radius: 5px;
 	border: 1px solid #75B9D7;
+}
+
+#vitalsPanel label {
+	color: #ff0;
 }
 
 #btnHelp {
