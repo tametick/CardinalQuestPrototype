@@ -184,9 +184,29 @@ $(function() {
 			});
 		});
 	});
+
 	$.getJSON("json/keys.json", function(data){
 		Keys = data;
 	});
+
+	$("#dlgHelp").dialog({
+		autoOpen: false,
+		width: 400, height: 400
+	});
+
+	$("#btnHelp")
+		.button({
+			/*
+			icons: { 
+				primary: "ui-icon-help"
+			},
+			text: false
+			*/
+		})
+		.click(function() {
+			$("#dlgHelp").dialog('open');
+		})
+		.show();
 });
 $(document).keydown(function(e){
 	if(e.altKey || e.ctrlKey || e.metaKey) 

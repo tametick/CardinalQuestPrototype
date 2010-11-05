@@ -3,6 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 		<link rel="stylesheet" type="text/css" href="cardinal-quest.css">
+		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/dark-hive/jquery-ui.css">
 		<title>Cardinal Quest</title>
 	</head>
 	<body>
@@ -16,21 +17,28 @@
 				<div id="leftBar">
 					<canvas id="minimap" width="180" height="180">
 					</canvas>
-					<div id="help">
-						<h3 style="text-align:center">Key bindings</h3>
-						<u> Normal mode:</u>
-						<br>* Execute special: e.
-						<br>
-						<br><u>Inventory mode:</u>
-						<br>* Drop item: d or left arrow.
-						<br>* Use item: enter or right arrow.
-						<br>
-						<br><u>Switch modes:</u>
-						<br>* Inventory: i.
-						<br>* Examine: x.
-						<br>* Normal: Esc.
-						<br>
+					<div id='statsPanel'>
+						Damage:<br />
+						Attack:<br />
+						Defense:<br />
+						Vitality:<br />
+						Speed:<br />
+						Spirit:
 					</div>
+					<div id="vitalsPanel">
+						Life:<br />
+						<br />
+						Charge:<br />
+						<br />
+						XP: Level: <br />
+						<br />
+					</div>
+					<center>
+					<button id="btnHelp">Help</button>
+					</center>
+					<!--
+
+					-->
 				</div>
 				<div id="inventory">
 					<h3 style="text-align:center">Inventory</h3>
@@ -62,6 +70,23 @@
 			<source src="./music/Velocity.ogg" type="audio/ogg"/>
 			<source src="./music/Velocity.mp3" type="audio/mpeg"/>
 		</audio>
+	</div>
+	<div id="dlgHelp" title="Help" style="display: none;">
+		<div id="help">
+			<h3 style="text-align:center">Key bindings</h3>
+			<u> Normal mode:</u>
+			<br>* Execute special: e.
+			<br>
+			<br><u>Inventory mode:</u>
+			<br>* Drop item: d or left arrow.
+			<br>* Use item: enter or right arrow.
+			<br>
+			<br><u>Switch modes:</u>
+			<br>* Inventory: i.
+			<br>* Examine: x.
+			<br>* Normal: Esc.
+			<br>
+		</div>
 	</div>
 	<audio id="attack_sfx" preload="auto" autobuffer style="visibility: hidden; overflow: hidden">
 		<source src="./sound/attack.ogg" type="audio/ogg"/>

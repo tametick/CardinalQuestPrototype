@@ -163,6 +163,7 @@ html {
 
 #help {
 	padding: 5px;
+	overflow: auto;
 /*	width: 173px;
 	border: 1px solid #888888;*/
 	/*float: left;*/
@@ -257,4 +258,29 @@ table.vitals {
 	background: -moz-linear-gradient(top, #f6e6b4 0%, #D8A633 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6e6b4), color-stop(100%,#D8A633));
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6e6b4', endColorstr='#D8A633',GradientType=0 );
+}
+
+#statsPanel {
+	min-height: 85px;
+	margin: 10px;
+	margin-right: 0px;
+	padding: 5px;
+	-webkit-border-radius: 5px; -moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #75B9D7;
+}
+
+#vitalsPanel {
+	min-height: 85px;
+	margin: 10px;
+	margin-right: 0px;
+	padding: 5px;
+	-webkit-border-radius: 5px; -moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #75B9D7;
+}
+
+#btnHelp {
+	display: none;
+	margin: 0px auto;
 }
