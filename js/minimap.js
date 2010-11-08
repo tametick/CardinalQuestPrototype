@@ -33,13 +33,23 @@ function Minimap(params) {
 	}
 
 	this.clear = function() {
+		this.ctx.save();
 		this.ctx.fillStyle = "rgb(0,0,0)";
 		this.ctx.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+		this.ctx.restore();
 	}
 
 	this.draw = function(map) {
-		for ( var x = 0; x < map.width; x++ ) {
-			for ( var y = 0; y < map.height; y++ ) {
+		var left = player.vars.x - player.vars.fovRadius - 1;
+		var right = player.vars.x + player.vars.fovRadius + 1;
+		var top = player.vars.y - player.vars.fovRadius - 1;
+		var bottom = player.vars.y + player.vars.fovRadius + 1;
+		if ( left < 0 ) left = 0;
+		if ( top < 0 ) top = 0;
+		if ( right > (map.width - 1) ) right = map.width - 1;
+		if ( bottom > (map.height - 1) ) bottom = map.height - 1;
+		for ( var x = left; x <= right; x++ ) {
+			for ( var y = top; y <= bottom; y++ ) {
 				if ( player.vars.x == x && player.vars.y == y ) {
 					this.ctx.fillStyle = "rgb("+player.vars.color[0]+","+player.vars.color[1]+","+player.vars.color[2]+")";
 					this.ctx.fillRect( (this.tileW*x), (this.tileH*y), this.tileW, this.tileH );
