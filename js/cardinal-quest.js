@@ -254,7 +254,7 @@ $(document).keydown(function(e){
 					break;
 				case Keys.numLeft:
 				case Keys.left:
-					if (currentLine == 1) {
+					if (currentLine == 1 && currentClass > 0) {
 						currentClass--;
 					} else if (currentLine == 2) {
 						currentColor--;
@@ -262,7 +262,7 @@ $(document).keydown(function(e){
 					break;
 				case Keys.numRight:
 				case Keys.right:
-					if (currentLine == 1) {
+					if (currentLine == 1 && currentClass < 2) {
 						currentClass++;
 					} else if (currentLine == 2) {
 						currentColor++;
