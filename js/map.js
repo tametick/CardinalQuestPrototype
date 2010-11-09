@@ -1,4 +1,14 @@
-var Room = function(x0, y0, x1, y1){
+/* 
+ * Cardinal Quest
+ * http://www.tametick.com/cq/
+ *
+ * Copyright (C) 2010, Ido Yehieli
+ * Released under the GPL License:
+ * http://www.gnu.org/licenses/gpl.txt
+ */
+ 
+ 
+ var Room = function(x0, y0, x1, y1){
 	return {
 		x0: x0,
 		y0: y0,

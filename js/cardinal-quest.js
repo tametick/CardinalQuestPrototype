@@ -1,3 +1,13 @@
+/* 
+ * Cardinal Quest
+ * http://www.tametick.com/cq/
+ *
+ * Copyright (C) 2010, Ido Yehieli
+ * Released under the GPL License:
+ * http://www.gnu.org/licenses/gpl.txt
+ */
+
+
 var debug = true;
 var utils;
 var viewer;

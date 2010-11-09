@@ -1,4 +1,14 @@
-var Menu = function(){
+/* 
+ * Cardinal Quest
+ * http://www.tametick.com/cq/
+ *
+ * Copyright (C) 2010, Ido Yehieli
+ * Released under the GPL License:
+ * http://www.gnu.org/licenses/gpl.txt
+ */
+ 
+ 
+ var Menu = function(){
 	var draw = function(currentLine, currentClass, currentColor){
 		line = 1;
 		viewer.print(1, line++, "What is your name?", [200, 200, 200]);

@@ -1,4 +1,14 @@
-var Special = function(){
+/* 
+ * Cardinal Quest
+ * http://www.tametick.com/cq/
+ *
+ * Copyright (C) 2010, Ido Yehieli
+ * Released under the GPL License:
+ * http://www.gnu.org/licenses/gpl.txt
+ */
+ 
+ 
+ var Special = function(){
 	var _initBuffs = function(self) {
 		if (!self.vars.buffs)
 			self.vars.buffs = {};

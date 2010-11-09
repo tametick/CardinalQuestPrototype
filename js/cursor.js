@@ -1,4 +1,14 @@
-Cursor = function(startX, startY, symbol){
+/* 
+ * Cardinal Quest
+ * http://www.tametick.com/cq/
+ *
+ * Copyright (C) 2010, Ido Yehieli
+ * Released under the GPL License:
+ * http://www.gnu.org/licenses/gpl.txt
+ */
+ 
+ 
+ Cursor = function(startX, startY, symbol){
 	var vars = {
 		x: startX,
 		y: startY,
