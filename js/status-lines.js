@@ -145,6 +145,7 @@ var StatusLines = function(){
 		var statsPanel = $("#statsPanel");
 		statsPanel.empty();
 		var output = '';
+		output += "Dungeon Level: <label>"+(currentMap+1)+"</label><br />";
 		output += renderStat('Damage', dmgRange[0]==dmgRange[1]?dmgRange[0]*dmgMultipler:(dmgRange[0]*dmgMultipler+"-"+dmgRange[1]*dmgMultipler), 0);
 		output += renderStat('Attack', atk, getBuff("attack"));
 		output += renderStat('Defense', def, getBuff("defense"));

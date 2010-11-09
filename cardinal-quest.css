@@ -260,7 +260,7 @@ table.vitals {
 }
 
 #statsPanel {
-	min-height: 85px;
+	min-height: 98px;
 	margin: 10px;
 	margin-right: 0px;
 	padding: 5px;
@@ -272,7 +272,7 @@ table.vitals {
 
 #statsPanel label {
 	position: absolute;
-	left: 90px;
+	left: 110px;
 	color: #ff0;
 }
 
