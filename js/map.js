@@ -292,11 +292,12 @@ var Map = function(width, height){
 			x = r.x0 + utils.randInt(2, r.w - 2);
 			y = r.y1 - 1;
 		}
-		if (isValidLocation(r, x, y)) 
+		if (isValidLocation(r, x, y)) {
 			rawData[[x, y]] = "+";
-		else 
+		} else {
 			// try again
 			insertDoor(r);
+		}
 	}
 	var insertDoors = function(rooms){
 		for (var r = 0; r < rooms.length; r++) {
@@ -320,12 +321,95 @@ var Map = function(width, height){
 			insertRoom(rooms[r]);
 	}
 	
+	var openCount = 0;
+	var openList = [];
+	var closedList = [];
 	var generateRandom = function(){
+		rooms = [];
+		rawData = [];
+
 		split(Room(0, 0, width, height), "y", height / 2);
 		insertRooms(rooms);
 		insertDoors(rooms);
-		
+		openCount = 0;
+		for ( x = 0; x < width; x++ ) {
+			for ( y = 0; y < height; y++ ) {
+				if ( isOpen(x, y) ) openCount++;
+			}
+		}
+
+		openList.length = 0;
+		closedList.length = 0;
+		var startX = 0, startY = 0;
+		var pass = false;
+		// pick a random, valid starting location
+		while ( !pass ) {
+			startX = utils.randInt(1, width-2);
+			startY = utils.randInt(1, height-2);
+			if ( isOpen(startX,startY) ) pass = true;
+		}
+		// add starting location to open list
+		openList.push(coordToNum(startX,startY));
+		// while length of open list is more than 0, continue popping and processing tiles
+		while ( openList.length > 0 ) {
+			var curNum = openList.pop();
+			var curPos = numToCoord(curNum);
+			var checkNum = 0;
+			// check north, west, south, and east tiles
+			// if that tile is open and not in either the open or closed list, add it to the open list
+			if ( isOpen(curPos[0], curPos[1]-1) ) {
+				checkNum = coordToNum(curPos[0], curPos[1]-1);
+				if ( _.indexOf(openList, checkNum) == -1 && _.indexOf(closedList, checkNum) == -1 ) {
+					openList.push(checkNum);
+				}
+			}
+			if ( isOpen(curPos[0]+1, curPos[1]) ) {
+				checkNum = coordToNum(curPos[0]+1, curPos[1]);
+				if ( _.indexOf(openList, checkNum) == -1 && _.indexOf(closedList, checkNum) == -1 ) {
+					openList.push(checkNum);
+				}
+			}
+			if ( isOpen(curPos[0], curPos[1]+1) ) {
+				checkNum = coordToNum(curPos[0], curPos[1]+1);
+				if ( _.indexOf(openList, checkNum) == -1 && _.indexOf(closedList, checkNum) == -1 ) {
+					openList.push(checkNum);
+				}
+			}
+			if ( isOpen(curPos[0]-1, curPos[1]) ) {
+				checkNum = coordToNum(curPos[0]-1, curPos[1]);
+				if ( _.indexOf(openList, checkNum) == -1 && _.indexOf(closedList, checkNum) == -1 ) {
+					openList.push(checkNum);
+				}
+			}
+			closedList.push(curNum);
+		}
+		if ( closedList.length < openCount ) {
+			// Map had inaccessible areas! Regenerate it!
+			generateRandom();
+			return false;
+		}
+
+		// Unless debug is enabled, clear out our open and closed lists to conserve memory
+		if ( !debug ) {
+			closedList.length = 0;
+			openList.length = 0;
+		}
+
 		generate(rawData);
+	}
+
+	var isOpen = function(x, y) {
+		if ( x < 1 || x > width-2 || y < 1 || y > height-2 ) return false;
+		if ( rawData[[x,y]] == '+' || rawData[[x,y]] == '.' ) return true;
+		return false;
+	}
+
+	var coordToNum = function(x, y) {
+		return (y*width)+x;
+	}
+
+	var numToCoord = function(num) {
+		return [num % width, Math.floor(num / width)];
 	}
 	
 	var randomItemId = function(level){
@@ -475,6 +559,9 @@ var Map = function(width, height){
 		parse: parse,
 		generateRandom: generateRandom,
 		generate: generate,
-		rooms: rooms
+		rooms: rooms,
+		openList: openList,
+		closedList: closedList,
+		numToCoord: numToCoord
 	}
 }

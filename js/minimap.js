@@ -139,6 +139,17 @@
 		}
 	}
 
+	this.drawFillDebug = function(map) {
+		console.log('closedList size: %i', map.closedList.length);
+		this.ctx.save();
+		this.ctx.fillStyle = '#ff0';
+		for ( var i = 0; i < map.closedList.length; i++ ) {
+			var pos = map.numToCoord(map.closedList[i]);
+			this.ctx.fillRect( (this.tileW*pos[0]), (this.tileH*pos[1]), this.tileW, this.tileH );
+		}
+		this.ctx.restore();
+	}
+
 	this.debugRooms = function(map) {
 		var self = this;
 		var i = 0;
