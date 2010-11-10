@@ -177,6 +177,11 @@ html {
 	float: right;
 }
 
+#inventory span.item {
+	cursor: pointer;
+	display: block;
+}
+
 #canvasBox {
 	position: relative;
 	width: 576px;

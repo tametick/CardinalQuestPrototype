@@ -10,16 +10,35 @@
  
 var Creature = function(startX, startY, id){
 	var Inventory = function(maxSize){
+		
+		var initialized = false;
+		var init = function() {
+			if (initialized) return;
+			$('#inventoryItems')
+				.undelegate('span.item', 'click') // Prevent memory leaks when new game
+				.delegate('span.item', 'click', function(event)
+				{
+					event.preventDefault();
+					// use method relies on this to be the creature instance
+					use.call(player, $(this).data('key'));
+					update();
+				});
+			initialized = true;		
+		}();
+
 		var items = [];
 		var print = function(currentLine){
 			$("#inventoryItems").empty();
 			for (var i = 0; i < items.length; i++) {
+				var itemName = "";
 				if (state == State.inventory && i == currentLine) {
-					$("#inventoryItems").append(">&nbsp;");
-					messageLog.append(items[i].vars.description[1])
-				} else 
-					$("#iinventoryItems").append("&nbsp;&nbsp;");
-				$("#inventoryItems").append(items[i].toString() + "<br>");
+					itemName += ">&nbsp;";
+					messageLog.append(items[i].vars.description[1]);
+				} else {
+					itemName += "&nbsp;&nbsp;";
+				}
+				itemName += items[i].toString();
+				$("#inventoryItems").append($('<span class="item"></span>').data('key', i).html(itemName));
 			}
 		}
 		var stringify = function(){
