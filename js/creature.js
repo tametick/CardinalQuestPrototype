@@ -206,7 +206,8 @@ var Creature = function(startX, startY, id){
 			var music = $("#game_music");
 			music.hide();
 			music.get()[0].pause();
-			music.get()[0].currentTime = 0
+			music.get()[0].currentTime = 0;
+			$("#messageLog").hide();
 			throw("Player died");
 		}
 	}

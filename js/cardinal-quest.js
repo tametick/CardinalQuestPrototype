@@ -274,6 +274,7 @@ $(document).keydown(function(e){
 						state = State.play;
 						$("#music_description").show();
 						$("#game_music").show();
+						$("#messageLog").show();
 						if(!debug)
 							$("#game_music").get()[0].play();
 						document.defaultAction = true;
