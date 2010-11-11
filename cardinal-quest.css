@@ -97,8 +97,8 @@ img.download {
 }
 
 div#content {
-	min-height: 576px;
-	height: expression(this.scrollHeight > 576 ? "auto":"576px"); 
+	min-height: 512px;
+	height: expression(this.scrollHeight > 512 ? "auto":"512px"); 
 }
 
 p, pre {
@@ -186,7 +186,7 @@ html {
 #canvasBox {
 	position: relative;
 	width: 576px;
-	height: 576px;
+	height: 512px;
 	margin: auto;
 	overflow: hidden;
 }

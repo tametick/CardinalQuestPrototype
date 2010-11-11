@@ -47,6 +47,8 @@ var Viewer = function(width, height){
 		lightingCanvasElement = $("#lighting").get()[0];
 		lightingContext = lightingCanvasElement.getContext("2d");
 		changeFont("32px monospace");
+		fontHeight = 24;
+		fontWidth = 24;
 		tileSize= 32;
 		
 		return {
