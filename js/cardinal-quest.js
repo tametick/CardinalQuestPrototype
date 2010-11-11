@@ -142,61 +142,82 @@ var load = function(){
 
 $(function() {
 
-	$.getJSON("json/descriptions.json", function(desc){
-		$.getJSON("json/creature-types.json", function(creatureTypes){
-			$.getJSON("json/items.json", function(itemTypes){
-				$.getJSON("json/settings.json", function(sett){
-					Pics.player.src = 'pics/player.png';
-					Pics.tiles.src = 'pics/tiles-big.png';
-					Pics.items.src = 'pics/items.png';
-					Pics.monsters.src = 'pics/monsters.png';
-					Pics.effects.src = 'pics/effects.png';
-					
-					Descriptions = desc;
-					CreatureTypes = creatureTypes;
-					ItemTypes = itemTypes;
-					Settings = sett;
+	var dataFiles = {
+		'desc': 'json/descriptions.json',
+		'creatureTypes': 'json/creature-types.json',
+		'itemTypes': 'json/items.json',
+		'settings': 'json/settings.json',
+		'keys': 'json/keys.json'
+	};
 
-					$("#music_description").hide();
-					$("#game_music").hide();
-					$("#game_music").get()[0].addEventListener('ended', function(){
-						this.currentTime = 0;
-					}, false);
+	var loadDataFiles = function(filesToLoad, doneCallback) {
+		var remaining = _.clone(filesToLoad);
+		var loaded = {};
 
-					utils = Utils();
-					var itemIds = [];
-					for(var id in ItemTypes)
-						itemIds.push(id);
-					ItemTypes["ids"]=itemIds;
-					
-					state = State.loading;
-					viewer = Viewer(Settings.viewerWidth, Settings.viewerHeight);
-					viewer.clear();
-					viewer.clearLighting();
-
-					minimap = new Minimap();
-					minimap.clear();
-					messageLog = MessageLog();
-					statusLines = StatusLines();
-					
-					state = State.menu;
-					currentLine = 0;
-					currentClass = 0;
-					currentColor = 0;
-					menu = Menu();
-					
-					update();
-					
-					maps = [Map(Settings["mapWidth"], Settings["mapHeight"])];
-					player = Creature(utils.randInt(1,maps[0].width-2), utils.randInt(1,maps[0].height-2), '@');
-					player.name = "";
-				});
+		var loadNext = function() {
+			var nextKey = _.keys(remaining).pop();
+			
+			if (typeof(nextKey) == "undefined") {
+				return doneCallback(loaded);
+			}
+			
+			$.getJSON(remaining[nextKey], function(data) {
+				loaded[nextKey] = data;
+				delete remaining[nextKey];
+				loadNext();
 			});
-		});
-	});
+		};
 
-	$.getJSON("json/keys.json", function(data){
-		Keys = data;
+		loadNext();
+	};
+	
+	loadDataFiles(dataFiles, function(data) {
+		Pics.player.src = 'pics/player.png';
+		Pics.tiles.src = 'pics/tiles-big.png';
+		Pics.items.src = 'pics/items.png';
+		Pics.monsters.src = 'pics/monsters.png';
+		Pics.effects.src = 'pics/effects.png';
+	
+		Descriptions = data.desc;
+		CreatureTypes = data.creatureTypes;
+		ItemTypes = data.itemTypes;
+		Settings = data.settings;
+
+		$("#music_description").hide();
+		$("#game_music").hide();
+		$("#game_music").get()[0].addEventListener('ended', function(){
+			this.currentTime = 0;
+		}, false);
+
+		utils = Utils();
+		var itemIds = [];
+		for(var id in ItemTypes)
+			itemIds.push(id);
+		ItemTypes["ids"]=itemIds;
+	
+		state = State.loading;
+		viewer = Viewer(Settings.viewerWidth, Settings.viewerHeight);
+		viewer.clear();
+		viewer.clearLighting();
+
+		minimap = new Minimap();
+		minimap.clear();
+		messageLog = MessageLog();
+		statusLines = StatusLines();
+	
+		state = State.menu;
+		currentLine = 0;
+		currentClass = 0;
+		currentColor = 0;
+		menu = Menu();
+	
+		update();
+	
+		maps = [Map(Settings["mapWidth"], Settings["mapHeight"])];
+		player = Creature(utils.randInt(1,maps[0].width-2), utils.randInt(1,maps[0].height-2), '@');
+		player.name = "";
+
+		Keys = data.keys;
 	});
 
 	$("#dlgHelp").dialog({
