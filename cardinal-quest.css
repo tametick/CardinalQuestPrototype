@@ -212,13 +212,16 @@ html {
 #messageLog {
 	position: absolute;
 	z-index: 3;
-	left: 20px;
+	left: 10px;
 	top: 10px;
 	text-align: center;
 	color: #ffba4d;
 	/*height: 75px;*/
-	width: 536px;
-	background-color: rgba(128, 128, 128, 0.4);
+	width: 546px;
+	background: #808080;
+	background: rgba(128, 128, 128, 0.4);
+	background: -moz-linear-gradient(top, rgba(128,128,128,0.4) 0%, rgba(128,128,128,0.0) 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(128,128,128,0.4)), color-stop(100%,rgba(128,128,128,0.0))); /* webkit */
 	-webkit-border-radius: 5px; -moz-border-radius: 5px;
 	border-radius: 5px;
 	display: none;
