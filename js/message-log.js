@@ -29,8 +29,11 @@
 		var min = Math.max(0, max - visibleLogBuffer);
 		
 		log.empty();
-		for (var i = max; i >= min; i--) 
-			log.append(vars.data[i] + "<br>");
+		var opacity = 1.0;
+		for (var i = max; i >= min; i--) {
+			log.append("<div style='opacity: "+opacity+";'>" + vars.data[i] + "</div>");
+			opacity -= 0.20;
+		}
 		
 		// Fill up empty lines to maintain page layout
 		for (var i = max + 1; i <= visibleLogBuffer; i++) 
