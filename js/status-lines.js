@@ -114,15 +114,29 @@
 	}
 
 	var renderStat = function(name, value, buffed, noBreak) {
-		var cssClass = '';
+		var cssClass;
+		var buffSign;
 		if ( buffed < 0 ) {
 			cssClass = 'statDebuffed';
+			buffSign = '-'
 		} else if ( buffed > 0 ) {
 			cssClass = 'statBuffed';
+			buffSign = "+"
 		}
-		var str = name+": <label class='"+cssClass+"'>"+value+"</label>";
+
+		var renderedValue;
+		if (buffed) {
+			if (isNaN(value - buffed)) {
+				renderedValue = "<span class='" + cssClass + "'> " + value + "</span>";
+			} else {
+				renderedValue = (value - buffed) + "<span class='" + cssClass + "'> " + buffSign + " " + Math.abs(buffed) + "</span>";
+			}
+		} else {
+			renderedValue = value;
+		}
+
+		var str = name + ": <label>" + renderedValue + "</label>";
 		if ( noBreak == undefined || !noBreak ) str += "<br />";
-		//element.html(str);
 		return str;
 	}
 
