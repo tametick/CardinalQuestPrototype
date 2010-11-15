@@ -539,7 +539,7 @@ var Map = function(width, height){
 		if (currentMap < Settings.lastLevel) {
 			var dsx = utils.randInt(1, width - 2);
 			var dsy = utils.randInt(1, height - 2);
-			while (data[[dsx, dsy]] != ".") {
+			while (data[[dsx, dsy]] != "." && vars.itemMap[[dsx,dsy]].length > 0) {
 				dsx = utils.randInt(1, width - 2);
 				dsy = utils.randInt(1, height - 2);
 			}
