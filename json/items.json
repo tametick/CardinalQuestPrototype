@@ -32,7 +32,7 @@
 		"duration": 120,
 		"color":[128,128,128],
 		"symbol":"!",
-		"impos": [8,1]
+		"imgpos": [8,1]
 	},
 	"el": {
 		"type": "consumable",
@@ -49,7 +49,7 @@
 		"value": 1,
 		"color":[128,128,128],
 		"symbol":"[",
-		"impos": [1,0]
+		"imgpos": [1,0]
 	},
 	"hs": {
 		"type": "shoes",
