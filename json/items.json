@@ -4,7 +4,8 @@
 		"effect": "heal",
 		"value": "full",
 		"color":[128,128,128],
-		"symbol":"!"
+		"symbol":"!",
+		"imgpos": [5,1]
 	},
 	"clc": {
 		"type": "consumable",
@@ -12,7 +13,8 @@
 		"value": 3,
 		"duration": 120,
 		"color":[128,128,128],
-		"symbol":"!"
+		"symbol":"!",
+		"imgpos": [4,1]
 	},
 	"ee": {
 		"type": "consumable",
@@ -20,7 +22,8 @@
 		"value": 3,
 		"duration": 120,
 		"color":[128,128,128],
-		"symbol":"!"
+		"symbol":"!",
+		"imgpos": [6,1]
 	},
 	"eh": {
 		"type": "consumable",
@@ -28,7 +31,8 @@
 		"value": 3,
 		"duration": 120,
 		"color":[128,128,128],
-		"symbol":"!"
+		"symbol":"!",
+		"impos": [8,1]
 	},
 	"el": {
 		"type": "consumable",
@@ -36,100 +40,115 @@
 		"value": "double",
 		"duration": 120,
 		"color":[128,128,128],
-		"symbol": "!"
+		"symbol": "!",
+		"imgpos": [7,1]
 	},
 	"be": {
 		"type": "shoes",
 		"effect": "speed",
 		"value": 1,
 		"color":[128,128,128],
-		"symbol":"["
+		"symbol":"[",
+		"impos": [1,0]
 	},
 	"hs": {
 		"type": "shoes",
 		"effect": "speed",
 		"value": 2,
 		"color":[128,128,128],
-		"symbol":"["
+		"symbol":"[",
+		"imgpos": [9,0]
 	},
 	"la": {
 		"type": "armor",
 		"effect": "defense",
 		"value": 1,
 		"color":[128,128,128],
-		"symbol": "["
+		"symbol": "[",
+		"imgpos": [2,0]
 	},
 	"bp": {
 		"type": "armor",
 		"effect": "defense",
 		"value": 2,
 		"color":[128,128,128],
-		"symbol": "["
+		"symbol": "[",
+		"imgpos": [3,0]
 	},
 	"row": {
 		"type": "jewelry",
 		"effect": "spirit",
 		"value": 1,
 		"color":[128,128,128],
-		"symbol": "\""
+		"symbol": "\"",
+		"imgpos": [7,0]
 	},
 	"aoe": {
 		"type": "jewelry",
 		"effect": "spirit",
 		"value": 2,
 		"color":[128,128,128],
-		"symbol": "\""
+		"symbol": "\"",
+		"imgpos": [0,0]
 	},
 	"coe": {
 		"type": "hat",
 		"effect": "life",
 		"value": 1,
 		"color":[128,128,128],
-		"symbol": "]"
+		"symbol": "]",
+		"imgpos": [6,0]
 	},
 	"hoh": {
 		"type": "hat",
 		"effect": "life",
 		"value": 2,
 		"color":[128,128,128],
-		"symbol": "]"
+		"symbol": "]",
+		"imgpos": [9,1]
 	},
 	"god": {
 		"type": "gloves",
 		"effect": "attack",
 		"value": 1,
 		"color":[128,128,128],
-		"symbol": "]"
+		"symbol": "]",
+		"imgpos": [5,0]
 	},
 	"ab": {
 		"type": "gloves",
 		"effect": "attack",
 		"value": 2,
 		"color":[128,128,128],
-		"symbol": "]"
+		"symbol": "]",
+		"imgpos": [8,0]
 	},
 	"ss": {
 		"type": "weapon",
 		"damage": [1,3],
 		"color":[128,128,128],
-		"symbol": ")"
+		"symbol": ")",
+		"imgpos": [2,1]
 	},
 	"ls": {
 		"type": "weapon",
 		"damage": [2,4],
 		"color":[128,128,128],
-		"symbol": ")"
+		"symbol": ")",
+		"imgpos": [3,1]
 	},
 	"s": {
 		"type": "weapon",
 		"damage": [1,3],
 		"color":[128,128,128],
-		"symbol": "/"
+		"symbol": "/",
+		"imgpos": [0,1]
 	},
 	"d": {
 		"type": "weapon",
 		"damage": [1,2],
 		"color":[128,128,128],
-		"symbol": ")"
+		"symbol": ")",
+		"imgpos": [1,1]
 	}
 }
