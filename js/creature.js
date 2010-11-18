@@ -103,9 +103,29 @@ var Creature = function(startX, startY, id){
 			stringify: stringify
 		}
 	}
-	
+
+	var showItemInfo = function(itemElement) {
+		var infoDiv = $("#inventoryInfo");
+		infoDiv.empty();
+		if ( typeof itemElement === "undefined" ) return;
+		var element = $(itemElement);
+		if ( element.hasClass('highlighted') ) {
+			element.removeClass('highlighted');
+			return;
+		}
+		$("#inventoryGrid .inventoryItem.highlighted").removeClass('highlighted');
+		var item = element.data('itemObj');
+		var str = "<div style='padding: 5px;'>";
+		str += "<span class='itemInfoName'>"+item.vars.description[0]+"</span><br />";
+		str += "<span class='itemInfoType'>"+item.vars.type+"</span><br />";
+		str += "<div class='itemInfoDesc'>"+item.vars.description[1]+"</div>";
+		str += "</div>";
+		infoDiv.html(str);
+		element.addClass('highlighted');
+	}
+
 	var updateInventoryDialog = function() {
-		/* New inventory dialog update routines */
+		showItemInfo();
 		var grid = $("#inventoryGrid");
 		grid.empty();
 		var str = "";
@@ -119,17 +139,21 @@ var Creature = function(startX, startY, id){
 		for ( var i = 0; i < items.length; i++ ) {
 			var bgX = (items[i].vars.imgpos[0] * viewer.tileSize) * -1;
 			var bgY = (items[i].vars.imgpos[1] * viewer.tileSize) * -1;
-			str += "<div class='inventoryItem equipped' style='background-position: "+bgX+"px "+bgY+"px;'></div>";
+			var div = $("<div class='inventoryItem equipped' style='background-position: "+bgX+"px "+bgY+"px;'></div>");
+			div.data('itemObj', items[i]);
+			div.click(function() { showItemInfo($(this)); });
+			grid.append(div);
 		}
 
 		var items = vars.inventory.items;
 		for ( var i = 0; i < items.length; i++ ) {
 			var bgX = (items[i].vars.imgpos[0] * viewer.tileSize) * -1;
 			var bgY = (items[i].vars.imgpos[1] * viewer.tileSize) * -1;
-			str += "<div class='inventoryItem' style='background-position: "+bgX+"px "+bgY+"px;'></div>";
+			var div = $("<div class='inventoryItem' style='background-position: "+bgX+"px "+bgY+"px;'></div>");
+			div.data('itemObj', items[i]);
+			div.click(function() { showItemInfo($(this)); });
+			grid.append(div);
 		}
-		grid.html(str);
-
 	}
 
 	var vars = {

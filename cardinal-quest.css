@@ -334,14 +334,13 @@ table.vitals {
 	border-radius: 5px;
 	border: 1px solid #75B9D7;
 	background-color: #16303B;
-
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
 
 #inventoryInfo {
 	float: left;
-	width: 435px;
+	width: 430px;
 	height: 150px;
 	-webkit-border-radius: 5px; -moz-border-radius: 5px;
 	border-radius: 5px;
@@ -349,6 +348,12 @@ table.vitals {
 	background-color: #16303B;
 
 }
+
+#inventoryIngo .itemInfoImg { border: 0px; margin: 5px; float: right; }
+#inventoryInfo .itemInfoName { font-weight: bold; font-size: 14px; color: #fff; }
+#inventoryInfo .itemInfoType { font-style: italic; font-size: 12px; color: #bbb; }
+#inventoryInfo .itemInfoDesc { margin-top: 5px; font-size: 13px; color: #ddd; }
+
 
 #inventoryGrid {
 	height: 125px;
@@ -380,4 +385,4 @@ table.vitals {
 }
 
 .inventoryItem.highlighted { border: 2px solid #F8F67B; }
-.inventoryItem.equipped { background-color: #719FB3; }
+.inventoryItem.equipped { background-color: #506E7D; }
