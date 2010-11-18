@@ -122,15 +122,22 @@ var Creature = function(startX, startY, id){
 		str += "</div>";
 		infoDiv.html(str);
 		var actions = $("<div class='itemInfoActions'></div>");
-		var actionDrop = $("<a href='#'>(drop)</a>");
 		var invNum = element.data('invNum');
 		if ( typeof invNum !== "undefined" ) {
+			var actionDrop = $("<a href='#'>(drop)</a>");
 			actionDrop.click(function() {
 				self.drop(invNum);
-				updateInventoryDialog();
+				self.updateInventoryDialog();
+				return false;
+			});
+			var actionUse = $("<a href='#'>(use)</a>");
+			actionUse.click(function() {
+				self.use(invNum);
+				self.updateInventoryDialog();
 				return false;
 			});
 			actions.append(actionDrop);
+			actions.append(actionUse);
 		}
 		infoDiv.append(actions);
 		element.addClass('highlighted');
