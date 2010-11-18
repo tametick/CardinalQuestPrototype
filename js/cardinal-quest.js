@@ -70,12 +70,15 @@ var update = function(){
 			player.vars.inventory.print();
 			player.vars.equipment.print();
 			player.vars.weapon.print();
+			player.updateInventoryDialog();
 			break;
 		case State.examine:
 			maps[currentMap].draw();
 			player.vars.inventory.print();
 			player.vars.equipment.print();
 			player.vars.weapon.print();
+			player.updateInventoryDialog();
+
 			cursor.draw();
 			cursor.examine();
 
@@ -85,12 +88,16 @@ var update = function(){
 			player.vars.inventory.print(currentLine);
 			player.vars.equipment.print();
 			player.vars.weapon.print();
+			player.updateInventoryDialog();
+
 			break;
 		case State.equipment:
 			maps[currentMap].draw();
 			player.vars.inventory.print();
 			player.vars.equipment.print(currentLine);
 			player.vars.weapon.print();
+			player.updateInventoryDialog();
+
 			break;
 	}
 	
@@ -149,6 +156,10 @@ $(function() {
 		'settings': 'json/settings.json',
 		'keys': 'json/keys.json'
 	};
+
+	$(document).ajaxError(function(e, xhr, settings, exception) {
+		console.log(arguments);
+	});
 
 	var loadDataFiles = function(filesToLoad, doneCallback) {
 		var remaining = _.clone(filesToLoad);
@@ -225,6 +236,13 @@ $(function() {
 		width: 400, height: 400
 	});
 
+	// 600x400
+	$("#dlgInventory").dialog({
+		autoOpen: false,
+		resizable: false
+		,width: 650, height: 350
+	});
+
 	$("#btnHelp")
 		.button({
 			/*
@@ -236,6 +254,13 @@ $(function() {
 		})
 		.click(function() {
 			$("#dlgHelp").dialog('open');
+		})
+		.show();
+
+	$("#btnInventory")
+		.button()
+		.click(function() {
+			$("#dlgInventory").dialog('open');
 		})
 		.show();
 });

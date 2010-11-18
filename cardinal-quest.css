@@ -316,3 +316,68 @@ table.vitals {
 	display: none;
 	margin: 0px auto;
 }
+
+#btnInventory {
+	display: none;
+	margin: 0px auto;
+}
+
+
+.inventoryBox {
+}
+
+#inventoryStats {
+	float: left;
+	width: 175px;
+	height: 150px;
+	-webkit-border-radius: 5px; -moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #75B9D7;
+	background-color: #16303B;
+
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+#inventoryInfo {
+	float: left;
+	width: 435px;
+	height: 150px;
+	-webkit-border-radius: 5px; -moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #75B9D7;
+	background-color: #16303B;
+
+}
+
+#inventoryGrid {
+	height: 125px;
+	clear: both;
+	padding: 5px;
+	-webkit-border-radius: 5px; -moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #75B9D7;
+	background-color: #16303B;
+	min-height: 37px;
+	position: relative;
+}
+
+.inventoryItem {
+	position: relative;
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	text-align: center;
+	vertical-align: middle;
+	border: 2px solid #89A1B8;
+	margin: 3px 3px;
+	-webkit-border-radius: 3px; -moz-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #141827;
+	background-image: url("pics/items.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+
+.inventoryItem.highlighted { border: 2px solid #F8F67B; }
+.inventoryItem.equipped { background-color: #719FB3; }

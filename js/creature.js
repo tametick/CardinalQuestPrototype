@@ -104,7 +104,34 @@ var Creature = function(startX, startY, id){
 		}
 	}
 	
-	
+	var updateInventoryDialog = function() {
+		/* New inventory dialog update routines */
+		var grid = $("#inventoryGrid");
+		grid.empty();
+		var str = "";
+		var items = [];
+		if ( vars.weapon.wielded.length > 0 ) {
+			items.push(vars.weapon.wielded[0]);
+		}
+		_.each(vars.equipment.items, function(obj, key) {
+			items.push(obj);
+		});
+		for ( var i = 0; i < items.length; i++ ) {
+			var bgX = (items[i].vars.imgpos[0] * viewer.tileSize) * -1;
+			var bgY = (items[i].vars.imgpos[1] * viewer.tileSize) * -1;
+			str += "<div class='inventoryItem equipped' style='background-position: "+bgX+"px "+bgY+"px;'></div>";
+		}
+
+		var items = vars.inventory.items;
+		for ( var i = 0; i < items.length; i++ ) {
+			var bgX = (items[i].vars.imgpos[0] * viewer.tileSize) * -1;
+			var bgY = (items[i].vars.imgpos[1] * viewer.tileSize) * -1;
+			str += "<div class='inventoryItem' style='background-position: "+bgX+"px "+bgY+"px;'></div>";
+		}
+		grid.html(str);
+
+	}
+
 	var vars = {
 		x: startX,
 		y: startY
@@ -501,6 +528,7 @@ var Creature = function(startX, startY, id){
 		use: use,
 		stringify: stringify,
 		init: init,
-		randomize: randomize
+		randomize: randomize,
+		updateInventoryDialog: updateInventoryDialog
 	}
 }

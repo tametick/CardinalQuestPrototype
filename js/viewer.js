@@ -253,7 +253,8 @@ var Viewer = function(width, height){
 		putShadow: putShadow,
 		hitEffect: hitEffect,
 		fireNovaEffect: fireNovaEffect,
-		clearEffect :clearEffect 
+		clearEffect: clearEffect ,
+		tileSize: canvas.tileSize
 	}
 }
 
