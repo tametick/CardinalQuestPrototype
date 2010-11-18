@@ -104,7 +104,7 @@ var Creature = function(startX, startY, id){
 		}
 	}
 
-	var showItemInfo = function(itemElement) {
+	var showItemInfo = function(itemElement, self) {
 		var infoDiv = $("#inventoryInfo");
 		infoDiv.empty();
 		if ( typeof itemElement === "undefined" ) return;
@@ -121,6 +121,18 @@ var Creature = function(startX, startY, id){
 		str += "<div class='itemInfoDesc'>"+item.vars.description[1]+"</div>";
 		str += "</div>";
 		infoDiv.html(str);
+		var actions = $("<div class='itemInfoActions'></div>");
+		var actionDrop = $("<a href='#'>(drop)</a>");
+		var invNum = element.data('invNum');
+		if ( typeof invNum !== "undefined" ) {
+			actionDrop.click(function() {
+				self.drop(invNum);
+				updateInventoryDialog();
+				return false;
+			});
+			actions.append(actionDrop);
+		}
+		infoDiv.append(actions);
 		element.addClass('highlighted');
 	}
 
@@ -130,6 +142,7 @@ var Creature = function(startX, startY, id){
 		grid.empty();
 		var str = "";
 		var items = [];
+		var self = this;
 		if ( vars.weapon.wielded.length > 0 ) {
 			items.push(vars.weapon.wielded[0]);
 		}
@@ -151,7 +164,8 @@ var Creature = function(startX, startY, id){
 			var bgY = (items[i].vars.imgpos[1] * viewer.tileSize) * -1;
 			var div = $("<div class='inventoryItem' style='background-position: "+bgX+"px "+bgY+"px;'></div>");
 			div.data('itemObj', items[i]);
-			div.click(function() { showItemInfo($(this)); });
+			div.data('invNum', i);
+			div.click(function() { showItemInfo($(this), self); });
 			grid.append(div);
 		}
 	}

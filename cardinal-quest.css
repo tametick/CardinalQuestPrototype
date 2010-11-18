@@ -346,13 +346,13 @@ table.vitals {
 	border-radius: 5px;
 	border: 1px solid #75B9D7;
 	background-color: #16303B;
-
+	position: relative;
 }
-
-#inventoryIngo .itemInfoImg { border: 0px; margin: 5px; float: right; }
+#inventoryInfo .itemInfoImg { border: 0px; margin: 5px; float: right; }
 #inventoryInfo .itemInfoName { font-weight: bold; font-size: 14px; color: #fff; }
 #inventoryInfo .itemInfoType { font-style: italic; font-size: 12px; color: #bbb; }
 #inventoryInfo .itemInfoDesc { margin-top: 5px; font-size: 13px; color: #ddd; }
+#inventoryInfo .itemInfoActions { position: absolute; bottom: 5px; right: 5px; }
 
 
 #inventoryGrid {
