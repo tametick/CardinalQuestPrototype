@@ -390,6 +390,7 @@ var Creature = function(startX, startY, id){
 					messageLog.append("You picked up a <b style='color: rgb("+item.vars.color.join()+");'>"+item.vars.description[0]+"</b>");
 					var pickup = $("#pickup_sfx").get()[0];
 					pickup.play();
+					$("#btnInventory").effect('highlight', {}, 350);
 				}
 			}
 		}
