@@ -164,6 +164,10 @@
 		output += renderStat('Spirit', spr, getBuff("spirit"));
 		statsPanel.html(output);
 
+		var invStats = $("#inventoryStats");
+		invStats.empty();
+		invStats.html(output);
+
 		var vitalsPanel = $("#vitalsPanel");
 		vitalsPanel.empty();
 		output = '';

@@ -127,12 +127,14 @@ var Creature = function(startX, startY, id){
 			var actionDrop = $("<a href='#'>(drop)</a>");
 			actionDrop.click(function() {
 				self.drop(invNum);
+				use();
 				self.updateInventoryDialog();
 				return false;
 			});
 			var actionUse = $("<a href='#'>(use)</a>");
 			actionUse.click(function() {
 				self.use(invNum);
+				update();
 				self.updateInventoryDialog();
 				return false;
 			});
