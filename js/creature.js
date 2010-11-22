@@ -83,6 +83,7 @@ var Creature = function(startX, startY, id){
 				self.drop(invNum);
 				use();
 				self.updateInventoryDialog();
+				$("#btnInventory").effect('highlight', {}, 350);
 				return false;
 			});
 			var actionUse = $("<a href='#'>(use)</a>");
@@ -90,6 +91,7 @@ var Creature = function(startX, startY, id){
 				self.use(invNum);
 				update();
 				self.updateInventoryDialog();
+				$("#btnInventory").effect('highlight', {}, 350);
 				return false;
 			});
 			actions.append(actionDrop);
