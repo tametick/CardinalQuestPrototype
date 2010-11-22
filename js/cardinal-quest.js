@@ -425,8 +425,16 @@ $(document).keydown(function(e){
 					moved = player.executeSpecial();
 					break;
 				case Keys.i:
+					/*
 					state = State.inventory;
 					currentLine = 0;
+					moved = false;
+					*/
+					if ( $("#dlgInventory").dialog("isOpen") ) {
+						$("#dlgInventory").dialog("close");
+					} else {
+						$("#dlgInventory").dialog("open");
+					}
 					moved = false;
 					break;
 				case Keys.f2:
