@@ -14,33 +14,10 @@ var Creature = function(startX, startY, id){
 		var initialized = false;
 		var init = function() {
 			if (initialized) return;
-			$('#inventoryItems')
-				.undelegate('span.item', 'click') // Prevent memory leaks when new game
-				.delegate('span.item', 'click', function(event)
-				{
-					event.preventDefault();
-					// use method relies on this to be the creature instance
-					use.call(player, $(this).data('key'));
-					update();
-				});
 			initialized = true;		
 		}();
 
 		var items = [];
-		var print = function(currentLine){
-			$("#inventoryItems").empty();
-			for (var i = 0; i < items.length; i++) {
-				var itemName = "";
-				if (state == State.inventory && i == currentLine) {
-					itemName += ">&nbsp;";
-					messageLog.append(items[i].vars.description[1]);
-				} else {
-					itemName += "&nbsp;&nbsp;";
-				}
-				itemName += items[i].toString();
-				$("#inventoryItems").append($('<span class="item"></span>').data('key', i).html(itemName));
-			}
-		}
 		var stringify = function(){
 			var str = items.length + ".";
 			for (var i = 0; i < items.length; i++) 
@@ -51,26 +28,11 @@ var Creature = function(startX, startY, id){
 		return {
 			maxSize: maxSize,
 			items: items,
-			print: print,
 			stringify: stringify
 		}
 	}
 	var Equipment = function(){
 		var items = {};
-		
-		var print = function(currentLine){
-			$("#equipmentItems").empty();
-			var i = 0;
-			for (var itemType in items) {
-				if (state == State.equipment && i == currentLine) {
-					$("#equipmentItems").append(">&nbsp;");
-					messageLog.append(items[itemType].vars.description[1])
-				} else 
-					$("#equipmentItems").append("&nbsp;&nbsp;");
-				$("#equipmentItems").append(items[itemType].toString() + "<br>");
-				i++;
-			}
-		}
 		var stringify = function(){
 			var str = items.length + ".";
 			for (var i = 0; i < items.length; i++) 
@@ -79,18 +41,11 @@ var Creature = function(startX, startY, id){
 		}
 		return {
 			items: items,
-			print: print,
 			stringify: stringify
 		}
 	}
 	var Weapon = function() {
 		var wielded = [];
-		
-		var print = function(currentLine){
-			$("#weaponWielded").empty();
-			if(wielded.length > 0)
-				$("#weaponWielded").append("&nbsp;&nbsp;"+wielded[0].toString());
-		}
 		var stringify = function(){
 			if(wielded.length > 0)
 				return wielded[0].id;
@@ -99,7 +54,6 @@ var Creature = function(startX, startY, id){
 		}
 		return {
 			wielded: wielded,
-			print: print,
 			stringify: stringify
 		}
 	}

@@ -67,36 +67,14 @@ var update = function(){
 			break;
 		case State.play:
 			maps[currentMap].draw();
-			player.vars.inventory.print();
-			player.vars.equipment.print();
-			player.vars.weapon.print();
 			player.updateInventoryDialog();
 			break;
 		case State.examine:
 			maps[currentMap].draw();
-			player.vars.inventory.print();
-			player.vars.equipment.print();
-			player.vars.weapon.print();
 			player.updateInventoryDialog();
 
 			cursor.draw();
 			cursor.examine();
-
-			break;
-		case State.inventory:
-			maps[currentMap].draw();
-			player.vars.inventory.print(currentLine);
-			player.vars.equipment.print();
-			player.vars.weapon.print();
-			player.updateInventoryDialog();
-
-			break;
-		case State.equipment:
-			maps[currentMap].draw();
-			player.vars.inventory.print();
-			player.vars.equipment.print(currentLine);
-			player.vars.weapon.print();
-			player.updateInventoryDialog();
 
 			break;
 	}
@@ -357,36 +335,6 @@ $(document).keydown(function(e){
 				case Keys.x:
 				case Keys.esc:
 					cursor = null;
-					state = State.play;
-					break;
-			}
-			break;
-		case State.inventory:
-			switch (code) {
-				case Keys.numUp:
-				case Keys.up:
-					currentLine--;
-					if ( currentLine < 0 ) currentLine = 0;
-					break;
-				case Keys.numDown:
-				case Keys.down:
-					currentLine++;
-					if ( currentLine == player.vars.inventory.items.length ) currentLine--;
-					break;
-				case Keys.numRight:
-				case Keys.right:
-				case Keys.enter:
-					player.use(currentLine);
-					state = State.play;
-					break;
-				case Keys.numLeft:
-				case Keys.left:
-				case Keys.d:
-					player.drop(currentLine);
-					state = State.play;
-					break;
-				case Keys.i:
-				case Keys.esc:
 					state = State.play;
 					break;
 			}
