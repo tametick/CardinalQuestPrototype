@@ -214,7 +214,7 @@ var Creature = function(startX, startY, id){
 		else
 			throw "Error: creature exist in creatureMap but not in creatures.";
 		maps[currentMap].vars.creatureMap[[other.vars.x, other.vars.y]] = null;
-
+		maps[currentMap].tiles[[other.vars.x, other.vars.y]].corpse = utils.randInt(0,1);
 		vars.experiencePoints+=other.vars.experience;
 		if (id.charAt(0) == "@") {
 			var str = "<span style='color:#f44;'>You killed ";

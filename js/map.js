@@ -21,6 +21,7 @@
 
 var Tile = function(symbol, description){
 	var seen = 0;
+	var corpse = -1;
 	return {
 		symbol: symbol,
 		description: description,
@@ -114,9 +115,11 @@ var Map = function(width, height){
 				if (nx >= 0 && ny >= 0 && nx < Settings.viewerWidth && ny <= Settings.viewerHeight)
 					if (tiles[[x, y]].seen == 2) {
 						viewer.putTile(nx, ny, tiles[[x, y]].id, tiles[[x, y]].symbol, [200, 200, 200]);
+						if ( tiles[[x,y]].corpse > -1 ) viewer.putCorpse(nx, ny, tiles[[x,y]].corpse);
 						viewer.putShadow(nx, ny, Math.min(0.15*utils.dist(x,y,player.vars.x,player.vars.y),0.8));
 					} else if (tiles[[x, y]].seen == 1) {
 						viewer.putTile(nx, ny, tiles[[x, y]].id, tiles[[x, y]].symbol, [64, 64, 64]);
+						if ( tiles[[x,y]].corpse > -1 ) viewer.putCorpse(nx, ny, tiles[[x,y]].corpse);
 						viewer.putShadow(nx, ny, 0.8);
 					}
 			//}

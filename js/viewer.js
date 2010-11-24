@@ -127,6 +127,10 @@ var Viewer = function(width, height){
 		_clear(canvas.lightingContext, "rgba(0,0,0,0)");
 	}
 
+	var putCorpse = function(x, y, corpse) {
+		canvas.mapContext.drawImage(Pics.corpses, canvas.tileSize*corpse, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+	}
+
 	var putTile = function(x, y, id, symbol, color){
 		var monsterRow = symbol.substring(symbol.length-1)*1;
 
@@ -248,6 +252,7 @@ var Viewer = function(width, height){
 		center: center,
 		clear: clear,
 		clearLighting: clearLighting,
+		putCorpse: putCorpse,
 		putTile: putTile,
 		print: print,
 		putShadow: putShadow,
