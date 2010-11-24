@@ -33,7 +33,8 @@ Pics = {
 	'tiles' : new Image(),
 	'items' : new Image(),
 	'monsters' : new Image(),
-	'effects' : new Image()
+	'effects' : new Image(),
+	'corpses': new Image()
 }
 
 var State = {
@@ -166,6 +167,7 @@ $(function() {
 		Pics.items.src = 'pics/items.png';
 		Pics.monsters.src = 'pics/monsters.png';
 		Pics.effects.src = 'pics/effects.png';
+		Pics.corpses.src = 'pics/corpses.png';
 	
 		Descriptions = data.desc;
 		CreatureTypes = data.creatureTypes;
