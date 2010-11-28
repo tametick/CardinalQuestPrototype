@@ -8,7 +8,7 @@
  */
  
  
- /* Width & height are in characters. */
+/* Width & height are in characters. */
 var Viewer = function(width, height){
 	var canvas;
 	var center = [width / 2, height / 2];
@@ -93,7 +93,7 @@ var Viewer = function(width, height){
 		setTimeout("viewer.clearEffect("+x+","+y+","+canvas.tileSize+","+canvas.tileSize+")", 250);
 	}
 
-	var _aura = function(c1, c2) {
+	var _visibleEffect = function(c1, c2) {
 		var x = canvas.tileSize*width/2;
 		var y = canvas.tileSize*(height/2-1) ;
 
@@ -106,13 +106,13 @@ var Viewer = function(width, height){
 
 		canvas.mapContext.fillRect(x, y, canvas.tileSize, canvas.tileSize);
 	}
-
-	var _berserkAura = function(){
-		_aura('rgba(128,0,0,0)','rgba(255,0,0,1)');
+	/*
+	var _berserkVisibleEffect = function(){
+		_visibleEffect('rgba(128,0,0,0)','rgba(255,0,0,1)');
 	}
-	var _shadowWalkAura= function(){
-		_aura('rgba(0,0,128,0)','rgba(0,0,128,1)');
-	}
+	var _shadowWalkVisibleEffect= function(){
+		_visibleEffect('rgba(0,0,128,0)','rgba(0,0,128,1)');
+	}*/
 
 	var _clear = function(context, color){
 		context.fillStyle = color;
@@ -149,17 +149,17 @@ var Viewer = function(width, height){
 				weaponLine = 3;
 				
 			if(player.charClassId == "@f"){
-				canvas.mapContext.drawImage(Pics.player, 0, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-				if(player.vars.aura)
-					_berserkAura();
-			} else if(player.charClassId == "@w") {
-				canvas.mapContext.drawImage(Pics.player, canvas.tileSize, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-			} else if(player.charClassId == "@t") {
-				if(player.vars.aura)
-					_shadowWalkAura();
+				if(player.vars.visibleEffect == "berserk")
+					canvas.mapContext.drawImage(Pics.player, 0, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 				else
-					canvas.mapContext.drawImage(Pics.player, canvas.tileSize*2, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-				
+					canvas.mapContext.drawImage(Pics.player, canvas.tileSize, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);			
+			} else if(player.charClassId == "@w") {
+				canvas.mapContext.drawImage(Pics.player, 2*canvas.tileSize, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			} else if(player.charClassId == "@t") {
+				if(player.vars.visibleEffect == "shadowwalk")
+					canvas.mapContext.drawImage(Pics.player, 4*canvas.tileSize, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+				else
+					canvas.mapContext.drawImage(Pics.player, 3*canvas.tileSize, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
 			}
 		} else if(symbol.startsWith("k")) {
 			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);

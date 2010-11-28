@@ -22,8 +22,8 @@
 
 		_initBuffs(self);
 		
-		// aura
-		self.vars.aura = "berserk-aura";
+		// visibleEffect
+		self.vars.visibleEffect = "berserk";
 
 		// Accumulate speed buffs
 		if (self.vars.buffs["speed"]) 
@@ -37,18 +37,18 @@
 		else 
 			self.vars.buffs["attack"] = 3;
 			
-		// Add timers to remove buffs & aura
+		// Add timers to remove buffs & visibleEffect
 		self.vars.timers.push([60,"speed",3]);
 		self.vars.timers.push([60,"attack",3]);
-		self.vars.timers.push([60,"berserk-aura"]);
+		self.vars.timers.push([60,"berserk"]);
 	}
 	var shadowWalk = function(self){
 		$("#shadowwalk_sfx").get()[0].play();
 
 		_initBuffs(self);
 
-		// aura
-		self.vars.aura = "shadowwalk-aura";
+		// visibleEffect
+		self.vars.visibleEffect = "shadowwalk";
 
 		self.vars.buffs["shadowWalk"] = 1;
 		self.vars.buffs["damageMultipler"] = 2;
@@ -56,7 +56,7 @@
 		// Add timers to remove buffs
 		self.vars.timers.push([60,"shadowWalk",1]);
 		self.vars.timers.push([60,"damageMultipler",2]);
-		self.vars.timers.push([60,"shadowwalk-aura"]);
+		self.vars.timers.push([60,"shadowwalk"]);
 	}
 	var fireNova = function(self){
 		$("#firenova_sfx").get()[0].play();
@@ -85,7 +85,7 @@
 	}
 	var weaken = function(self) {
 		// TODO: Add sound
-		// TODO: Add aura to player
+		// TODO: Add visibleEffect to player
 
 		_initBuffs(player);
 
@@ -100,7 +100,7 @@
 	}
 	var slow = function(self) {
 		// TODO: Add sound
-		// TODO: Add aura to player
+		// TODO: Add visibleEffect to player
 
 		_initBuffs(player);
 
@@ -115,7 +115,7 @@
 	}
 	var disease = function(self) {
 		// TODO: Add sound
-		// TODO: Add aura to player
+		// TODO: Add visibleEffect to player
 
 		_initBuffs(player);
 

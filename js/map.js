@@ -44,8 +44,8 @@ var Map = function(width, height){
 		try {
 			for (var c = 0; c < vars.creatures.length; c++) {
 				var buffs = vars.creatures[c].vars.buffs;
-				var aura = vars.creatures[c].vars.aura;
-				// remove timed out buffs & auras
+				var visibleEffect = vars.creatures[c].vars.visibleEffect;
+				// remove timed out buffs & visibleEffects
 				var timers = vars.creatures[c].vars.timers;
 				if (timers) {
 					var expired = [];
@@ -55,9 +55,9 @@ var Map = function(width, height){
 							if(buffs[timers[t][1]]){
 								// reduce buff
 								buffs[timers[t][1]] -= timers[t][2]
-							} else if(aura==timers[t][1]) {
-								// remove aura
-								vars.creatures[c].vars.aura = null;
+							} else if(visibleEffect==timers[t][1]) {
+								// remove visibleEffect
+								vars.creatures[c].vars.visibleEffect = null;
 							}
 							expired.push(t);
 						}
@@ -75,7 +75,7 @@ var Map = function(width, height){
 				speed = Math.max(speed, 1);
 				// apply spirit buffs
 				var spirit = vars.creatures[c].vars.spirit;
-				var specialActive = vars.creatures[c].vars.aura != null;
+				var specialActive = vars.creatures[c].vars.visibleEffect != null;
 				if (spirit && vars.creatures[c].vars.buffs && vars.creatures[c].vars.buffs.spirit) 
 					spirit += vars.creatures[c].vars.buffs.spirit;
 				spirit = Math.max(spirit, 1);
