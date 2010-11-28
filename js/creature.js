@@ -253,6 +253,10 @@ var Creature = function(startX, startY, id){
 			if ( vars.faction > 0 && vars.special != undefined && Math.random() <= 0.25 ) {
 				// Use my special rather than apply attack damage
 				Special()[vars.special](this);
+				if(vars.special == "berserk")
+					messageLog.append("<b style='color: rgb("+vars.color.join()+");'>"+vars.description[0]+"</b> <i>"+vars.special+"s</i>!");
+				else
+					messageLog.append("<b style='color: rgb("+vars.color.join()+");'>"+vars.description[0]+"</b> <i>"+vars.special+"s</i> you!");
 				return;
 			}
 

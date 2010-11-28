@@ -84,7 +84,7 @@
 				}
 	}
 	var weaken = function(self) {
-		// TODO: Add sound
+		$("#weaken_sfx").get()[0].play();
 		// TODO: Add visibleEffect to player
 
 		_initBuffs(player);
@@ -99,7 +99,7 @@
 		player.vars.timers.push([60,"attack",-debuffAmount]);
 	}
 	var slow = function(self) {
-		// TODO: Add sound
+		$("#slow_sfx").get()[0].play();
 		// TODO: Add visibleEffect to player
 
 		_initBuffs(player);
@@ -114,7 +114,7 @@
 		player.vars.timers.push([60,"speed",-debuffAmount]);
 	}
 	var disease = function(self) {
-		// TODO: Add sound
+		$("#disease_sfx").get()[0].play();
 		// TODO: Add visibleEffect to player
 
 		_initBuffs(player);
