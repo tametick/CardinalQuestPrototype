@@ -147,7 +147,7 @@
 			return;
 		}
 		// Abilities
-		var vit=player.vars.vitality;
+		var vit=player.vars.vitality+getBuff("vitality");
 		var atk=player.vars.attack+getBuff("attack");
 		var def=player.vars.defense+getBuff("defense");
 		var spd=player.vars.speed+getBuff("speed");
