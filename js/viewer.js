@@ -80,7 +80,12 @@ var Viewer = function(width, height){
 		canvas.lightingContext.fillStyle = hitGradient;
 
 		canvas.lightingContext.fillRect(x-r*canvas.tileSize, y-r*canvas.tileSize, r*2*canvas.tileSize, r*2*canvas.tileSize);
-		setTimeout("viewer.clearEffect("+(x-r*canvas.tileSize)+","+(y-r*canvas.tileSize)+","+(r*2*canvas.tileSize)+","+(r*2*canvas.tileSize)+")", 250);
+
+		var clearFunc = function() {
+			var pxRadius = canvas.tileSize * r;
+			viewer.clearEffect(x - pxRadius, y - pxRadius, 2 * pxRadius, 2 * pxRadius);
+		}
+		setTimeout(clearFunc, 250);
 	}
 
 	var hitEffect = function(dx,dy) {
@@ -90,7 +95,11 @@ var Viewer = function(width, height){
 		
 		drawSymbol(x, y, "effects", "slash", e, "lightingContext");
 
-		setTimeout("viewer.clearEffect("+canvas.tileSize * x+","+canvas.tileSize * (y - 1)+","+canvas.tileSize+","+canvas.tileSize+")", 250);
+		var clearFunc = function() {
+			var size = canvas.tileSize;
+			viewer.clearEffect(size * x, size * (y - 1), size, size);
+		}
+		setTimeout(clearFunc, 250);
 	}
 
 	var _visibleEffect = function(c1, c2) {
