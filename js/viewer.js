@@ -146,47 +146,48 @@ var Viewer = function(width, height){
 	}
 
 	var putTile = function(x, y, id, symbol, color){
-		var monsterRow = symbol.substring(symbol.length-1)*1;
+		var monsterVariant = symbol.substring(symbol.length-1)*1;
 
 		if(symbol=='@'){
 			var weaponUsed= player.vars.weapon.wielded[0];
-			var weaponLine;
-			if(!weaponUsed)
-				weaponLine = 0;
-			else if(weaponUsed.id=="d")
-				weaponLine = 4;
-			else if(weaponUsed.id=="ss")
-				weaponLine = 2;
-			else if(weaponUsed.id=="ls")
-				weaponLine = 1;
-			else if(weaponUsed.id=="s")
-				weaponLine = 3;
+			var weaponClass;
+			if(!weaponUsed) {
+				weaponClass = "fists";
+			} else if(weaponUsed.id=="d") {
+				weaponClass = "dagger";
+			} else if(weaponUsed.id=="ss") {
+				weaponClass = "shortsword";
+			} else if(weaponUsed.id=="ls") {
+				weaponClass = "longsword";
+			} else if(weaponUsed.id=="s") {
+				weaponClass = "staff";
+			}
 				
 			if(player.charClassId == "@f"){
 				if(player.vars.visibleEffect == "berserk")
-					drawSymbol(x, y, "player", "f-berserk", weaponLine);
+					drawSymbol(x, y, "player", "f-berserk", weaponClass);
 				else
-					drawSymbol(x, y, "player", "f-normal", weaponLine);
+					drawSymbol(x, y, "player", "f-normal", weaponClass);
 			} else if(player.charClassId == "@w") {
-					drawSymbol(x, y, "player", "w-normal", weaponLine);
+					drawSymbol(x, y, "player", "w-normal", weaponClass);
 			} else if(player.charClassId == "@t") {
 				if(player.vars.visibleEffect == "shadowwalk")
-					drawSymbol(x, y, "player", "t-shadowwalk", weaponLine);
+					drawSymbol(x, y, "player", "t-shadowwalk", weaponClass);
 				else
-					drawSymbol(x, y, "player", "t-normal", weaponLine);
+					drawSymbol(x, y, "player", "t-normal", weaponClass);
 			}
 		} else if(symbol.startsWith("k")) {
-			drawSymbol(x, y, "monsters", "k", monsterRow);
+			drawSymbol(x, y, "monsters", "k", monsterVariant);
 		} else if(symbol.startsWith("W")) {
-			drawSymbol(x, y, "monsters", "W", monsterRow);
+			drawSymbol(x, y, "monsters", "W", monsterVariant);
 		} else if(symbol.startsWith("b")) {
-			drawSymbol(x, y, "monsters", "b", monsterRow);
+			drawSymbol(x, y, "monsters", "b", monsterVariant);
 		} else if(symbol.startsWith("M")) {
-			drawSymbol(x, y, "monsters", "M", monsterRow);
+			drawSymbol(x, y, "monsters", "M", monsterVariant);
 		} else if(symbol.startsWith("su")) {
-			drawSymbol(x, y, "monsters", "su", monsterRow);
+			drawSymbol(x, y, "monsters", "su", monsterVariant);
 		} else if(symbol.startsWith("S")) {
-			drawSymbol(x, y, "monsters", "S", monsterRow);
+			drawSymbol(x, y, "monsters", "S", monsterVariant);
 		} else if(symbol==">") {
 			drawSymbol(x, y, "tiles", ">", Math.floor(currentMap/4));
 		} else if(symbol==".") {
