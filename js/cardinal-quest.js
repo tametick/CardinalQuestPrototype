@@ -55,7 +55,8 @@ var update = function(){
 	switch (state) {
 		case State.menu:
 			emptyStatus = true;
-			menu.draw(currentLine,currentClass, currentColor);
+			//menu.draw(currentLine,currentClass, currentColor);
+			menu.show();
 			break;
 		case State.play:
 			maps[currentMap].draw();
@@ -236,15 +237,56 @@ $(function() {
 			$("#dlgInventory").dialog('open');
 		})
 		.show();
+	
+	$("#createQuest input:radio[name=charQuest]").change(function() { menu.update(); });
+
+	$("#btnPlay")
+		.button()
+		.click(function() {
+			//menu.play();
+			startGame();
+		})
+		.show();
+	
+	$("#charName").alphanumeric();
 });
+
+function startGame() {
+	var name = $("#charName").val();
+	if ( typeof name === "undefined" || name == '' ) name = "Hero";
+	var selectedClass = $("#createQuest input:radio[name=charQuest]:checked").val();
+	var selectedColor = $("#createColor input:radio[name=charColor]:checked").val();
+	player.name = name;
+	player.charClassId = CharClassId[selectedClass];
+	currentMap = 0;
+	ticks = 0;
+	messageLog.clear();
+	maps[0].generateRandom();
+	player.init();
+	player.calculateFieldOfView();
+	player.vars.color = player.color = ColorId[selectedColor];
+	state = State.play;
+	$("#music_description").show();
+	$("#game_music").show();
+	$("#messageLog").show();
+	if( !debug ) {
+		$("#game_music").get()[0].play();
+	}
+	menu.hide();
+	update();
+}
+
 $(document).keydown(function(e){
 	if(e.altKey || e.ctrlKey || e.metaKey) 
 		return;
+	
+	if ( state == State.menu ) return;
 
 	var code = (window.event || e).keyCode;
 	
 	switch (state) {
 		case State.menu:
+			/*
 			// Note: Shouldn't these be set in the Keys.enter code block?
 			player.charClassId = CharClassId[currentClass];
 			player.color = ColorId[currentColor];
@@ -304,7 +346,7 @@ $(document).keydown(function(e){
 					player.name = utils.capitalize(player.name);
 					break;
 			}
-		 
+		 	*/
 			break;
 		case State.examine:
 			switch (code) {

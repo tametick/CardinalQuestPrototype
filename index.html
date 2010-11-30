@@ -23,6 +23,36 @@
 					</center>
 				</div>
 				<div id="canvasBox">
+					<div id="charCreate" class='ui-widget-content'>
+						<div id="createName" class='ui-corner-all'>
+							<h2>What is your name?</h2>
+							<input type="text" id="charName" value="Hero" class='ui-corner-all' />
+						</div>
+						<div id="createQuest" class='ui-corner-all'>
+							<h2>What is your quest?</h2>
+							<table>
+								<tr>
+									<td><input type="radio" name="charQuest" checked="checked" value="0" /> <label>Fighter</label></td>
+									<td><input type="radio" name="charQuest" value="1" /> <label>Thief</label></td>
+									<td><input type="radio" name="charQuest" value="2" /> <label>Wizard</label></td>
+								</tr>
+							</table>
+							<div id="questDesc">
+							</div>
+							<div id="questPic"></div>
+						</div>
+						<div id="createColor" class='ui-corner-all'>
+							<h2>What is your favorite color?</h2>
+							<table>
+								<tr>
+									<td><input type="radio" name="charColor" checked="checked" value="0" /> <label style='color: #00c800;'>Green</label></td>
+									<td><input type="radio" name="charColor" value="1" /> <label style='color: #66f;'>Blue</label></td>
+									<td><input type="radio" name="charColor" value="2" /> <label style='color: #ff0;'>Yellow</label></td>
+								</tr>
+							</table>
+						</div>
+						<button id="btnPlay" style="display: none;">Play</button>
+					</div>
 					<canvas id="viewer"></canvas>
 					<canvas id="lighting"></canvas>
 					<div id="messageLog"></div>
@@ -138,6 +168,8 @@
 	<script type="application/javascript" src="./js/lib/jquery.jsoncookie.min.js">
 	</script>
 	<script type="application/javascript" src="./js/lib/underscore-min.js">
+	</script>
+	<script type="application/javascript" src="./js/lib/jquery.alphanumeric.pack.js">
 	</script>
 	<!-- game code -->
 	<script type="application/javascript" src="./js/utils.js">

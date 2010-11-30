@@ -209,6 +209,83 @@ html {
 	top: 0px;
 }
 
+#charCreate {
+	position: absolute;
+	z-index: 4;
+	left: 0px;
+	top: 0px;
+	width: 576px;
+	height: 512px;
+	border: 0;
+	color: #fff;
+	text-align: center;
+	display: none;
+}
+
+#charName {
+	width: 95%;
+	border: 0;
+	padding: 5px;
+	margin: 5px auto;
+	display: block;
+	font-size: 16px;
+	font-weight: bold;
+	-webkit-box-shadow: 2px 2px 2px #222;
+	-moz-box-shadow: 2px 2px 2px #222;
+	box-shadow: 2px 2px 2px #222;
+}
+
+#createName, #createQuest, #createColor {
+	margin: 20px auto 0px;
+	width: 90%;
+	background-color: #133F52;
+	padding: 10px;
+	text-align: left;
+	border: 1px solid #75B9D7;
+	-moz-box-shadow:0px 0px 10px #75B9D7;
+	-webkit-box-shadow:0px 0px 10px #75B9D7;
+	box-shadow:0px 0px 10px #75B9D7;
+}
+
+#createQuest {
+	height: 175px;
+	position: relative;
+}
+
+#questDesc {
+	width: 90%;
+	margin: 15px auto 0px;
+	font-size: 14px;
+	text-align: justify;
+}
+
+#questPic {
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	border: 0;
+	background: transparent url('pics/player.png') no-repeat;
+}
+
+#charCreate table {
+	width: 100%;
+	text-align: center;
+}
+
+#charCreate label {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#btnPlay {
+	font-size: 20px;
+	font-weight: bold;
+	padding: 0px 100px;
+	margin-top: 12px;
+}
+
 #messageLog {
 	position: absolute;
 	z-index: 3;
