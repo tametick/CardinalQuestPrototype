@@ -28,15 +28,6 @@ var ticks;
 
 var moved = true;
 
-Pics = {
-	'player' : new Image(),
-	'tiles' : new Image(),
-	'items' : new Image(),
-	'monsters' : new Image(),
-	'effects' : new Image(),
-	'corpses': new Image()
-}
-
 var State = {
 	loading: 0,
 	menu: 1,
@@ -133,7 +124,8 @@ $(function() {
 		'creatureTypes': 'json/creature-types.json',
 		'itemTypes': 'json/items.json',
 		'settings': 'json/settings.json',
-		'keys': 'json/keys.json'
+		'keys': 'json/keys.json',
+		'sprites': 'json/sprites.json'
 	};
 
 	$(document).ajaxError(function(e, xhr, settings, exception) {
@@ -162,17 +154,18 @@ $(function() {
 	};
 	
 	loadDataFiles(dataFiles, function(data) {
-		Pics.player.src = 'pics/player.png';
-		Pics.tiles.src = 'pics/tiles-big.png';
-		Pics.items.src = 'pics/items.png';
-		Pics.monsters.src = 'pics/monsters.png';
-		Pics.effects.src = 'pics/effects.png';
-		Pics.corpses.src = 'pics/corpses.png';
-	
 		Descriptions = data.desc;
 		CreatureTypes = data.creatureTypes;
 		ItemTypes = data.itemTypes;
 		Settings = data.settings;
+		Sprites = data.sprites;
+
+		/* Add an "image" property to each top-level entry in sprites.json */
+		for (var id in Sprites) {
+			var img = new Image();
+			img.src = Sprites[id].src;
+			Sprites[id].image = img;
+		}
 
 		$("#music_description").hide();
 		$("#game_music").hide();

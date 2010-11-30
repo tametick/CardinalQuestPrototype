@@ -84,13 +84,13 @@ var Viewer = function(width, height){
 	}
 
 	var hitEffect = function(dx,dy) {
-		var x = canvas.tileSize*(width / 2 + dx);
-		var y = canvas.tileSize*(height / 2 + dy-1);
+		var x = (width / 2) + dx;
+		var y = (height / 2) + dy;
 		var e = utils.randInt(0,1);
 		
-		canvas.lightingContext.drawImage(Pics.effects, canvas.tileSize*e, 0, canvas.tileSize, canvas.tileSize, x , y, canvas.tileSize ,canvas.tileSize);
+		drawSymbol(x, y, "effects", "slash", e, "lightingContext");
 
-		setTimeout("viewer.clearEffect("+x+","+y+","+canvas.tileSize+","+canvas.tileSize+")", 250);
+		setTimeout("viewer.clearEffect("+canvas.tileSize * x+","+canvas.tileSize * (y - 1)+","+canvas.tileSize+","+canvas.tileSize+")", 250);
 	}
 
 	var _visibleEffect = function(c1, c2) {
@@ -128,7 +128,21 @@ var Viewer = function(width, height){
 	}
 
 	var putCorpse = function(x, y, corpse) {
-		canvas.mapContext.drawImage(Pics.corpses, canvas.tileSize*corpse, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+		drawSymbol(x, y, "corpses", "corpse", corpse);
+	}
+
+	var drawSymbol = function(x, y, type, symbol, variant, context) {
+		canvas[context ? context : "mapContext"].drawImage(
+			Sprites[type].image,
+			Sprites[type].tileWidth * Sprites[type].tiles[symbol][variant].x,
+			Sprites[type].tileHeight * Sprites[type].tiles[symbol][variant].y,
+			Sprites[type].tileWidth,
+			Sprites[type].tileHeight,
+			canvas.tileSize * x,
+			canvas.tileSize * (y - 1),
+			canvas.tileSize,
+			canvas.tileSize
+		);
 	}
 
 	var putTile = function(x, y, id, symbol, color){
@@ -150,83 +164,83 @@ var Viewer = function(width, height){
 				
 			if(player.charClassId == "@f"){
 				if(player.vars.visibleEffect == "berserk")
-					canvas.mapContext.drawImage(Pics.player, 0, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+					drawSymbol(x, y, "player", "f-berserk", weaponLine);
 				else
-					canvas.mapContext.drawImage(Pics.player, canvas.tileSize, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);			
+					drawSymbol(x, y, "player", "f-normal", weaponLine);
 			} else if(player.charClassId == "@w") {
-				canvas.mapContext.drawImage(Pics.player, 2*canvas.tileSize, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+					drawSymbol(x, y, "player", "w-normal", weaponLine);
 			} else if(player.charClassId == "@t") {
 				if(player.vars.visibleEffect == "shadowwalk")
-					canvas.mapContext.drawImage(Pics.player, 4*canvas.tileSize, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+					drawSymbol(x, y, "player", "t-shadowwalk", weaponLine);
 				else
-					canvas.mapContext.drawImage(Pics.player, 3*canvas.tileSize, canvas.tileSize*weaponLine, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+					drawSymbol(x, y, "player", "t-normal", weaponLine);
 			}
 		} else if(symbol.startsWith("k")) {
-			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "monsters", "k", monsterRow);
 		} else if(symbol.startsWith("W")) {
-			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "monsters", "W", monsterRow);
 		} else if(symbol.startsWith("b")) {
-			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "monsters", "b", monsterRow);
 		} else if(symbol.startsWith("M")) {
-			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize*3, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "monsters", "M", monsterRow);
 		} else if(symbol.startsWith("su")) {
-			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize*4, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "monsters", "su", monsterRow);
 		} else if(symbol.startsWith("S")) {
-			canvas.mapContext.drawImage(Pics.monsters, canvas.tileSize*monsterRow, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(symbol==".") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*5, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "monsters", "S", monsterRow);
 		} else if(symbol==">") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*3, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "tiles", ">", Math.floor(currentMap/4));
+		} else if(symbol==".") {
+			drawSymbol(x, y, "tiles", ".", Math.floor(currentMap/4));
 		} else if(symbol=="#1") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*11, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "tiles", "#1", Math.floor(currentMap/4));
 		} else if(symbol=="#2") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*13, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "tiles", "#2", Math.floor(currentMap/4));
 		} else if(symbol=="#3") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*15, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "tiles", "#3", Math.floor(currentMap/4));
 		} else if(symbol=="#4") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*17, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "tiles", "#4", Math.floor(currentMap/4));
 		} else if(symbol=="+") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*19, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "tiles", "+", Math.floor(currentMap/4));
 		} else if(symbol=="'") {
-			canvas.mapContext.drawImage(Pics.tiles, canvas.tileSize*21, canvas.tileSize+Math.floor(currentMap/4)*canvas.tileSize*2, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(id=="sh"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*5, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(id=="clc"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*4, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(id=="ee"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*6, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(id=="eh"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*8, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(id=="el"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*7, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(id=="be"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(id=="hs"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*9, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(id=="la"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*2, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(id=="bp"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*3, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(id=="row"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*7, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "tiles", "'", Math.floor(currentMap/4));
 		} else if(id=="aoe"){
-			canvas.mapContext.drawImage(Pics.items, 0, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(id=="coe"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*6, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(id=="hoh"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*9, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "items", "aoe", 0);
+		} else if(id=="be"){
+			drawSymbol(x, y, "items", "be", 0);
+		} else if(id=="la"){
+			drawSymbol(x, y, "items", "la", 0);
+		} else if(id=="bp"){
+			drawSymbol(x, y, "items", "bp", 0);
 		} else if(id=="god"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*5, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "items", "god", 0);
+		} else if(id=="coe"){
+			drawSymbol(x, y, "items", "coe", 0);
+		} else if(id=="row"){
+			drawSymbol(x, y, "items", "row", 0);
 		} else if(id=="ab"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*8, 0, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(id=="ss"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*2, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
-		} else if(id=="ls"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize*3, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "items", "ab", 0);
+		} else if(id=="hs"){
+			drawSymbol(x, y, "items", "hs", 0);
 		} else if(id=="s"){
-			canvas.mapContext.drawImage(Pics.items, 0, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "items", "s", 0);
 		} else if(id=="d"){
-			canvas.mapContext.drawImage(Pics.items, canvas.tileSize, canvas.tileSize, canvas.tileSize, canvas.tileSize, x * canvas.tileSize, (y-1) * canvas.tileSize, canvas.tileSize ,canvas.tileSize);
+			drawSymbol(x, y, "items", "d", 0);
+		} else if(id=="ss"){
+			drawSymbol(x, y, "items", "ss", 0);
+		} else if(id=="ls"){
+			drawSymbol(x, y, "items", "ls", 0);
+		} else if(id=="clc"){
+			drawSymbol(x, y, "items", "clc", 0);
+		} else if(id=="sh"){
+			drawSymbol(x, y, "items", "sh", 0);
+		} else if(id=="ee"){
+			drawSymbol(x, y, "items", "ee", 0);
+		} else if(id=="el"){
+			drawSymbol(x, y, "items", "el", 0);
+		} else if(id=="eh"){
+			drawSymbol(x, y, "items", "eh", 0);
+		} else if(id=="hoh"){
+			drawSymbol(x, y, "items", "hoh", 0);
 		} else {	
 			canvas.mapContext.fillStyle = "rgb(" + color[0] + "," + color[1] + "," + color[2] + ")";
 			canvas.mapContext.fillText(symbol, x * canvas.tileSize, y * canvas.tileSize);
