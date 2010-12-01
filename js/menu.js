@@ -68,12 +68,14 @@
 
 	var show = function() {
 		if ( $("#charCreate").is(":visible") ) return;
+		$("#btnInventory").hide();
 		$("#charCreate").show();
 		updateMenu();
 	}
 
 	var hide = function() {
 		$("#charCreate").hide();
+		$("#btnInventory").show();
 	}
 
 	var updateMenu = function() {

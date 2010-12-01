@@ -237,8 +237,8 @@ $(function() {
 		.button()
 		.click(function() {
 			$("#dlgInventory").dialog('open');
-		})
-		.show();
+		});
+		//.show();
 	
 	$("#createQuest input:radio[name=charQuest]").change(function() { menu.update(); });
 
