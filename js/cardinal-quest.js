@@ -207,14 +207,16 @@ $(function() {
 
 	$("#dlgHelp").dialog({
 		autoOpen: false,
+		modal: true,
 		width: 400, height: 400
 	});
 
 	// 600x400
 	$("#dlgInventory").dialog({
 		autoOpen: false,
-		resizable: false
-		,width: 650, height: 350
+		resizable: false,
+		modal: true,
+		width: 650, height: 350
 	});
 
 	$("#btnHelp")
