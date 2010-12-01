@@ -13,9 +13,9 @@ var utils;
 var viewer;
 var minimap;
 var cursor;
-var currentLine;
-var currentClass;
-var currentColor;
+//var currentLine;
+//var currentClass;
+//var currentColor;
 var messageLog;
 var statusLines;
 
@@ -220,14 +220,7 @@ $(function() {
 	});
 
 	$("#btnHelp")
-		.button({
-			/*
-			icons: { 
-				primary: "ui-icon-help"
-			},
-			text: false
-			*/
-		})
+		.button()
 		.click(function() {
 			$("#dlgHelp").dialog('open');
 		})
@@ -238,14 +231,12 @@ $(function() {
 		.click(function() {
 			$("#dlgInventory").dialog('open');
 		});
-		//.show();
 	
 	$("#createQuest input:radio[name=charQuest]").change(function() { menu.update(); });
 
 	$("#btnPlay")
 		.button()
 		.click(function() {
-			//menu.play();
 			startGame();
 		})
 		.show();
@@ -287,69 +278,6 @@ $(document).keydown(function(e){
 	var code = (window.event || e).keyCode;
 	
 	switch (state) {
-		case State.menu:
-			/*
-			// Note: Shouldn't these be set in the Keys.enter code block?
-			player.charClassId = CharClassId[currentClass];
-			player.color = ColorId[currentColor];
-		
-			document.defaultAction = false;
-			switch (code) {
-				case Keys.numUp:
-				case Keys.up:
-					if(currentLine>0)
-						currentLine--;
-					break;
-				case Keys.numDown:
-				case Keys.down:
-				case Keys.enter:
-					if(currentLine<2)
-						currentLine++;
-					else {
-						currentMap = 0;
-						ticks = 0;
-						messageLog.clear();
-						maps[0].generateRandom();
-						player.init();
-						player.calculateFieldOfView();
-						player.vars.color = ColorId[currentColor];
-						state = State.play;
-						$("#music_description").show();
-						$("#game_music").show();
-						$("#messageLog").show();
-						if(!debug)
-							$("#game_music").get()[0].play();
-						document.defaultAction = true;
-					}
-					break;
-				case Keys.backspace:
-					if(currentLine == 0 && player.name.length > 0)
-						player.name = player.name.substring(0, player.name.length-1);
-					break;
-				case Keys.numLeft:
-				case Keys.left:
-					if (currentLine == 1 && currentClass > 0) {
-						currentClass--;
-					} else if (currentLine == 2) {
-						currentColor--;
-					}
-					break;
-				case Keys.numRight:
-				case Keys.right:
-					if (currentLine == 1 && currentClass < 2) {
-						currentClass++;
-					} else if (currentLine == 2) {
-						currentColor++;
-					}
-					break;
-				default:
-					if(currentLine==0)
-						player.name += utils.alphanumeric(code);
-					player.name = utils.capitalize(player.name);
-					break;
-			}
-		 	*/
-			break;
 		case State.examine:
 			switch (code) {
 				case Keys.numUp:
