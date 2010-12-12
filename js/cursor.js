@@ -8,7 +8,7 @@
  */
  
  
- Cursor = function(startX, startY, symbol){
+var Cursor = function(startX, startY, symbol){
 	var vars = {
 		x: startX,
 		y: startY,

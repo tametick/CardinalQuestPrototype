@@ -8,7 +8,7 @@
  */
  
  
- var Room = function(x0, y0, x1, y1){
+var Room = function(x0, y0, x1, y1){
 	return {
 		x0: x0,
 		y0: y0,
