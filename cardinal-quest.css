@@ -469,3 +469,13 @@ table.vitals {
 
 .inventoryItem.highlighted { border: 2px solid #F8F67B; }
 .inventoryItem.equipped { background-color: #506E7D; }
+
+#audioControls {
+	padding-left: 10px;
+}
+
+#volumeSlider {
+	display: inline-block;
+	width: 100px;
+	margin-left: 5px;
+}

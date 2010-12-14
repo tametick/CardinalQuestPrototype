@@ -21,6 +21,11 @@
 						<button id="btnInventory">Inventory</button>
 						<button id="btnHelp">Help</button>
 					</center>
+					<div id='audioControls'>
+						<button id='musicPlay' style='display:none;'>Play</button>
+						<button id='volumeToggle' style='display:none;'>Mute</button>
+						<span id="volumeSlider"></span>
+					</div>
 				</div>
 				<div id="canvasBox">
 					<div id="charCreate" class='ui-widget-content'>
@@ -63,7 +68,7 @@
 		<p id="music_description">
 		Music: Velocity by <a href="http://www.facebook.com/4matchipmusic">4mat</a>.
 		</p>
-		<audio id="game_music" controls preload="auto" loop>
+		<audio id="game_music" preload="auto" loop>
 			<source src="./music/Velocity.ogg" type="audio/ogg"/>
 			<source src="./music/Velocity.mp3" type="audio/mpeg"/>
 		</audio>

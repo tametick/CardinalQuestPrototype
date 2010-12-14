@@ -232,6 +232,56 @@ $(function() {
 			$("#dlgInventory").dialog('open');
 		});
 	
+	var gameMusic = $("#game_music").get(0);
+	$("#musicPlay")
+		.button({
+			text: false,
+			icons: { primary: "ui-icon-play" }
+		})
+		.click(function() {
+			if ( $(this).button("option", "icons").primary == "ui-icon-play" ) {
+				$(this).button("option", "icons", { primary: "ui-icon-pause" });
+				gameMusic.play();
+			} else {
+				$(this).button("option", "icons", { primary: "ui-icon-play" });
+				gameMusic.pause();
+			}
+		})
+		.show();
+
+	var oldVolume = 10;
+	$("#volumeToggle")
+		.button({
+			text: false,
+			icons: { primary: "ui-icon-volume-on" }
+		})
+		.click(function() {
+			if ( $(this).button("option", "icons").primary == "ui-icon-volume-on" ) {
+				oldVolume = $("#volumeSlider").slider("value");
+				$("#volumeSlider").slider("value", 0);
+				$(this).button("option", "icons", { primary: "ui-icon-volume-off" });
+			} else {
+				$("#volumeSlider").slider("value", oldVolume);
+				$(this).button("option", "icons", { primary: "ui-icon-volume-on" });
+			}
+		})
+		.show();
+
+	$("#volumeSlider").slider({
+		value: 10,
+		step: 1,
+		min: 0,
+		max: 10,
+		range: "min",
+		animate: true,
+		change: function(event, ui) {
+			var vol = ui.value / 10;
+			$("audio").each(function(idx) {
+				$(this).get(0).volume = vol;
+			});
+		}
+	});
+
 	$("#createQuest input:radio[name=charQuest]").change(function() { menu.update(); });
 
 	$("#btnPlay")
