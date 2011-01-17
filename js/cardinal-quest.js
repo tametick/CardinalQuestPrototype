@@ -361,35 +361,41 @@ $(document).keydown(function(e){
 			switch (code) {
 				case Keys.numUp:
 				case Keys.up:
+				case Keys.w:	
 					moved = player.move(0, -1);
 					break;
 				case Keys.numDown:
 				case Keys.down:
+				case Keys.s:
 					moved = player.move(0, 1);
 					break;
 				case Keys.numLeft:
 				case Keys.left:
+				case Keys.a:
 					moved = player.move(-1, 0);
 					break;
 				case Keys.numRight:
 				case Keys.right:
+				case Keys.d:
 					moved = player.move(1, 0);
 					break;
 				case Keys["."]:
+				case Keys.q:
 					moved = true;
 					break;
-				case Keys.x:
+/*				case Keys.x:
 					cursor = Cursor(player.vars.x, player.vars.y, '?');
 					state = State.examine;
 					moved = false;
 					break;
 				case Keys.c:
 					moved = player.closeDoor();
-					break;
+					break;*/
 				case Keys.e:
 					moved = player.executeSpecial();
 					break;
 				case Keys.i:
+				case Keys.space:
 					/*
 					state = State.inventory;
 					currentLine = 0;
